@@ -428,7 +428,7 @@ const REGIONS = [['Statewide'], ['Anchorage'], ['Mat-Su'], ['Fairbanks'], ['Kena
 
 const qs = new URLSearchParams(location.search);
 const DEMO = qs.get('demo') === '1';
-const VIEW = qs.get('view') || 'all';
+const VIEW = (qs.get('view') || 'all').replace(/\/+$/, '');   // tolerate a stray trailing slash (?view=results/)
 const RESULTS_ONLY = VIEW === 'results';   // ?view=results: race results and map, no ranked choice or balance of power
 const fmt = d3.format(',');
 const pct = (v, t) => t ? (v / t * 100) : 0;
