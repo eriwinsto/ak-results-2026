@@ -257,6 +257,7 @@ html.standalone .app { max-width: 712px; padding-left: max(16px, env(safe-area-i
 
 .foot { margin-top: 28px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: var(--fs-xs); color: var(--ink-3); display: grid; gap: 6px; }
 .foot p { margin: 0; max-width: 72ch; }
+.foot a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .foot .rcvx { color: var(--ink-2); font-size: var(--fs-s); }
 
 /* single-view embeds (?view=map etc.) */
@@ -398,7 +399,7 @@ const COPY = {
   cvrGapButton: (n) => `${n} precincts`,
   rcvExplainer: 'How ranked choice voting works: Voters rank the candidates in order of preference. If no one has more than half of the first-choice votes, the last-place candidate is eliminated, and ballots that ranked that candidate first count toward the voter’s next choice. Rounds continue until two candidates remain. Ballots with no remaining choices become inactive.',
   source: 'Source: Alaska Division of Elections; race calls by The Associated Press. Results are unofficial.',
-  disclosure: '',
+  disclosure: 'Editor’s note: This election results graphic was generated using an AI tool and verified by a reporter. You can find Alaska Public Media’s commitments on using AI [on this page](https://alaskapublic.org/about).',   // [link text](url) becomes a link
   basemapCredit: 'Basemap: U.S. Census Bureau TIGER/Line and 2020 census, Natural Earth. Anchorage neighborhood labels follow Division of Elections precinct names.',
   basemapToggle: 'Places and roads',
   touchHint: 'Use two fingers to zoom, or open full screen',
@@ -1142,7 +1143,11 @@ function renderBOP() {
 
 /* ---------- footer ---------- */
 function renderFoot() {
-  $('foot').innerHTML = `${RESULTS_ONLY ? '' : `<p class="rcvx">${esc(COPY.rcvExplainer)}</p>`}<p>${esc(COPY.source)}</p>${BASE ? `<p>${esc(COPY.basemapCredit)}</p>` : ''}${COPY.disclosure ? `<p>${esc(COPY.disclosure)}</p>` : ''}`;
+  $('foot').innerHTML = `${RESULTS_ONLY ? '' : `<p class="rcvx">${esc(COPY.rcvExplainer)}</p>`}<p>${esc(COPY.source)}</p>${BASE ? `<p>${esc(COPY.basemapCredit)}</p>` : ''}${COPY.disclosure ? `<p>${linkify(COPY.disclosure)}</p>` : ''}`;
+}
+// escape, then turn [text](https://...) into a link that opens outside the embed
+function linkify(t) {
+  return esc(t).replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (m, txt, url) => `<a href="${url}" target="_blank" rel="noopener">${txt}</a>`);
 }
 
 /* ---------- full screen ---------- */
