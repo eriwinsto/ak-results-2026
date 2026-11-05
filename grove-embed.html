@@ -1,0 +1,23 @@
+<!-- Alaska election results 2026 — paste into a Grove "Responsive Embed" (Full Html Embed field).
+     Points at the GitHub Pages site for eriwinsto/ak-results-2026. -->
+<div id="akpm-results-2026"></div>
+<script src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script>
+(function () {
+  var URL = 'https://eriwinsto.github.io/ak-results-2026/';   // add ?view=results for results + map only (no RCV or balance of power); ?race=house, ?view=bop etc. for single pieces
+  var p = new pym.Parent('akpm-results-2026', URL, { title: 'Alaska election results', allowfullscreen: true });
+  var saved = '';
+  p.onMessage('akpm-fullscreen', function (on) {
+    var f = p.iframe, de = document.documentElement;
+    if (on === '1') {
+      saved = f.getAttribute('style') || '';
+      f.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;max-width:none;z-index:2147483647;border:0;background:#fff';
+      de.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
+    } else {
+      f.setAttribute('style', saved);
+      de.style.overflow = ''; document.body.style.overflow = '';
+      p.sendMessage('akpm-resize', '1');
+    }
+  });
+})();
+</script>

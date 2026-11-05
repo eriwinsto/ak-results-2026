@@ -1,0 +1,9 @@
+{
+  "_note": "Fill in once organizing caucuses form. Leave house/senate empty to hide the caucus view. Keys are district numbers (House) or letters (Senate); values are caucus keys defined in groups.",
+  "groups": {
+    "maj": {"label": "Majority caucus", "color": "#5b5b5b"},
+    "min": {"label": "Minority caucus", "color": "#b5b5b5"}
+  },
+  "house": {},
+  "senate": {}
+}

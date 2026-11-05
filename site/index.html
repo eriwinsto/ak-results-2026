@@ -1,0 +1,1206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alaska Election Results 2026</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: one narrow story-width column (max 680px) that becomes a full-viewport
+   map app with a results sheet when "Full screen" is on. Light only, to sit on
+   Grove's white story page. */
+:root {
+  color-scheme: light;
+  --ink: #121212;
+  --ink-2: #4a4a48;
+  --ink-3: #75756f;
+  --rule: #dcdcd7;
+  --rule-2: #ececea;
+  --paper: #ffffff;
+  --wash: #f6f6f3;
+  --nodata: #dcdcd5;
+  --sea: #e5edf3;
+  --akpm: #ba0c2f;
+  --dem: #1f6fb5;
+  --rep: #c72021;
+  --ind: #f1a513;
+  --alt1: #3ba99c;
+  --alt2: #7a1c4e;
+  --other: #8c8c8c;
+  --land: #efefeb;
+  --water: #e5edf3;
+  --water-line: #a9c0d2;
+  --water-text: #7f98ab;
+  --road: rgba(28, 28, 26, .42);
+  --sans: "Libre Franklin", "Franklin Gothic Medium", "Helvetica Neue", Arial, sans-serif;
+  --fs-xs: 11px; --fs-s: 13px; --fs-m: 15px; --fs-l: 18px; --fs-xl: 24px;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font-family: var(--sans); font-size: var(--fs-m); line-height: 1.35; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+button, select, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.app { max-width: 680px; margin: 0 auto; padding-block: 4px 8px; }
+html.standalone .app { max-width: 712px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 16px 24px; }
+.label { font-size: var(--fs-xs); font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-3); }
+
+/* header */
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-bottom: 10px; border-bottom: 1px solid var(--ink); }
+.top h1 { margin: 0; font-size: var(--fs-l); font-weight: 800; letter-spacing: -.01em; text-wrap: balance; }
+.kicker { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.kicker i { width: 7px; height: 7px; background: var(--akpm); display: inline-block; }
+.meta { font-size: var(--fs-s); color: var(--ink-3); }
+.test-banner { margin: 8px 0 0; padding: 8px 10px; background: #fff4d6; border-left: 3px solid var(--ind); font-size: var(--fs-s); font-weight: 600; }
+
+/* race tabs */
+.tabs { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--rule); margin-top: 2px; -webkit-overflow-scrolling: touch; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab { flex: none; background: none; border: 0; border-bottom: 3px solid transparent; padding: 11px 12px 9px; font-size: var(--fs-s); font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+.tab:first-child { padding-left: 0; }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--ink); }
+.tab:hover { color: var(--ink); }
+
+/* race block */
+.race { padding-top: 14px; }
+.race-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 12px; margin-bottom: 8px; }
+.race-head h2 { margin: 0; font-size: var(--fs-xl); font-weight: 700; letter-spacing: -.015em; line-height: 1.1; }
+.race-head p { margin: 3px 0 0; font-size: var(--fs-s); color: var(--ink-2); max-width: 46ch; }
+.stepper { display: flex; align-items: center; gap: 4px; flex: none; }
+.stepper button { width: 34px; height: 34px; border: 1px solid var(--rule); background: var(--paper); border-radius: 2px; display: grid; place-items: center; }
+.stepper button:disabled { opacity: .35; cursor: default; }
+.stepper select { height: 34px; border: 1px solid var(--rule); border-radius: 2px; background: var(--paper); padding: 0 6px; font-size: var(--fs-s); font-weight: 600; }
+.backlink { background: none; border: 0; padding: 0; font-size: var(--fs-s); color: var(--ink-2); text-decoration: underline; text-underline-offset: 2px; margin-bottom: 6px; }
+
+/* results table */
+.rt { width: 100%; border-collapse: collapse; }
+.rt th { text-align: left; font-size: var(--fs-xs); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); padding: 0 0 6px; border-bottom: 1px solid var(--rule); }
+.rt th.r, .rt td.r { text-align: right; }
+.rt td { padding: 8px 0 7px; border-bottom: 1px solid var(--rule-2); vertical-align: top; }
+.rt .cand { display: grid; grid-template-columns: 10px 1fr; column-gap: 9px; align-items: baseline; }
+.rt .sw { width: 10px; height: 10px; border-radius: 1px; align-self: center; }
+.rt .nm { font-weight: 600; }
+.rt .pt { grid-column: 2; font-size: var(--fs-xs); color: var(--ink-3); }
+.rt .bar { grid-column: 2; height: 4px; background: var(--rule-2); margin-top: 6px; position: relative; }
+.rt .bar b { position: absolute; left: 0; top: 0; bottom: 0; border-radius: 0 2px 2px 0; }
+.rt td.v { width: 92px; font-variant-numeric: tabular-nums; color: var(--ink-2); padding-left: 8px; }
+.rt td.p { width: 64px; font-variant-numeric: tabular-nums; font-weight: 700; padding-left: 8px; }
+.rt tr.lead .nm::after { content: none; }
+.check { display: inline-flex; align-items: center; gap: 3px; margin-left: 6px; font-size: 10px; font-weight: 700; letter-spacing: .04em; color: var(--ink); vertical-align: 1px; }
+.check svg { width: 13px; height: 13px; }
+.rt-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 12px; padding-top: 7px; font-size: var(--fs-s); color: var(--ink-3); }
+.rt-foot strong { color: var(--ink-2); font-weight: 600; }
+
+/* district board */
+.board { width: 100%; border-collapse: collapse; }
+.board th { text-align: left; font-size: var(--fs-xs); font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); padding: 0 0 6px; border-bottom: 1px solid var(--rule); }
+.board td { border-bottom: 1px solid var(--rule-2); padding: 7px 0; font-size: var(--fs-s); vertical-align: middle; }
+.board tr { cursor: pointer; }
+.board tr:hover td { background: var(--wash); }
+.board td.d { width: 34px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.board td.c { padding-right: 8px; }
+.board .who { display: flex; align-items: baseline; gap: 6px; min-width: 0; }
+.board .who span:first-child { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.board .who .pp { color: var(--ink-3); font-size: var(--fs-xs); flex: none; }
+.board td.pc { width: 50px; text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; }
+.board td.vs { width: 34%; }
+.split { display: flex; height: 8px; gap: 2px; }
+.split b { display: block; height: 100%; }
+.split b:first-child { border-radius: 2px 0 0 2px; } .split b:last-child { border-radius: 0 2px 2px 0; }
+.board .nc { color: var(--ink-3); }
+.board-note { font-size: var(--fs-xs); color: var(--ink-3); padding-top: 6px; }
+
+/* map */
+.mapblock { margin-top: 22px; }
+.map-controls { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 2px; overflow: hidden; }
+.seg button { border: 0; background: var(--paper); padding: 6px 11px; font-size: var(--fs-s); font-weight: 600; }
+.seg button + button { border-left: 1px solid var(--ink); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.fs-btn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--paper); border-radius: 2px; padding: 6px 10px; font-size: var(--fs-s); font-weight: 600; }
+.fs-btn svg { width: 14px; height: 14px; }
+.regions { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding: 0 0 8px; -webkit-overflow-scrolling: touch; }
+.regions::-webkit-scrollbar { display: none; }
+.regions button { flex: none; border: 1px solid var(--rule); background: var(--paper); border-radius: 14px; padding: 4px 10px; font-size: var(--fs-xs); font-weight: 600; color: var(--ink-2); }
+.regions button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--wash); }
+.find { flex: 1 1 160px; min-width: 0; position: relative; }
+.find input { width: 100%; height: 32px; border: 1px solid var(--rule); border-radius: 2px; padding: 0 10px 0 28px; font-size: var(--fs-s); background: var(--paper); }
+.find svg { position: absolute; left: 9px; top: 9px; width: 14px; height: 14px; color: var(--ink-3); }
+.find ul { position: absolute; z-index: 20; left: 0; right: 0; top: 34px; margin: 0; padding: 4px 0; list-style: none; background: var(--paper); border: 1px solid var(--rule); box-shadow: 0 6px 18px rgba(0,0,0,.08); max-height: 240px; overflow: auto; }
+.find li { padding: 7px 10px; font-size: var(--fs-s); cursor: pointer; }
+.find li[aria-selected="true"], .find li:hover { background: var(--wash); }
+.find li small { color: var(--ink-3); margin-left: 6px; }
+
+.mapwrap { position: relative; background: var(--sea); border-top: 1px solid var(--rule-2); border-bottom: 1px solid var(--rule-2); overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; }
+.mapwrap svg { display: block; width: 100%; height: 100%; }
+.mapwrap path.a { stroke: var(--paper); stroke-width: .6; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.mapwrap path.a.dim { opacity: .28; }
+.mapwrap path.hdline { fill: none; stroke: #fff; stroke-width: 1.6; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap path.hover { fill: none; stroke: var(--ink); stroke-width: 1.2; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap path.sel { fill: none; stroke: var(--ink); stroke-width: 2.4; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap .bm-land { fill: var(--land); stroke: none; pointer-events: none; }
+.mapwrap .bm-lake { fill: var(--water); stroke: none; pointer-events: none; }
+.mapwrap .bm-river { fill: none; stroke: var(--water-line); stroke-width: .8; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap .bm-road { fill: none; stroke: var(--road); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap .bm-case { fill: none; stroke: rgba(255, 255, 255, .75); stroke-linejoin: round; stroke-linecap: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+.mapwrap .bm-case.r1 { stroke-width: 2.6; }
+.mapwrap .bm-case.r2 { stroke-width: 1.8; }
+.mapwrap .bm-road.r1 { stroke-width: 1; }
+.mapwrap .bm-road.r2 { stroke-width: .7; }
+.mapwrap .labels { pointer-events: none; }
+.mapwrap .labels text { font-family: var(--sans); paint-order: stroke; stroke: var(--paper); stroke-width: 3px; stroke-linejoin: round; fill: var(--ink-2); font-size: 11px; font-weight: 500; }
+.mapwrap .labels .t1 { fill: var(--ink); font-size: 12px; font-weight: 700; }
+.mapwrap .labels .t5 { fill: var(--ink-3); font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; }
+.mapwrap .labels .t6 { fill: var(--water-text); font-style: italic; font-size: 11px; stroke-width: 0; letter-spacing: .03em; }
+.mapwrap .labels .t7 { fill: #a3a39c; font-size: 10px; font-weight: 600; letter-spacing: .22em; stroke-width: 0; }
+.mapwrap .labels circle { fill: var(--ink); stroke: var(--paper); stroke-width: 1.2; }
+.bm-toggle { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; background: none; border: 0; padding: 0; font-size: var(--fs-xs); color: var(--ink-2); }
+.bm-toggle i { width: 24px; height: 14px; border-radius: 7px; background: var(--rule); position: relative; transition: background .15s; }
+.bm-toggle i::after { content: ""; position: absolute; left: 2px; top: 2px; width: 10px; height: 10px; border-radius: 50%; background: var(--paper); transition: left .15s; }
+.bm-toggle[aria-pressed="true"] i { background: var(--ink); }
+.bm-toggle[aria-pressed="true"] i::after { left: 12px; }
+.zoombtns { position: absolute; right: max(8px, env(safe-area-inset-right, 0px)); bottom: 8px; display: flex; flex-direction: column; border: 1px solid var(--rule); background: var(--paper); border-radius: 2px; }
+.zoombtns button { width: 34px; height: 34px; border: 0; background: none; display: grid; place-items: center; }
+.zoombtns button + button { border-top: 1px solid var(--rule); }
+.zoombtns svg { width: 14px; height: 14px; }
+.hint { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); background: rgba(18,18,18,.86); color: #fff; font-size: var(--fs-s); font-weight: 600; padding: 9px 13px; border-radius: 2px; pointer-events: none; opacity: 0; transition: opacity .2s; white-space: nowrap; }
+.hint.on { opacity: 1; }
+.tip { position: absolute; pointer-events: none; background: var(--paper); border: 1px solid var(--ink); padding: 6px 8px; font-size: var(--fs-s); line-height: 1.3; max-width: 240px; z-index: 5; }
+.tip b { display: block; font-weight: 700; }
+.tip span { color: var(--ink-2); }
+
+.legend { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 14px; padding: 2px 0 8px; font-size: var(--fs-xs); color: var(--ink-2); }
+.legend .lk { display: inline-flex; align-items: center; gap: 5px; }
+.legend .lk i { width: 10px; height: 10px; display: inline-block; border-radius: 1px; }
+.legend .ramp { display: inline-flex; align-items: center; gap: 4px; }
+.legend .ramp span { display: inline-flex; gap: 1px; }
+.legend .ramp span i { width: 14px; height: 8px; display: inline-block; }
+.legend .hatch { background-image: repeating-linear-gradient(135deg, #c4c4bc 0 1.5px, var(--nodata) 1.5px 4px); }
+
+.area { margin-top: 10px; min-height: 76px; }
+.area-empty { font-size: var(--fs-s); color: var(--ink-3); padding: 10px 0; border-top: 1px solid var(--rule-2); }
+.area h3 { margin: 0; font-size: var(--fs-m); font-weight: 700; }
+.area .sub { font-size: var(--fs-xs); color: var(--ink-3); margin: 2px 0 6px; }
+.area-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; padding-top: 10px; border-top: 1px solid var(--rule-2); }
+.area-head button { flex: none; background: none; border: 0; color: var(--ink-3); font-size: var(--fs-xs); text-decoration: underline; text-underline-offset: 2px; padding: 2px 0; }
+.mini { display: grid; grid-template-columns: minmax(0, 1fr) 54px 64px; gap: 0 8px; font-size: var(--fs-s); }
+.mini > div { padding: 4px 0; border-bottom: 1px solid var(--rule-2); }
+.mini .n { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.mini .n i { width: 8px; height: 8px; flex: none; border-radius: 1px; }
+.mini .n span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mini .p { text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+.mini .v { text-align: right; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.map-note { font-size: var(--fs-xs); color: var(--ink-3); margin: 8px 0 0; }
+
+/* sections */
+.sec { margin-top: 30px; padding-top: 12px; border-top: 1px solid var(--ink); }
+.sec h2 { margin: 0 0 2px; font-size: var(--fs-l); font-weight: 800; letter-spacing: -.01em; }
+.sec .dek { margin: 0 0 12px; font-size: var(--fs-s); color: var(--ink-2); max-width: 60ch; }
+
+/* RCV */
+.rounds { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; margin-bottom: 12px; }
+.rounds button.rd { min-width: 34px; height: 30px; padding: 0 9px; border: 1px solid var(--rule); background: var(--paper); border-radius: 2px; font-size: var(--fs-s); font-weight: 600; font-variant-numeric: tabular-nums; }
+.rounds button.rd[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.rounds .lbl { margin-right: 6px; }
+.rcv-chart { position: relative; }
+.rrow { display: grid; grid-template-columns: minmax(96px, 150px) minmax(0, 1fr); gap: 4px 10px; align-items: center; padding: 5px 0; }
+.rrow .rn { font-size: var(--fs-s); font-weight: 600; line-height: 1.2; }
+.rrow .rn small { display: block; font-weight: 500; color: var(--ink-3); font-size: var(--fs-xs); }
+.rrow.out .rn { color: var(--ink-3); font-weight: 500; }
+.rtrack { position: relative; height: 22px; margin-right: 118px; }
+.rtrack .base, .rtrack .gain { position: absolute; top: 3px; height: 16px; transition: width .45s ease, left .45s ease; }
+.rtrack .base { left: 0; border-radius: 0; }
+.rtrack .gain { border-radius: 0 2px 2px 0; }
+.rtrack .val { position: absolute; z-index: 1; background: var(--paper); padding: 0 3px; top: 3px; font-size: var(--fs-s); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 16px; white-space: nowrap; transition: left .45s ease; }
+.rtrack .val small { font-weight: 500; color: var(--ink-3); margin-left: 4px; }
+.rtrack .elim { position: absolute; top: 3px; left: 0; font-size: var(--fs-xs); color: var(--ink-3); line-height: 16px; }
+.majline { position: absolute; top: 0; bottom: 0; width: 0; border-left: 1px dashed var(--ink); pointer-events: none; transition: left .45s ease; }
+.majlbl { position: absolute; top: -16px; font-size: var(--fs-xs); color: var(--ink-2); white-space: nowrap; transform: translateX(-50%); transition: left .45s ease; }
+.rcv-axis { height: 18px; }
+.transfer { margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--rule-2); }
+.transfer h3 { margin: 0 0 6px; font-size: var(--fs-s); font-weight: 700; }
+.tbar { display: flex; height: 14px; gap: 2px; }
+.tbar b { display: block; height: 100%; min-width: 2px; }
+.tkey { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 6px; font-size: var(--fs-xs); color: var(--ink-2); }
+.tkey span { display: inline-flex; align-items: center; gap: 5px; }
+.tkey i { width: 9px; height: 9px; display: inline-block; border-radius: 1px; }
+.rcv-foot { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 10px; }
+.cvr-gap { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule-2); font-size: var(--fs-s); color: var(--ink-2); }
+.cvr-gap p { margin: 0; max-width: 64ch; }
+.gap-btn { background: none; border: 0; padding: 0; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
+.gap-btn::after { content: " \25BE"; font-size: 10px; text-decoration: none; display: inline-block; margin-left: 2px; }
+.gap-btn[aria-expanded="true"]::after { content: " \25B4"; }
+.cvr-gap ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 5px; font-size: var(--fs-xs); line-height: 1.45; color: var(--ink-2); }
+.cvr-gap li b { color: var(--ink); font-weight: 600; }
+.pending { font-size: var(--fs-s); color: var(--ink-2); background: var(--wash); padding: 9px 11px; margin-top: 12px; }
+
+/* balance of power */
+.bop { display: grid; gap: 22px; }
+.bop-h { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+.bop-h h3 { margin: 0; font-size: var(--fs-m); font-weight: 700; }
+.seats { position: relative; display: flex; gap: 2px; height: 26px; margin-top: 18px; }
+.seats b { flex: 1 1 0; display: block; border-radius: 1px; }
+.seats .maj { position: absolute; top: -18px; bottom: -4px; border-left: 1.5px solid var(--ink); }
+.seats .maj span { position: absolute; top: -1px; left: 4px; font-size: var(--fs-xs); color: var(--ink-2); white-space: nowrap; }
+.bop-counts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: var(--fs-s); }
+.bop-counts span { display: inline-flex; align-items: baseline; gap: 6px; }
+.bop-counts i { width: 10px; height: 10px; display: inline-block; border-radius: 1px; align-self: center; }
+.bop-counts strong { font-variant-numeric: tabular-nums; font-weight: 700; }
+.bop-note { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 6px; }
+
+.foot { margin-top: 28px; padding-top: 10px; border-top: 1px solid var(--rule); font-size: var(--fs-xs); color: var(--ink-3); display: grid; gap: 6px; }
+.foot p { margin: 0; max-width: 72ch; }
+.foot .rcvx { color: var(--ink-2); font-size: var(--fs-s); }
+
+/* single-view embeds (?view=map etc.) */
+.app[data-view="map"] .sec, .app[data-view="map"] .race { display: none; }
+.app[data-view="rcv"] > :not(.top):not(#rcv):not(.foot) { display: none; }
+.app[data-view="bop"] > :not(.top):not(#bop):not(.foot) { display: none; }
+.app[data-view="rcv"] #rcv, .app[data-view="bop"] #bop { margin-top: 14px; border-top: 0; padding-top: 0; }
+
+/* full screen */
+.fs-close { display: none; }
+html.is-full, html.is-full body { height: 100%; overflow: hidden; }
+html.is-full .app { position: fixed; inset: 0; max-width: none; margin: 0; padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) 0 env(safe-area-inset-left, 0px); display: flex; flex-direction: column; background: var(--paper); z-index: 50; }
+html.is-full .app > * { flex: none; }
+html.is-full .mapblock { flex: 1 1 auto; }
+html.is-full .top { padding: 8px 12px; border-bottom: 1px solid var(--rule); }
+html.is-full .top h1 { font-size: var(--fs-m); }
+html.is-full .top .meta, html.is-full .kicker { display: none; }
+html.is-full .tabs { padding: 0 12px; margin: 0; }
+html.is-full .race, html.is-full .sec, html.is-full .foot, html.is-full .test-banner { display: none; }
+html.is-full .mapblock { margin: 0; display: flex; flex-direction: column; min-height: 0; }
+html.is-full .mapblock > * { flex: none; }
+html.is-full .mapwrap { flex: 1 1 auto; }
+html.is-full .map-controls { padding: 8px 12px 0; }
+html.is-full .regions { padding: 0 12px 8px; }
+html.is-full .mapwrap { touch-action: none; min-height: 0; border: 0; }
+html.is-full .legend { padding: 0 12px 6px; }
+html.is-full .sheet { max-height: 38vh; overflow: auto; padding: 0 12px calc(8px + env(safe-area-inset-bottom, 0px)); border-top: 1px solid var(--rule); background: var(--paper); }
+html.is-full .area { margin-top: 0; }
+html.is-full .map-note { display: none; }
+html.is-full .fs-close { display: inline-flex; }
+html.is-full .fs-open { display: none; }
+@media (min-width: 900px) {
+  html.is-full .mapblock { display: grid; grid-template-columns: minmax(0, 1fr) 360px; grid-template-rows: auto auto auto 1fr; }
+  html.is-full .mapblock > .map-controls, html.is-full .mapblock > .regions, html.is-full .mapblock > .legend { grid-column: 1; }
+  html.is-full .mapwrap { grid-column: 1; grid-row: 4; }
+  html.is-full .sheet { grid-column: 2; grid-row: 1 / -1; max-height: none; border-top: 0; border-left: 1px solid var(--rule); padding-top: 12px; }
+}
+@media (max-width: 480px) {
+  .race-head h2 { font-size: 21px; }
+  .rt td.v { width: 74px; font-size: var(--fs-s); }
+  .rt td.p { width: 54px; }
+  .rrow { grid-template-columns: 92px minmax(0, 1fr); }
+  .rtrack { margin-right: 104px; }
+  .board td.vs { width: 26%; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <header class="top">
+    <div>
+      <div class="kicker label"><i></i><span id="kicker"></span></div>
+      <h1 id="headline"></h1>
+    </div>
+    <div class="meta" id="meta"></div>
+    <button class="fs-btn fs-close" id="fsClose" type="button" aria-label="Exit full screen">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 3l10 10M13 3L3 13"/></svg>Close
+    </button>
+  </header>
+  <div id="testBanner" class="test-banner" hidden></div>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Races"></nav>
+
+  <section class="race" id="race" aria-live="polite"></section>
+
+  <section class="mapblock" id="mapblock">
+    <div class="map-controls">
+      <div class="seg" role="group" aria-label="Map by">
+        <button type="button" id="mDist" aria-pressed="true">Districts</button>
+        <button type="button" id="mPct" aria-pressed="false">Precincts</button>
+      </div>
+      <div class="find">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="7" cy="7" r="5"/><path d="M11 11l4 4"/></svg>
+        <label class="sr" for="findInput">Find a precinct or district</label>
+        <input id="findInput" type="search" autocomplete="off" placeholder="Find a precinct or district" role="combobox" aria-expanded="false" aria-controls="findList">
+        <ul id="findList" role="listbox" hidden></ul>
+      </div>
+      <button class="fs-btn fs-open" id="fsOpen" type="button">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 6V2h4M10 2h4v4M14 10v4h-4M6 14H2v-4"/></svg>Full screen
+      </button>
+    </div>
+    <div class="regions" id="regions" role="group" aria-label="Zoom to region"></div>
+    <div class="legend" id="legend"></div>
+    <div class="mapwrap" id="mapwrap">
+      <svg id="map" role="img" aria-label="Map of results"></svg>
+      <div class="zoombtns">
+        <button type="button" id="zin" aria-label="Zoom in"><svg viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.8"><path d="M8 3v10M3 8h10"/></svg></button>
+        <button type="button" id="zout" aria-label="Zoom out"><svg viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.8"><path d="M3 8h10"/></svg></button>
+      </div>
+      <div class="hint" id="hint"></div>
+      <div class="tip" id="tip" hidden></div>
+    </div>
+    <div class="sheet">
+      <div class="area" id="area"></div>
+    </div>
+    <p class="map-note" id="mapNote"></p>
+  </section>
+
+  <section class="sec" id="rcv" hidden></section>
+  <section class="sec" id="bop"></section>
+
+  <footer class="foot" id="foot"></footer>
+</div>
+
+<script src="vendor/d3.min.js"></script>
+<script src="vendor/topojson-client.min.js"></script>
+<script src="vendor/pym.v1.min.js"></script>
+<script>
+/* =====================================================================
+   READER-FACING TEXT. Everything a reader sees, other than names and
+   numbers from the data files, is in this block. Edit freely.
+   ===================================================================== */
+const COPY = {
+  kicker: 'Unofficial results',
+  headline: 'Alaska general election',
+  updated: 'Updated',
+  measures: {
+    bm2: { title: 'Ballot Measure 2', dek: 'Repeals ranked choice voting, open primaries, dark money rules' },
+    bm3: { title: 'Ballot Measure 3', dek: 'Reinforces that “only” citizens may vote' }
+  },
+  titles: { gov: 'Governor', ussen: 'U.S. Senate', ushouse: 'U.S. House' },
+  tabs: { gov: 'Governor', ussen: 'U.S. Senate', ushouse: 'U.S. House', bm2: 'Measure 2', bm3: 'Measure 3', house: 'State House', senate: 'State Senate' },
+  firstChoice: 'First-choice votes',
+  houseBoardTitle: 'State House',
+  houseBoardDek: 'All 40 seats are on the ballot. Select a district for full results.',
+  senateBoardTitle: 'State Senate',
+  senateBoardDek: '10 of 20 seats are on the ballot. Select a district for full results.',
+  precinctNote: 'The Division of Elections reports early, absentee and questioned ballots by House district, not by precinct. Precinct shading reflects Election Day ballots only; district shading and all totals include every ballot counted so far.',
+  areaPrompt: 'Tap or hover over the map to see results for a district or precinct.',
+  rcvTitle: 'Ranked choice count',
+  rcvLabelDefault: 'Alaska Public Media tabulation of the Division of Elections’ cast vote record. Not official results.',
+  rcvPending: 'If no candidate wins a majority of first choices, the race goes to ranked choice tabulation. Round-by-round results will appear here after the Division of Elections publishes ballot-level data.',
+  bopTitle: 'Balance of power',
+  bopDek: 'Seats are counted only after AP calls a race. Party labels do not show control: both chambers have been run by bipartisan coalitions.',
+  bopHoldover: 'Not up this year',
+  bopUncalled: 'Not yet called',
+  // {missing} is replaced by a button that opens the list of precincts (built by build_data.py --cvr)
+  cvrGap: 'The Cast Vote Record, the ballot data file provided by the Division of Elections, contains fewer ballots than the division\u2019s latest first-choice results. It is currently missing {missing}. Final tabulation by the Division of Elections won\u2019t happen until Nov. 18.',
+  cvrGapButton: (n) => `${n} precincts`,
+  rcvExplainer: 'How ranked choice voting works: Voters rank the candidates in order of preference. If no one has more than half of the first-choice votes, the last-place candidate is eliminated, and ballots that ranked that candidate first count toward the voter’s next choice. Rounds continue until two candidates remain. Ballots with no remaining choices become inactive.',
+  source: 'Source: Alaska Division of Elections; race calls by The Associated Press. Results are unofficial.',
+  disclosure: '',
+  basemapCredit: 'Basemap: U.S. Census Bureau TIGER/Line and 2020 census, Natural Earth. Anchorage neighborhood labels follow Division of Elections precinct names.',
+  basemapToggle: 'Places and roads',
+  touchHint: 'Use two fingers to zoom, or open full screen',
+  noResults: 'No results reported yet',
+  notOnBallot: 'Seat not on the ballot',
+  testBanner: 'TEST DATA. Race calls and the ranked choice rounds on this page are not real.'
+};
+
+/* Contests that get the round-by-round section, and the data file for each. */
+const RCV_CONTESTS = ['gov', 'ussen', 'ushouse'];
+
+/* ===================================================================== */
+const PARTY = {
+  D: { label: 'Democrat', color: 'var(--dem)', hex: '#1f6fb5', bloc: 'D' },
+  R: { label: 'Republican', color: 'var(--rep)', hex: '#c72021', bloc: 'R' },
+  N: { label: 'Nonpartisan', color: 'var(--ind)', hex: '#f1a513', bloc: 'I' },
+  U: { label: 'Undeclared', color: 'var(--ind)', hex: '#f1a513', bloc: 'I' },
+  L: { label: 'Libertarian', color: 'var(--other)', hex: '#8c8c8c', bloc: 'O' },
+  '': { label: '', color: 'var(--other)', hex: '#8c8c8c', bloc: 'O' }
+};
+const CODE_LABEL = { 'DEM/NON': 'Democrat / nonpartisan' };
+const BLOC = { D: { label: 'Democrats', hex: '#1f6fb5' }, I: { label: 'Independents', hex: '#f1a513' }, R: { label: 'Republicans', hex: '#c72021' }, O: { label: 'Other', hex: '#8c8c8c' } };
+const SECONDARY = ['#3ba99c', '#7a1c4e', '#9c6b30', '#5d6d7e'];
+const MEASURE_COLORS = { YES: '#3ba99c', NO: '#7a1c4e' };
+const NODATA = '#dcdcd5';
+const REGIONS = [['Statewide'], ['Anchorage'], ['Mat-Su'], ['Fairbanks'], ['Kenai Peninsula'], ['Juneau'], ['Southeast']];
+
+const qs = new URLSearchParams(location.search);
+const DEMO = qs.get('demo') === '1';
+const VIEW = qs.get('view') || 'all';
+const RESULTS_ONLY = VIEW === 'results';   // ?view=results: race results and map, no ranked choice or balance of power
+const fmt = d3.format(',');
+const pct = (v, t) => t ? (v / t * 100) : 0;
+const fp = (x) => x >= 99.95 ? '100%' : (x < 0.05 && x > 0 ? '<0.1%' : x.toFixed(1) + '%');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const $ = (id) => document.getElementById(id);
+
+let DATA, GEO, BASE = null, RCV = {}, byId = {}, pyChild = null, showBase = true;
+const state = { tab: qs.get('race') || 'gov', district: null, mode: 'hd', sel: null, region: 'Statewide', full: false, round: null };
+if (!['gov','ussen','ushouse','bm2','bm3','house','senate'].includes(state.tab)) state.tab = 'gov';
+
+/* ---------- colors per contest ---------- */
+function colorize(c) {
+  const used = new Set(); let k = 0;
+  c.candidates.forEach((x) => {
+    if (x.color) { x.hex = x.color; return; }
+    if (c.kind === 'measure') { x.hex = MEASURE_COLORS[x.raw] || SECONDARY[k++]; return; }
+    const p = PARTY[x.party] || PARTY[''];
+    const bloc = p.bloc;
+    if (bloc !== 'O' && !used.has(bloc)) { used.add(bloc); x.hex = p.hex; }
+    else if (bloc === 'O' && !used.has('O')) { used.add('O'); x.hex = p.hex; }
+    else { x.hex = SECONDARY[k++ % SECONDARY.length]; }
+  });
+}
+function shortName(n) { return n.split(' / ')[0]; }
+function partyLabel(x) { return CODE_LABEL[x.code] || (PARTY[x.party] || PARTY['']).label; }
+function blocOf(x) { return (PARTY[x.party] || PARTY['']).bloc; }
+
+/* ---------- tint by margin ---------- */
+const STEPS = [5, 15, 30];
+const TINTS = [0.32, 0.55, 0.78, 1];
+function tint(hex, margin) {
+  const i = margin < STEPS[0] ? 0 : margin < STEPS[1] ? 1 : margin < STEPS[2] ? 2 : 3;
+  return d3.interpolateLab('#ffffff', hex)(TINTS[i]);
+}
+
+/* ---------- data access ---------- */
+function contestFor(tab, district) {
+  if (tab === 'house') return district ? byId['hd' + district] : null;
+  if (tab === 'senate') return district ? byId['sd' + district] : null;
+  return byId[tab];
+}
+// returns {c, ballots, votes:[...]} for a map feature in the current tab/mode
+function areaResult(feat) {
+  const p = feat.properties;
+  if (state.mode === 'pct') {
+    const c = state.tab === 'house' ? byId['hd' + p.hd] : state.tab === 'senate' ? byId['sd' + p.sd] : byId[state.tab];
+    if (!c) return { c: null };
+    const row = c.areas[p.id];
+    return row ? { c, ballots: row[0], votes: row.slice(1) } : { c, ballots: 0, votes: c.candidates.map(() => 0) };
+  }
+  if (state.tab === 'senate') {
+    const c = byId['sd' + p.sd];
+    if (!c) return { c: null };
+    return { c, ballots: c.ballots, votes: c.candidates.map((x) => x.votes) };
+  }
+  const c = state.tab === 'house' ? byId['hd' + p.hd] : byId[state.tab];
+  const row = c && c.areas['h' + p.hd];
+  return row ? { c, ballots: row[0], votes: row.slice(1) } : { c, ballots: 0, votes: c ? c.candidates.map(() => 0) : [] };
+}
+function leaderOf(r) {
+  const tot = d3.sum(r.votes);
+  if (!r.c || !tot) return null;
+  const order = r.votes.map((v, i) => [v, i]).sort((a, b) => b[0] - a[0]);
+  const m = order.length > 1 ? pct(order[0][0] - order[1][0], tot) : 100;
+  return { i: order[0][1], margin: m, tot, tie: order.length > 1 && order[0][0] === order[1][0] };
+}
+function fillFor(feat) {
+  const r = areaResult(feat);
+  if (!r.c) return 'url(#hatch)';
+  const L = leaderOf(r);
+  if (!L) return NODATA;
+  if (L.tie) return '#9a9a94';
+  const cand = r.c.candidates[L.i];
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  const distOf = state.tab === 'house' ? feat.properties.hd : feat.properties.sd;
+  const hex = legislative && String(state.district) !== String(distOf) ? (PARTY[cand.party] || PARTY['']).hex : cand.hex;
+  return tint(hex, L.margin);
+}
+
+/* ---------- header ---------- */
+function renderHeader() {
+  $('kicker').textContent = COPY.kicker;
+  $('headline').textContent = COPY.headline;
+  const gov = byId.gov || DATA.contests[0];
+  const parts = [];
+  if (DATA.asOf) parts.push(`${COPY.updated} ${esc(DATA.asOf)}`);
+  parts.push(`<span class="num">${fmt(gov.ballots)}</span> ballots counted`);
+  $('meta').innerHTML = parts.join(' &middot; ');
+  if (DEMO) { $('testBanner').hidden = false; $('testBanner').textContent = COPY.testBanner; }
+}
+
+/* ---------- tabs ---------- */
+function renderTabs() {
+  const keys = ['gov', 'ussen', 'ushouse', 'bm2', 'bm3', 'house', 'senate'].filter((k) => k === 'house' || k === 'senate' || byId[k]);
+  $('tabs').innerHTML = keys.map((k) => `<button class="tab" role="tab" type="button" data-k="${k}" aria-selected="${state.tab === k}">${COPY.tabs[k]}</button>`).join('');
+  $('tabs').querySelectorAll('.tab').forEach((b) => b.onclick = () => setTab(b.dataset.k));
+}
+function setTab(k) {
+  if (state.tab === k) return;
+  state.tab = k; state.district = null; state.sel = null; state.round = null;
+  renderTabs(); renderRace(); renderMapLayer(); renderArea(); renderRCV(); zoomTo(null);
+  sendHeight();
+}
+
+/* ---------- race block ---------- */
+const CHECK = '<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#121212"/><path d="M4.4 8.3l2.4 2.3 4.8-5" fill="none" stroke="#fff" stroke-width="1.8"/></svg>';
+function title(c) {
+  if (c.kind === 'house') return `House District ${c.district}`;
+  if (c.kind === 'senate') return `Senate District ${c.district}`;
+  if (c.kind === 'measure') return (COPY.measures[c.id] || {}).title || c.title;
+  return COPY.titles[c.id] || c.title;
+}
+function resultsTable(c) {
+  const tot = d3.sum(c.candidates, (x) => x.votes);
+  const max = d3.max(c.candidates, (x) => x.votes) || 1;
+  const winner = c.call && c.call.winner;
+  const rows = c.candidates.map((x) => {
+    const p = pct(x.votes, tot);
+    const won = winner && winner === x.name;
+    const party = c.kind === 'measure' ? '' : `<span class="pt">${esc(partyLabel(x))}</span>`;
+    return `<tr><td><div class="cand"><i class="sw" style="background:${x.hex}"></i><span class="nm">${esc(x.name)}${won ? `<span class="check" title="Race called by ${esc(c.call.by)}">${CHECK}${esc(c.call.by)}</span>` : ''}</span>${party}<div class="bar"><b style="width:${(x.votes / max * 100).toFixed(2)}%;background:${x.hex}"></b></div></div></td>
+      <td class="r v">${fmt(x.votes)}</td><td class="r p">${fp(p)}</td></tr>`;
+  }).join('');
+  const head = c.kind === 'measure' ? 'Response' : 'Candidate';
+  return `<table class="rt"><thead><tr><th>${head}</th><th class="r">${c.kind === 'measure' ? 'Votes' : 'Votes'}</th><th class="r">Pct.</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function raceFooter(c) {
+  const bits = [`<span><strong class="num">${fmt(c.ballots)}</strong> ballots counted</span>`];
+  if (c.kind !== 'measure' && c.candidates.length > 2) bits.push(`<span>${COPY.firstChoice}</span>`);
+  return `<div class="rt-foot">${bits.join('')}</div>`;
+}
+function stepperHTML(list) {
+  const i = list.indexOf(String(state.district));
+  const opts = list.map((d) => `<option value="${d}" ${String(d) === String(state.district) ? 'selected' : ''}>${state.tab === 'house' ? 'HD' : 'SD'} ${d}</option>`).join('');
+  return `<div class="stepper"><button type="button" data-step="-1" aria-label="Previous district" ${i <= 0 ? 'disabled' : ''}><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M8 2L4 6l4 4"/></svg></button>
+    <label class="sr" for="distSel">District</label><select id="distSel">${opts}</select>
+    <button type="button" data-step="1" aria-label="Next district" ${i >= list.length - 1 ? 'disabled' : ''}><svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 2l4 4-4 4"/></svg></button></div>`;
+}
+function districtList() {
+  return state.tab === 'house' ? d3.range(1, 41).map(String) : DATA.contests.filter((c) => c.kind === 'senate').map((c) => c.district);
+}
+function renderRace() {
+  const el = $('race');
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  if (legislative && !state.district) { el.innerHTML = boardHTML(); bindBoard(); return; }
+  const c = contestFor(state.tab, state.district);
+  if (!c) { el.innerHTML = ''; return; }
+  let head = `<div><h2>${esc(title(c))}</h2>`;
+  if (c.kind === 'measure' && COPY.measures[c.id]) head += `<p>${esc(COPY.measures[c.id].dek)}</p>`;
+  head += '</div>';
+  let pre = '';
+  if (legislative) {
+    pre = `<button class="backlink" type="button" id="backAll">All ${state.tab === 'house' ? 'House' : 'Senate'} races</button>`;
+    head += stepperHTML(districtList());
+  }
+  el.innerHTML = `${pre}<div class="race-head">${head}</div>${resultsTable(c)}${raceFooter(c)}`;
+  if (legislative) {
+    $('backAll').onclick = () => selectDistrict(null);
+    el.querySelectorAll('[data-step]').forEach((b) => b.onclick = () => {
+      const list = districtList(); const i = list.indexOf(String(state.district)) + (+b.dataset.step);
+      if (list[i]) selectDistrict(list[i]);
+    });
+    $('distSel').onchange = (e) => selectDistrict(e.target.value);
+  }
+}
+function boardHTML() {
+  const house = state.tab === 'house';
+  const list = house ? d3.range(1, 41).map((d) => byId['hd' + d]).filter(Boolean) : DATA.contests.filter((c) => c.kind === 'senate');
+  const rows = list.map((c) => {
+    const tot = d3.sum(c.candidates, (x) => x.votes);
+    const a = c.candidates[0], b = c.candidates[1];
+    const pa = pct(a.votes, tot);
+    const split = c.candidates.filter((x) => x.votes > 0).map((x) => `<b style="flex:${x.votes};background:${(PARTY[x.party] || PARTY['']).hex}" title="${esc(x.name)}"></b>`).join('');
+    const won = c.call && c.call.winner;
+    return `<tr data-d="${c.district}" tabindex="0"><td class="d">${c.district}</td>
+      <td class="c"><div class="who"><span>${esc(a.name)}${won === a.name ? `<span class="check">${CHECK}</span>` : ''}</span><span class="pp">${a.party || ''}</span></div>${b ? `<div class="who nc"><span>${esc(b.name)}</span><span class="pp">${b ? fp(pct(b.votes, tot)) : ''}</span></div>` : '<div class="who nc"><span>Uncontested</span></div>'}</td>
+      <td class="pc">${tot ? fp(pa) : '&ndash;'}</td><td class="vs"><div class="split">${split || `<b style="flex:1;background:${NODATA}"></b>`}</div></td></tr>`;
+  }).join('');
+  const t = house ? COPY.houseBoardTitle : COPY.senateBoardTitle, d = house ? COPY.houseBoardDek : COPY.senateBoardDek;
+  return `<div class="race-head"><div><h2>${t}</h2><p>${d}</p></div></div>
+    <table class="board"><thead><tr><th>Dist.</th><th>Leader / runner-up</th><th style="text-align:right">Pct.</th><th>First choices</th></tr></thead><tbody>${rows}</tbody></table>
+    <div class="board-note">D = Democrat, R = Republican, N = Nonpartisan, U = Undeclared. Percentages are shares of first-choice votes.</div>`;
+}
+function bindBoard() {
+  $('race').querySelectorAll('tr[data-d]').forEach((tr) => {
+    tr.onclick = () => selectDistrict(tr.dataset.d);
+    tr.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectDistrict(tr.dataset.d); } };
+  });
+}
+function selectDistrict(d, opts = {}) {
+  state.district = d; state.sel = d ? { type: 'dist', id: d } : null;
+  renderRace(); renderMapLayer(); renderArea();
+  if (!opts.noZoom) zoomTo(d ? districtFeature(d) : null);
+  sendHeight();
+}
+
+/* ---------- map ---------- */
+let svg, gZoom, gAreas, gLines, gHover, gSel, gLand, gWater, gRoads, gLabels, path, zoom, projSphere, mapW = 0, mapH = 0, curT = d3.zoomIdentity;
+let FEAT = {};
+function districtFeature(d) {
+  return state.tab === 'senate' ? FEAT.senate.find((f) => f.properties.sd === d) : FEAT.districts.find((f) => +f.properties.hd === +d);
+}
+function initMap() {
+  FEAT.precincts = topojson.feature(GEO, GEO.objects.precincts).features;
+  FEAT.districts = topojson.feature(GEO, GEO.objects.districts).features;
+  FEAT.senate = topojson.feature(GEO, GEO.objects.senate).features;
+  FEAT.hdMesh = topojson.mesh(GEO, GEO.objects.districts, (a, b) => a !== b);
+  FEAT.sdMesh = topojson.mesh(GEO, GEO.objects.senate, (a, b) => a !== b);
+  const pinfo = DATA.precincts;
+  FEAT.precincts.forEach((f) => { const p = pinfo[f.properties.id]; if (p) f.properties.label = p[0]; });
+  svg = d3.select('#map');
+  const defs = svg.append('defs');
+  const pat = defs.append('pattern').attr('id', 'hatch').attr('patternUnits', 'userSpaceOnUse').attr('width', 5).attr('height', 5).attr('patternTransform', 'rotate(45)');
+  pat.append('rect').attr('width', 5).attr('height', 5).attr('fill', NODATA);
+  pat.append('line').attr('x1', 0).attr('y1', 0).attr('x2', 0).attr('y2', 5).attr('stroke', '#c4c4bc').attr('stroke-width', 1.6);
+  gZoom = svg.append('g');
+  gLand = gZoom.append('g');
+  gAreas = gZoom.append('g');
+  gWater = gZoom.append('g');
+  gRoads = gZoom.append('g');
+  gLines = gZoom.append('g');
+  gHover = gZoom.append('g');
+  gSel = gZoom.append('g');
+  gLabels = svg.append('g').attr('class', 'labels');
+  zoom = d3.zoom().scaleExtent([1, 600]).filter(zoomFilter).on('zoom', (e) => { curT = e.transform; gZoom.attr('transform', e.transform); pat.attr('patternTransform', `rotate(45) scale(${1 / e.transform.k})`); hideTip(); scheduleLabels(); });
+  svg.call(zoom).on('dblclick.zoom', null);
+  svg.on('click', (e) => { if (e.target === svg.node()) { /* empty water */ } });
+  bindPinch();
+  sizeMap();
+  window.addEventListener('resize', debounce(() => { sizeMap(); renderMapLayer(); }, 150));
+  $('zin').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 2);
+  $('zout').onclick = () => svg.transition().duration(300).call(zoom.scaleBy, 0.5);
+  $('mDist').onclick = () => setMode('hd');
+  $('mPct').onclick = () => setMode('pct');
+  $('regions').innerHTML = REGIONS.map(([n]) => `<button type="button" data-r="${n}" aria-pressed="${n === state.region}">${n}</button>`).join('');
+  $('regions').querySelectorAll('button').forEach((b) => b.onclick = () => zoomRegion(b.dataset.r));
+}
+function zoomFilter(e) {
+  if (e.type === 'wheel') return state.full || e.ctrlKey || e.metaKey;
+  if (e.type.startsWith('touch')) return state.full;
+  return (!e.ctrlKey || e.type === 'wheel') && !e.button;
+}
+// Embedded on a touch screen: one finger scrolls the story, two fingers move the map.
+function bindPinch() {
+  const node = $('mapwrap');
+  let start = null, hintTimer = null, moved = false;
+  node.addEventListener('touchstart', (e) => {
+    moved = false;
+    if (state.full) return;
+    if (e.touches.length === 2) {
+      const [a, b] = [e.touches[0], e.touches[1]];
+      const r = node.getBoundingClientRect();
+      start = { d: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), cx: (a.clientX + b.clientX) / 2 - r.left, cy: (a.clientY + b.clientY) / 2 - r.top, t: curT };
+      e.preventDefault();
+    }
+  }, { passive: false });
+  node.addEventListener('touchmove', (e) => {
+    moved = true;
+    if (state.full) return;
+    if (e.touches.length === 2 && start) {
+      e.preventDefault();
+      const [a, b] = [e.touches[0], e.touches[1]];
+      const r = node.getBoundingClientRect();
+      const d = Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
+      const cx = (a.clientX + b.clientX) / 2 - r.left, cy = (a.clientY + b.clientY) / 2 - r.top;
+      const k = Math.max(1, Math.min(600, start.t.k * d / start.d));
+      const p0 = start.t.invert([start.cx, start.cy]);
+      const t = d3.zoomIdentity.translate(cx - p0[0] * k, cy - p0[1] * k).scale(k);
+      svg.call(zoom.transform, t);
+    } else if (e.touches.length === 1 && !start) {
+      clearTimeout(hintTimer); $('hint').textContent = COPY.touchHint; $('hint').classList.add('on');
+      hintTimer = setTimeout(() => $('hint').classList.remove('on'), 1300);
+    }
+  }, { passive: false });
+  node.addEventListener('touchend', (e) => { if (e.touches.length < 2) start = null; });
+}
+function sizeMap() {
+  const wrap = $('mapwrap');
+  const w = wrap.clientWidth || 640;
+  let h;
+  if (state.full) h = wrap.parentElement.clientHeight - wrap.offsetTop || window.innerHeight * 0.6;
+  else h = Math.round(w * (w < 500 ? 0.74 : 0.62));
+  if (!state.full) wrap.style.height = h + 'px'; else { wrap.style.height = ''; h = wrap.clientHeight || h; }
+  mapW = w; mapH = h;
+  svg.attr('viewBox', `0 0 ${w} ${h}`);
+  const pad = state.full ? 24 : 8;
+  const proj = d3.geoIdentity().reflectY(true).fitExtent([[pad, pad + (state.full ? 40 : 0)], [w - pad - 40, h - pad]], { type: 'FeatureCollection', features: FEAT.districts });
+  path = d3.geoPath(proj);
+  path._proj = proj;
+  zoom.extent([[0, 0], [w, h]]).translateExtent([[-w * .5, -h * .5], [w * 1.5, h * 1.5]]);
+}
+function setMode(m) {
+  state.mode = m;
+  $('mDist').setAttribute('aria-pressed', m === 'hd'); $('mPct').setAttribute('aria-pressed', m === 'pct');
+  if (state.sel && state.sel.type === 'pct' && m === 'hd') state.sel = null;
+  renderMapLayer(); renderArea();
+}
+function features() {
+  if (state.mode === 'pct') return FEAT.precincts;
+  return state.tab === 'senate' ? FEAT.senate : FEAT.districts;
+}
+function keyOf(f) { return state.mode === 'pct' ? f.properties.id : (state.tab === 'senate' ? f.properties.sd : String(f.properties.hd)); }
+function renderMapLayer() {
+  if (!svg) return;
+  const feats = features();
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  const distKey = (f) => state.tab === 'senate' ? f.properties.sd : String(f.properties.hd);
+  const sel = gAreas.selectAll('path.a').data(feats, (f) => (state.mode === 'pct' ? 'p' : state.tab === 'senate' ? 's' : 'h') + keyOf(f));
+  sel.exit().remove();
+  sel.enter().append('path').attr('class', 'a')
+    .on('pointerenter', (e, f) => { if (e.pointerType === 'mouse') hover(e, f); })
+    .on('pointermove', (e, f) => { if (e.pointerType === 'mouse') moveTip(e); })
+    .on('pointerleave', () => { gHover.selectAll('*').remove(); hideTip(); })
+    .on('click', (e, f) => clickArea(f))
+    .merge(sel)
+    .attr('d', path)
+    .attr('fill', fillFor)
+    .classed('dim', (f) => legislative && state.district && distKey(f) !== String(state.district));
+  const mesh = state.mode === 'pct' ? (state.tab === 'senate' ? FEAT.sdMesh : FEAT.hdMesh) : (state.tab === 'senate' ? null : null);
+  gLines.selectAll('path').data(mesh ? [mesh] : []).join('path').attr('class', 'hdline').attr('d', path);
+  drawBase();
+  drawSel();
+  renderLegend();
+  $('mapNote').textContent = state.mode === 'pct' ? COPY.precinctNote : '';
+  $('mapNote').hidden = state.mode !== 'pct';
+  $('map').setAttribute('aria-label', `Map of ${legislative ? (state.tab === 'house' ? 'State House' : 'State Senate') : title(byId[state.tab])} results by ${state.mode === 'pct' ? 'precinct' : 'district'}`);
+}
+/* ---------- basemap ---------- */
+let baseDrawn = false, labelRAF = 0;
+function drawBase() {
+  if (!BASE) return;
+  if (!BASE._f) {
+    const o = BASE.objects;
+    BASE._f = {
+      land: topojson.feature(BASE, o.neighbors).features,
+      lakes: topojson.feature(BASE, o.lakes).features,
+      rivers: topojson.feature(BASE, o.rivers).features,
+      roads: topojson.feature(BASE, o.roads).features
+    };
+  }
+  const F = BASE._f;
+  gLand.selectAll('path').data(F.land).join('path').attr('class', 'bm-land').attr('d', path);
+  gWater.selectAll('path.bm-lake').data(F.lakes).join('path').attr('class', 'bm-lake').attr('d', path);
+  gWater.selectAll('path.bm-river').data(F.rivers).join('path').attr('class', 'bm-river').attr('d', path);
+  gRoads.selectAll('path.bm-case').data(F.roads).join('path').attr('class', (f) => 'bm-case r' + f.properties.cls).attr('d', path);
+  gRoads.selectAll('path.bm-road').data(F.roads).join('path').attr('class', (f) => 'bm-road r' + f.properties.cls).attr('d', path);
+  [gWater, gRoads, gLabels].forEach((g) => g.attr('display', showBase ? null : 'none'));
+  baseDrawn = true;
+  scheduleLabels();
+}
+function scheduleLabels() { if (!labelRAF) labelRAF = requestAnimationFrame(() => { labelRAF = 0; drawLabels(); }); }
+// Screen-space labels: same pixel size at every zoom; greedy placement by tier, then population.
+const TIER_MIN_K = { 1: 1, 2: 1, 3: 3.5, 4: 7, 5: 22, 6: 0, 7: 0 };
+const TIER_MAX_K = { 6: 3, 7: 4 };
+function drawLabels() {
+  if (!BASE || !showBase || !path) { gLabels.selectAll('*').remove(); return; }
+  const k = curT.k, P = path._proj;
+  const legislativeSel = (state.tab === 'house' || state.tab === 'senate') && state.district;
+  const cand = BASE.labels.filter((l) => k >= (TIER_MIN_K[l[4]] || 1) && (!TIER_MAX_K[l[4]] || k < TIER_MAX_K[l[4]]))
+    .sort((a, b) => (a[4] >= 6) - (b[4] >= 6) || a[4] - b[4] || b[3] - a[3]);
+  const placed = [], out = [];
+  const hit = (b) => placed.some((q) => b[0] < q[2] && b[2] > q[0] && b[1] < q[3] && b[3] > q[1]);
+  const W = mapW, H = mapH;
+  for (const l of cand) {
+    const [sx0, sy0] = P([l[1], l[2]]);
+    const sx = curT.applyX(sx0), sy = curT.applyY(sy0);
+    if (sx < -20 || sy < -10 || sx > W + 20 || sy > H + 10) continue;
+    const t = l[4];
+    const fs = t === 1 ? 12 : t === 5 ? 9.5 : t >= 6 ? 10.5 : 11;
+    const txt = t === 5 || t === 7 ? l[0].toUpperCase() : l[0];
+    const w = txt.length * fs * (t === 7 ? 0.82 : t === 5 ? 0.68 : 0.56), h = fs + 2;
+    const dot = t <= 4;
+    const opts = dot ? [[sx + 5, sy - h / 2, 'start'], [sx - 5 - w, sy - h / 2, 'end'], [sx - w / 2, sy - h - 5, 'middle']] : [[sx - w / 2, sy - h / 2, 'middle']];
+    let ok = null;
+    for (const [x, y, anchor] of opts) {
+      const b = [x - 2, y - 1, x + w + 2, y + h + 1];
+      if (b[0] < 2 || b[2] > W - 44 || b[1] < 2 || b[3] > H - 2) continue;
+      if (!hit(b)) { ok = { b, anchor }; break; }
+    }
+    if (!ok) continue;
+    placed.push(ok.b);
+    if (dot) placed.push([sx - 3, sy - 3, sx + 3, sy + 3]);
+    out.push({ l, sx, sy, anchor: ok.anchor, txt, dot, t });
+    if (out.length > 90) break;
+  }
+  const sel = gLabels.selectAll('g.lb').data(out, (d) => d.l[0] + d.l[1]);
+  sel.exit().remove();
+  const g = sel.enter().append('g').attr('class', 'lb');
+  g.append('circle').attr('r', 2.2);
+  g.append('text');
+  const all = g.merge(sel).attr('transform', (d) => `translate(${d.sx},${d.sy})`);
+  all.select('circle').attr('display', (d) => d.dot ? null : 'none');
+  all.select('text').attr('class', (d) => 't' + d.t).text((d) => d.txt)
+    .attr('text-anchor', (d) => d.anchor).attr('dominant-baseline', 'central')
+    .attr('x', (d) => d.dot ? (d.anchor === 'start' ? 5 : d.anchor === 'end' ? -5 : 0) : 0)
+    .attr('y', (d) => d.dot && d.anchor === 'middle' ? -9 : 0);
+}
+function drawSel() {
+  let f = null;
+  if (state.sel) {
+    if (state.sel.type === 'pct') f = FEAT.precincts.find((x) => x.properties.id === state.sel.id);
+    else f = districtFeature(state.sel.id);
+  }
+  gSel.selectAll('path').data(f ? [f] : []).join('path').attr('class', 'sel').attr('d', path);
+}
+function hover(e, f) {
+  gHover.selectAll('path').data([f]).join('path').attr('class', 'hover').attr('d', path);
+  const r = areaResult(f);
+  const L = leaderOf(r);
+  const name = areaName(f);
+  let line = '';
+  if (!r.c) line = COPY.notOnBallot;
+  else if (!L) line = COPY.noResults;
+  else { const x = r.c.candidates[L.i]; line = `${esc(x.name)} ${fp(pct(r.votes[L.i], L.tot))}`; }
+  const t = $('tip'); t.innerHTML = `<b>${esc(name)}</b><span>${line}</span>`; t.hidden = false; moveTip(e);
+}
+function moveTip(e) {
+  const t = $('tip'), r = $('mapwrap').getBoundingClientRect();
+  let x = e.clientX - r.left + 14, y = e.clientY - r.top + 14;
+  if (x + t.offsetWidth > r.width - 4) x = e.clientX - r.left - t.offsetWidth - 14;
+  if (y + t.offsetHeight > r.height - 4) y = e.clientY - r.top - t.offsetHeight - 14;
+  t.style.left = x + 'px'; t.style.top = y + 'px';
+}
+function hideTip() { $('tip').hidden = true; }
+function areaName(f) {
+  const p = f.properties;
+  if (state.mode === 'pct') return `${p.id} ${p.label || p.name}`;
+  return state.tab === 'senate' ? `Senate District ${p.sd}` : `House District ${p.hd}`;
+}
+function clickArea(f) {
+  const p = f.properties;
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  if (legislative) {
+    const d = state.tab === 'house' ? String(p.hd) : p.sd;
+    if (state.tab === 'senate' && !byId['sd' + d]) { state.sel = { type: state.mode === 'pct' ? 'pct' : 'dist', id: state.mode === 'pct' ? p.id : d }; drawSel(); renderArea(); return; }
+    if (String(state.district) !== d) { state.district = d; renderRace(); renderMapLayer(); if (state.mode === 'hd') zoomTo(districtFeature(d)); }
+  }
+  state.sel = state.mode === 'pct' ? { type: 'pct', id: p.id } : { type: 'dist', id: state.tab === 'senate' ? p.sd : String(p.hd) };
+  drawSel(); renderArea(); sendHeight();
+}
+function zoomTo(f, dur = 650) {
+  if (!svg) return;
+  if (!f) { svg.transition().duration(dur).call(zoom.transform, d3.zoomIdentity); setRegionPressed('Statewide'); return; }
+  const [[x0, y0], [x1, y1]] = path.bounds(f);
+  zoomBox(x0, y0, x1, y1, dur);
+  setRegionPressed(null);
+}
+function zoomBox(x0, y0, x1, y1, dur = 650) {
+  const k = Math.min(600, 0.9 / Math.max((x1 - x0) / mapW, (y1 - y0) / mapH));
+  const t = d3.zoomIdentity.translate(mapW / 2, mapH / 2).scale(Math.max(1, k)).translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+  svg.transition().duration(dur).call(zoom.transform, t);
+}
+function zoomRegion(n) {
+  const box = (GEO.regions || {})[n];
+  setRegionPressed(n);
+  if (!box) { svg.transition().duration(650).call(zoom.transform, d3.zoomIdentity); return; }
+  const a = path._proj([box[0], box[1]]), b = path._proj([box[2], box[3]]);
+  zoomBox(Math.min(a[0], b[0]), Math.min(a[1], b[1]), Math.max(a[0], b[0]), Math.max(a[1], b[1]));
+}
+function setRegionPressed(n) { state.region = n; $('regions').querySelectorAll('button').forEach((b) => b.setAttribute('aria-pressed', b.dataset.r === n)); }
+
+/* ---------- legend ---------- */
+function renderLegend() {
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  let items = [];
+  if (legislative && !state.district) {
+    items = [['Democrat', PARTY.D.hex], ['Republican', PARTY.R.hex], ['Nonpartisan or undeclared', PARTY.N.hex]];
+  } else {
+    const c = contestFor(state.tab, state.district);
+    if (c) items = c.candidates.filter((x) => x.votes > 0).map((x) => [x.name, x.hex]);
+  }
+  const ramp = `<span class="ramp">Margin <span>${TINTS.map((t) => `<i style="background:${d3.interpolateLab('#fff', '#555')(t)}"></i>`).join('')}</span> &lt;5 to 30+ pts</span>`;
+  let extra = `<span class="lk"><i style="background:${NODATA}"></i>No results</span>`;
+  if (state.tab === 'senate') extra += `<span class="lk"><i class="hatch"></i>Not on ballot</span>`;
+  const tog = BASE ? `<button type="button" class="bm-toggle" id="bmToggle" aria-pressed="${showBase}"><i></i>${esc(COPY.basemapToggle)}</button>` : '';
+  $('legend').innerHTML = items.map(([n, h]) => `<span class="lk"><i style="background:${h}"></i>${esc(n)}</span>`).join('') + ramp + extra + tog;
+  if (BASE) $('bmToggle').onclick = () => { showBase = !showBase; drawBase(); renderLegend(); };
+}
+
+/* ---------- selected-area panel ---------- */
+function renderArea() {
+  const el = $('area');
+  if (!state.sel) { el.innerHTML = `<div class="area-empty">${COPY.areaPrompt}</div>`; return; }
+  let f, r, name, sub = '';
+  if (state.sel.type === 'pct') {
+    f = FEAT.precincts.find((x) => x.properties.id === state.sel.id);
+    const prevMode = state.mode; state.mode = 'pct'; r = areaResult(f); state.mode = prevMode;
+    const p = DATA.precincts[f.properties.id];
+    name = `${f.properties.id} ${p ? p[0] : f.properties.name}`;
+    sub = `House District ${f.properties.hd} &middot; Senate District ${f.properties.sd} &middot; <span class="num">${fmt(p ? p[3] : 0)}</span> Election Day ballots`;
+  } else {
+    f = districtFeature(state.sel.id);
+    const prevMode = state.mode; state.mode = 'hd'; r = areaResult(f); state.mode = prevMode;
+    name = state.tab === 'senate' ? `Senate District ${state.sel.id}` : `House District ${state.sel.id}`;
+    if (r.c) sub = `<span class="num">${fmt(r.ballots)}</span> ballots counted`;
+  }
+  let body = '';
+  if (!r.c) body = `<div class="sub">${COPY.notOnBallot}${holdoverLine(f)}</div>`;
+  else {
+    const tot = d3.sum(r.votes);
+    const order = r.c.candidates.map((x, i) => [x, r.votes[i]]).sort((a, b) => b[1] - a[1]);
+    body = tot ? `<div class="mini">${order.map(([x, v]) => `<div class="n"><i style="background:${x.hex}"></i><span>${esc(x.name)}</span></div><div class="p">${fp(pct(v, tot))}</div><div class="v">${fmt(v)}</div>`).join('')}</div>` : `<div class="sub">${COPY.noResults}</div>`;
+    if (state.tab === 'house' || state.tab === 'senate') sub = `${esc(title(r.c))} race &middot; ${sub}`;
+  }
+  el.innerHTML = `<div class="area-head"><div><h3>${esc(name)}</h3><div class="sub">${sub}</div></div><button type="button" id="areaClose">Clear</button></div>${body}`;
+  $('areaClose').onclick = () => { state.sel = null; drawSel(); renderArea(); sendHeight(); };
+}
+function holdoverLine(f) {
+  const h = DATA.senateHoldovers[f.properties.sd];
+  return h ? `. Held by ${esc(h.name)} (${esc(h.party)}) through 2028.` : '';
+}
+
+/* ---------- find ---------- */
+function initFind() {
+  const idx = Object.entries(DATA.precincts).map(([id, p]) => ({ id, label: `${id} ${p[0]}`, hd: p[1], t: 'pct' }))
+    .concat(d3.range(1, 41).map((d) => ({ id: String(d), label: `House District ${d}`, t: 'hd' })));
+  const inp = $('findInput'), ul = $('findList');
+  let hits = [], cur = -1;
+  const close = () => { ul.hidden = true; inp.setAttribute('aria-expanded', 'false'); };
+  const pick = (h) => {
+    close(); inp.value = ''; inp.blur();
+    if (h.t === 'hd') {
+      if (state.tab === 'senate') setTab('house');
+      if (state.tab === 'house') { selectDistrict(h.id); return; }
+      setMode('hd'); state.sel = { type: 'dist', id: h.id }; drawSel(); renderArea(); zoomTo(districtFeature(h.id));
+    } else {
+      setMode('pct');
+      const f = FEAT.precincts.find((x) => x.properties.id === h.id);
+      if (state.tab === 'house' && String(state.district) !== String(f.properties.hd)) { state.district = String(f.properties.hd); renderRace(); renderMapLayer(); }
+      state.sel = { type: 'pct', id: h.id }; drawSel(); renderArea();
+      const [[x0, y0], [x1, y1]] = path.bounds(f);
+      const pad = Math.max(x1 - x0, y1 - y0) * 1.5;
+      zoomBox(x0 - pad, y0 - pad, x1 + pad, y1 + pad); setRegionPressed(null);
+    }
+    sendHeight();
+  };
+  inp.oninput = () => {
+    const q = inp.value.trim().toLowerCase();
+    if (!q) { close(); return; }
+    const num = q.replace(/^(hd|house district|district)\s*/, '');
+    hits = idx.filter((h) => h.label.toLowerCase().includes(q) || (h.t === 'hd' && num && h.id === num)).slice(0, 12);
+    cur = -1;
+    ul.innerHTML = hits.map((h, i) => `<li role="option" id="fo${i}" data-i="${i}">${esc(h.label)}${h.t === 'pct' ? `<small>HD ${h.hd}</small>` : ''}</li>`).join('') || '<li aria-disabled="true">No match</li>';
+    ul.hidden = false; inp.setAttribute('aria-expanded', 'true');
+    ul.querySelectorAll('li[data-i]').forEach((li) => li.onpointerdown = (e) => { e.preventDefault(); pick(hits[+li.dataset.i]); });
+  };
+  inp.onkeydown = (e) => {
+    if (ul.hidden) return;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault(); cur = Math.max(0, Math.min(hits.length - 1, cur + (e.key === 'ArrowDown' ? 1 : -1)));
+      ul.querySelectorAll('li').forEach((li, i) => li.setAttribute('aria-selected', i === cur)); inp.setAttribute('aria-activedescendant', 'fo' + cur);
+    } else if (e.key === 'Enter') { e.preventDefault(); if (hits[Math.max(cur, 0)]) pick(hits[Math.max(cur, 0)]); }
+    else if (e.key === 'Escape') close();
+  };
+  inp.onblur = () => setTimeout(close, 120);
+}
+
+/* ---------- ranked choice ---------- */
+function renderRCV() {
+  const el = $('rcv');
+  const id = state.tab;
+  if (RESULTS_ONLY || !RCV_CONTESTS.includes(id) || !byId[id]) { el.hidden = true; return; }
+  el.hidden = false;
+  const c = byId[id];
+  const data = RCV[id];
+  if (!data) { el.innerHTML = rcvPendingHTML(c); return; }
+  const rounds = data.rounds;
+  if (state.round == null || state.round >= rounds.length) state.round = rounds.length - 1;
+  const R = rounds[state.round];
+  const colorOf = {}; c.candidates.forEach((x) => colorOf[x.name] = x.hex);
+  let k = 0; const first = Object.keys(rounds[0].tally).sort((a, b) => rounds[0].tally[b] - rounds[0].tally[a]);
+  first.forEach((n) => { if (!colorOf[n]) colorOf[n] = SECONDARY.concat(['#a6761d', '#666', '#e7298a', '#1b9e77'])[k++ % 8]; });
+  const outRound = (n) => rounds.findIndex((r) => r.tally[n] === undefined);
+  const order = first.slice().sort((a, b) => {
+    const va = R.tally[a], vb = R.tally[b];
+    if (va !== undefined && vb !== undefined) return vb - va;
+    if (va !== undefined) return -1; if (vb !== undefined) return 1;
+    return outRound(b) - outRound(a);
+  });
+  const cont = d3.sum(Object.values(R.tally));
+  const maxV = d3.max(rounds, (r) => d3.max(Object.values(r.tally)));
+  const scaleMax = Math.max(maxV, cont / 2) * 1.04;
+  const prev = state.round > 0 ? rounds[state.round - 1] : null;
+  const elimNow = new Set(R.eliminated);
+  const rows = order.map((n) => {
+    const v = R.tally[n];
+    if (v === undefined) {
+      return `<div class="rrow out"><div class="rn">${esc(shortName(n))}</div><div class="rtrack"><span class="elim">Eliminated in round ${rounds.findIndex((r) => r.eliminated.includes(n)) + 1}</span></div></div>`;
+    }
+    const base = prev && prev.tally[n] !== undefined ? Math.min(prev.tally[n], v) : v;
+    const gain = v - base;
+    const wB = base / scaleMax * 100, wG = gain / scaleMax * 100;
+    const last = state.round === rounds.length - 1;
+    const note = elimNow.has(n) ? '<small>Eliminated this round</small>' : gain > 0 ? `<small>+${fmt(Math.round(gain))} from round ${state.round}</small>` : '';
+    return `<div class="rrow"><div class="rn">${esc(shortName(n))}${note}</div><div class="rtrack">
+      <span class="base" style="width:${wB}%;background:${colorOf[n]}${elimNow.has(n) ? ';opacity:.45' : ''}"></span>
+      <span class="gain" style="left:${wB}%;width:${wG}%;background:${d3.interpolateLab('#fff', colorOf[n])(0.5)}"></span>
+      <span class="val" style="left:calc(${wB + wG}% + 4px)">${fp(pct(v, cont))}<small>${fmt(Math.round(v))}</small></span></div></div>`;
+  }).join('');
+  const maj = (cont / 2) / scaleMax * 100;
+  const btns = rounds.map((r, i) => `<button type="button" class="rd" data-r="${i}" aria-pressed="${i === state.round}">${i === rounds.length - 1 ? 'Final' : r.round}</button>`).join('');
+  let transfer = '';
+  const nextElim = R.eliminated[0];
+  if (nextElim && R.transfers[nextElim]) {
+    const tr = R.transfers[nextElim]; const T = d3.sum(Object.values(tr));
+    const parts = Object.entries(tr).sort((a, b) => (a[0] === 'Inactive') - (b[0] === 'Inactive') || b[1] - a[1]);
+    transfer = `<div class="transfer"><h3>Where ${esc(shortName(nextElim))}’s ${fmt(Math.round(T))} ballots go next</h3>
+      <div class="tbar">${parts.map(([n, v]) => `<b style="flex:${v};background:${n === 'Inactive' ? '#c9c9c3' : colorOf[n]}" title="${esc(n)} ${fmt(Math.round(v))}"></b>`).join('')}</div>
+      <div class="tkey">${parts.map(([n, v]) => `<span><i style="background:${n === 'Inactive' ? '#c9c9c3' : colorOf[n]}"></i>${esc(shortName(n))} ${fp(pct(v, T))}</span>`).join('')}</div></div>`;
+  }
+  el.innerHTML = `<h2>${COPY.rcvTitle}: ${esc(title(c))}</h2><p class="dek">${esc(data.label || COPY.rcvLabelDefault)}</p>
+    <div class="rounds"><span class="label lbl">Round</span>${btns}</div>
+    <div class="rcv-chart"><div class="rcv-axis"></div>${rows}
+      <div class="majline"></div></div>
+    <div class="rcv-foot"><span class="num">${fmt(Math.round(cont))}</span> continuing ballots &middot; <span class="num">${fmt(Math.round(R.inactive))}</span> inactive. Dashed line marks a majority of continuing ballots.</div>${transfer}
+    ${cvrGapHTML()}`;
+  positionMajLine(maj);
+  el.querySelectorAll('button.rd').forEach((b) => b.onclick = () => { state.round = +b.dataset.r; renderRCV(); sendHeight(); });
+  const gb = $('gapBtn');
+  if (gb) gb.onclick = () => { state.gapOpen = !state.gapOpen; gb.setAttribute('aria-expanded', state.gapOpen); $('gapList').hidden = !state.gapOpen; sendHeight(); };
+}
+function cvrGapHTML() {
+  const g = DATA.cvrGap;
+  if (!g || !g.missing || !g.missing.length) return '';
+  const byHd = d3.groups(g.missing, (m) => m[2]).sort((a, b) => a[0] - b[0]);
+  const list = byHd.map(([hd, ms]) => `<li><b>House District ${hd}:</b> ${ms.map((m) => esc(m[1])).join(', ')}</li>`).join('');
+  const btn = `<button type="button" class="gap-btn" id="gapBtn" aria-expanded="${!!state.gapOpen}" aria-controls="gapList">${COPY.cvrGapButton(g.missing.length)}</button>`;
+  const text = esc(COPY.cvrGap).replace('{missing}', btn);
+  return `<div class="cvr-gap"><p>${text}</p><ul id="gapList" ${state.gapOpen ? '' : 'hidden'}>${list}</ul></div>`;
+}
+function positionMajLine(maj) {
+  const chart = $('rcv').querySelector('.rcv-chart'); const track = chart && chart.querySelector('.rtrack');
+  if (!track) return;
+  const cr = chart.getBoundingClientRect(), tr = track.getBoundingClientRect();
+  const left = tr.left - cr.left + tr.width * maj / 100;
+  const line = chart.querySelector('.majline');
+  line.style.left = left + 'px';
+  line.innerHTML = `<span class="majlbl" style="left:0">Majority</span>`;
+}
+function rcvPendingHTML(c) {
+  const tot = d3.sum(c.candidates, (x) => x.votes);
+  const max = d3.max(c.candidates, (x) => x.votes);
+  const scaleMax = Math.max(max, tot / 2) * 1.04;
+  const rows = c.candidates.map((x) => {
+    const w = x.votes / scaleMax * 100;
+    return `<div class="rrow"><div class="rn">${esc(shortName(x.name))}</div><div class="rtrack"><span class="base" style="width:${w}%;background:${x.hex};border-radius:0 2px 2px 0"></span><span class="val" style="left:calc(${w}% + 6px)">${fp(pct(x.votes, tot))}<small>${fmt(x.votes)}</small></span></div></div>`;
+  }).join('');
+  const maj = (tot / 2) / scaleMax * 100;
+  setTimeout(() => positionMajLine(maj), 0);
+  return `<h2>${COPY.rcvTitle}: ${esc(title(c))}</h2><p class="dek">${COPY.firstChoice}</p>
+    <div class="rcv-chart"><div class="rcv-axis"></div>${rows}<div class="majline"></div></div>
+    <div class="pending">${COPY.rcvPending}</div>`;
+}
+
+/* ---------- balance of power ---------- */
+function seatList(chamber) {
+  const seats = [];
+  if (chamber === 'house') {
+    for (let d = 1; d <= 40; d++) seats.push(seatFor(byId['hd' + d], String(d)));
+  } else {
+    'ABCDEFGHIJKLMNOPQRST'.split('').forEach((L) => {
+      const c = byId['sd' + L];
+      if (c) seats.push(seatFor(c, L));
+      else { const h = DATA.senateHoldovers[L]; seats.push({ d: L, bloc: h ? ({ D: 'D', R: 'R', N: 'I', U: 'I', I: 'I' }[h.party] || 'O') : 'X', hold: true }); }
+    });
+  }
+  return seats;
+}
+function seatFor(c, d) {
+  if (!c || !c.call || !c.call.winner) return { d, bloc: 'X' };
+  const w = c.candidates.find((x) => x.name === c.call.winner);
+  return { d, bloc: w ? blocOf(w) : 'O' };
+}
+let bopMode = 'party';
+function renderBOP() {
+  const el = $('bop');
+  if (RESULTS_ONLY) { el.hidden = true; return; }
+  const cau = DATA.caucus || {};
+  const hasCaucus = cau.house && Object.keys(cau.house).length || cau.senate && Object.keys(cau.senate).length;
+  const toggle = hasCaucus ? `<div class="seg" role="group" aria-label="Group seats by"><button type="button" data-m="party" aria-pressed="${bopMode === 'party'}">Party</button><button type="button" data-m="caucus" aria-pressed="${bopMode === 'caucus'}">Caucus</button></div>` : '';
+  const block = (chamber, name, total) => {
+    const seats = seatList(chamber);
+    let groups;
+    if (bopMode === 'caucus' && hasCaucus) {
+      const map = cau[chamber] || {};
+      const keys = Object.keys(cau.groups || {});
+      groups = keys.map((k) => ({ k, label: cau.groups[k].label, hex: cau.groups[k].color, seats: seats.filter((s) => map[s.d] === k) }));
+      groups.push({ k: 'X', label: 'Not assigned', hex: NODATA, seats: seats.filter((s) => !keys.includes(map[s.d])) });
+    } else {
+      const order = ['D', 'I', 'O', 'X', 'R'];
+      groups = order.map((b) => ({ k: b, label: b === 'X' ? COPY.bopUncalled : BLOC[b].label, hex: b === 'X' ? NODATA : BLOC[b].hex, seats: seats.filter((s) => s.bloc === b) }));
+    }
+    const cells = groups.flatMap((g) => {
+      const s = g.seats.slice().sort((a, b) => (a.hold === b.hold) ? 0 : a.hold ? -1 : 1);
+      return s.map((x) => `<b style="background:${x.hold && bopMode === 'party' ? d3.interpolateLab('#fff', g.hex)(0.45) : g.hex}" title="${chamber === 'house' ? 'HD' : 'SD'} ${x.d}${x.hold ? ' (' + COPY.bopHoldover.toLowerCase() + ')' : ''}"></b>`);
+    }).join('');
+    const majority = Math.floor(total / 2) + 1;
+    const counts = groups.filter((g) => g.seats.length).map((g) => {
+      const held = g.seats.filter((s) => s.hold).length;
+      return `<span><i style="background:${g.hex}"></i>${esc(g.label)} <strong>${g.seats.length}</strong>${held && bopMode === 'party' ? `<em style="font-style:normal;color:var(--ink-3)">(${held} ${COPY.bopHoldover.toLowerCase()})</em>` : ''}</span>`;
+    }).join('');
+    return `<div><div class="bop-h"><h3>${name}</h3><span class="label">${total} seats</span></div>
+      <div class="seats">${cells}<div class="maj" style="left:50%"><span>${majority} for majority</span></div></div>
+      <div class="bop-counts">${counts}</div></div>`;
+  };
+  el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div><h2>${COPY.bopTitle}</h2><p class="dek">${COPY.bopDek}</p></div>${toggle}</div>
+    <div class="bop">${block('house', 'State House', 40)}${block('senate', 'State Senate', 20)}</div>`;
+  el.querySelectorAll('[data-m]').forEach((b) => b.onclick = () => { bopMode = b.dataset.m; renderBOP(); });
+}
+
+/* ---------- footer ---------- */
+function renderFoot() {
+  $('foot').innerHTML = `${RESULTS_ONLY ? '' : `<p class="rcvx">${esc(COPY.rcvExplainer)}</p>`}<p>${esc(COPY.source)}</p>${BASE ? `<p>${esc(COPY.basemapCredit)}</p>` : ''}${COPY.disclosure ? `<p>${esc(COPY.disclosure)}</p>` : ''}`;
+}
+
+/* ---------- full screen ---------- */
+const inIframe = window.self !== window.top;
+function setFull(on) {
+  state.full = on;
+  document.documentElement.classList.toggle('is-full', on);
+  if (pyChild) pyChild.sendMessage('akpm-fullscreen', on ? '1' : '0');
+  else if (inIframe && on && document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {});
+  else if (inIframe && !on && document.fullscreenElement) document.exitFullscreen().catch(() => {});
+  setTimeout(() => { sizeMap(); renderMapLayer(); svg.call(zoom.transform, curT); sendHeight(); }, 60);
+}
+document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement && state.full && !pyChild) setFull(false); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && state.full) setFull(false); });
+
+/* ---------- pym ---------- */
+function sendHeight() { if (pyChild && !state.full) requestAnimationFrame(() => pyChild.sendHeight()); }
+function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
+
+/* ---------- boot ---------- */
+async function getJSON(u) { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 60000), { cache: 'no-store' }); if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }
+async function loadRCV() {
+  RCV = {};
+  if (RESULTS_ONLY) return;
+  const avail = DATA.rcv || [];
+  await Promise.all(RCV_CONTESTS.filter((id) => DEMO || avail.includes(id)).map(async (id) => {
+    try { RCV[id] = await getJSON(DEMO ? 'data/test/rcv-fixture.json' : `data/rcv/${id}.json`); } catch (e) { /* not published yet */ }
+  }));
+}
+function index() {
+  byId = {};
+  DATA.contests.forEach((c) => { colorize(c); byId[c.id] = c; });
+  if (DEMO) DATA.contests.forEach((c) => { if (c.kind === 'house' || c.kind === 'senate') { if (d3.sum(c.candidates, (x) => x.votes)) c.call = { winner: c.candidates[0].name, by: 'TEST' }; } });
+}
+async function boot() {
+  if (window.pym && qs.has('childId')) pyChild = new pym.Child({ polling: 0 });
+  if (!qs.has('childId')) document.documentElement.classList.add('standalone');
+  document.getElementById('app').dataset.view = VIEW;
+  [DATA, GEO, BASE] = await Promise.all([getJSON('data/results.json'), getJSON('data/geo.json'), getJSON('data/base.json').catch(() => null)]);
+  await loadRCV();
+  index();
+  renderHeader(); renderTabs(); renderRace(); initMap(); initFind(); renderMapLayer(); renderArea(); renderRCV(); renderBOP(); renderFoot();
+  $('fsOpen').onclick = () => setFull(true);
+  $('fsClose').onclick = () => setFull(false);
+  if (pyChild) pyChild.onMessage('akpm-resize', () => { sizeMap(); renderMapLayer(); sendHeight(); });
+  window.addEventListener('resize', debounce(() => { const m = $('rcv').querySelector('.majline'); if (m) renderRCV(); sendHeight(); }, 150));
+  sendHeight(); setTimeout(sendHeight, 600);
+  setInterval(refresh, 120000);
+}
+async function refresh() {
+  try {
+    const d = await getJSON('data/results.json');
+    if (JSON.stringify(d.contests.map((c) => c.ballots)) === JSON.stringify(DATA.contests.map((c) => c.ballots)) && d.asOf === DATA.asOf) return;
+    DATA = d; await loadRCV(); index();
+    renderHeader(); renderRace(); renderMapLayer(); renderArea(); renderRCV(); renderBOP(); sendHeight();
+  } catch (e) { /* keep showing what we have */ }
+}
+boot().catch((e) => { $('race').innerHTML = `<p class="pending">Results could not load. ${esc(e.message)}</p>`; });
+</script>
+</body>
+</html>

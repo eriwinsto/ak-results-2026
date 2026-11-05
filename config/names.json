@@ -1,0 +1,6 @@
+{
+  "_note": "Display-name overrides. Key = candidate_name exactly as in the Division CSV. Default rule: nickname in quotes replaces first name; middle initials dropped.",
+  "Jimmie, Nellie \"Unangiq\"": "Nellie Unangiq Jimmie",
+  "Foster, Neal W. \"Quannaq\"": "Neal Foster",
+  "Frier, Robyn Niayuq Burke": "Robyn Niayuq Burke Frier"
+}

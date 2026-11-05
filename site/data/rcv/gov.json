@@ -1,0 +1,72 @@
+{
+ "contest": "gov",
+ "label": "",
+ "rctab": {
+  "contest": "Alaska Governor",
+  "generatedBy": "RCTab 2.1.0"
+ },
+ "writeInRoundFolded": false,
+ "repeatedRoundsMerged": 1,
+ "rounds": [
+  {
+   "round": 1,
+   "tally": {
+    "Kreiss-Tomkins / Johnson": 97999.0,
+    "Wilson / Shower": 59740.0,
+    "Bronson / Church": 28592.0,
+    "Taylor / English": 14904.0
+   },
+   "inactive": 678.0,
+   "threshold": 100618.0,
+   "eliminated": [
+    "Taylor / English"
+   ],
+   "elected": [],
+   "transfers": {
+    "Taylor / English": {
+     "Kreiss-Tomkins / Johnson": 786.0,
+     "Wilson / Shower": 4895.0,
+     "Bronson / Church": 4349.0,
+     "Inactive": 4874.0
+    }
+   }
+  },
+  {
+   "round": 2,
+   "tally": {
+    "Kreiss-Tomkins / Johnson": 98785.0,
+    "Wilson / Shower": 64635.0,
+    "Bronson / Church": 32941.0
+   },
+   "inactive": 5552.0,
+   "threshold": 98181.0,
+   "eliminated": [
+    "Bronson / Church"
+   ],
+   "elected": [
+    "Kreiss-Tomkins / Johnson"
+   ],
+   "transfers": {
+    "Bronson / Church": {
+     "Kreiss-Tomkins / Johnson": 2172.0,
+     "Wilson / Shower": 18867.0,
+     "Inactive": 11902.0
+    }
+   }
+  },
+  {
+   "round": 3,
+   "tally": {
+    "Kreiss-Tomkins / Johnson": 100957.0,
+    "Wilson / Shower": 83502.0
+   },
+   "inactive": 17454.0,
+   "threshold": 98181.0,
+   "eliminated": [],
+   "elected": [],
+   "transfers": {}
+  }
+ ],
+ "totalBallots": 204400.0,
+ "undervotes": 2487.0
+}

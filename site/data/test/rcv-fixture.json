@@ -1,0 +1,180 @@
+{
+ "contest": "gov",
+ "label": "TEST: RCTab's own Alaska Dominion test fixture (synthetic ballots)",
+ "rctab": {
+  "contest": "Alaska Dominion test",
+  "generatedBy": "RCTab 2.0.0"
+ },
+ "writeInRoundFolded": true,
+ "rounds": [
+  {
+   "round": 1,
+   "tally": {
+    "Amy Klobuchar": 110.0,
+    "Bernie Sanders": 129.0,
+    "Elizabeth Warren": 111.0,
+    "Joseph R. Biden": 120.0,
+    "Michael R. Bloomberg": 116.0,
+    "Pete Buttigieg": 113.0,
+    "Tom Steyer": 112.0,
+    "Tulsi Gabbard": 132.0
+   },
+   "inactive": 2.0,
+   "threshold": 472.0,
+   "eliminated": [
+    "Amy Klobuchar"
+   ],
+   "elected": [],
+   "transfers": {
+    "Amy Klobuchar": {
+     "Bernie Sanders": 21.0,
+     "Elizabeth Warren": 8.0,
+     "Joseph R. Biden": 18.0,
+     "Michael R. Bloomberg": 12.0,
+     "Pete Buttigieg": 13.0,
+     "Tom Steyer": 22.0,
+     "Tulsi Gabbard": 16.0
+    }
+   }
+  },
+  {
+   "round": 2,
+   "tally": {
+    "Bernie Sanders": 150.0,
+    "Elizabeth Warren": 119.0,
+    "Joseph R. Biden": 138.0,
+    "Michael R. Bloomberg": 128.0,
+    "Pete Buttigieg": 126.0,
+    "Tom Steyer": 134.0,
+    "Tulsi Gabbard": 148.0
+   },
+   "inactive": 2.0,
+   "threshold": 472.0,
+   "eliminated": [
+    "Elizabeth Warren"
+   ],
+   "elected": [],
+   "transfers": {
+    "Elizabeth Warren": {
+     "Bernie Sanders": 9.0,
+     "Joseph R. Biden": 18.0,
+     "Michael R. Bloomberg": 24.0,
+     "Pete Buttigieg": 22.0,
+     "Tom Steyer": 30.0,
+     "Tulsi Gabbard": 16.0
+    }
+   }
+  },
+  {
+   "round": 3,
+   "tally": {
+    "Bernie Sanders": 159.0,
+    "Joseph R. Biden": 156.0,
+    "Michael R. Bloomberg": 152.0,
+    "Pete Buttigieg": 148.0,
+    "Tom Steyer": 164.0,
+    "Tulsi Gabbard": 164.0
+   },
+   "inactive": 2.0,
+   "threshold": 472.0,
+   "eliminated": [
+    "Pete Buttigieg"
+   ],
+   "elected": [],
+   "transfers": {
+    "Pete Buttigieg": {
+     "Bernie Sanders": 23.0,
+     "Joseph R. Biden": 34.0,
+     "Michael R. Bloomberg": 35.0,
+     "Tom Steyer": 33.0,
+     "Tulsi Gabbard": 22.0,
+     "Inactive": 1.0
+    }
+   }
+  },
+  {
+   "round": 4,
+   "tally": {
+    "Bernie Sanders": 182.0,
+    "Joseph R. Biden": 190.0,
+    "Michael R. Bloomberg": 187.0,
+    "Tom Steyer": 197.0,
+    "Tulsi Gabbard": 186.0
+   },
+   "inactive": 3.0,
+   "threshold": 472.0,
+   "eliminated": [
+    "Bernie Sanders"
+   ],
+   "elected": [],
+   "transfers": {
+    "Bernie Sanders": {
+     "Joseph R. Biden": 38.0,
+     "Michael R. Bloomberg": 40.0,
+     "Tom Steyer": 48.0,
+     "Tulsi Gabbard": 52.0,
+     "Inactive": 4.0
+    }
+   }
+  },
+  {
+   "round": 5,
+   "tally": {
+    "Joseph R. Biden": 228.0,
+    "Michael R. Bloomberg": 227.0,
+    "Tom Steyer": 245.0,
+    "Tulsi Gabbard": 238.0
+   },
+   "inactive": 7.0,
+   "threshold": 470.0,
+   "eliminated": [
+    "Michael R. Bloomberg"
+   ],
+   "elected": [],
+   "transfers": {
+    "Michael R. Bloomberg": {
+     "Joseph R. Biden": 54.0,
+     "Tom Steyer": 66.0,
+     "Tulsi Gabbard": 63.0,
+     "Inactive": 44.0
+    }
+   }
+  },
+  {
+   "round": 6,
+   "tally": {
+    "Joseph R. Biden": 282.0,
+    "Tom Steyer": 311.0,
+    "Tulsi Gabbard": 301.0
+   },
+   "inactive": 51.0,
+   "threshold": 448.0,
+   "eliminated": [
+    "Joseph R. Biden"
+   ],
+   "elected": [],
+   "transfers": {
+    "Joseph R. Biden": {
+     "Tom Steyer": 89.0,
+     "Tulsi Gabbard": 92.0,
+     "Inactive": 101.0
+    }
+   }
+  },
+  {
+   "round": 7,
+   "tally": {
+    "Tom Steyer": 400.0,
+    "Tulsi Gabbard": 393.0
+   },
+   "inactive": 152.0,
+   "threshold": 397.0,
+   "eliminated": [],
+   "elected": [
+    "Tom Steyer"
+   ],
+   "transfers": {}
+  }
+ ],
+ "totalBallots": 1000.0
+}

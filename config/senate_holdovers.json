@@ -1,0 +1,43 @@
+{
+ "_note": "Senators whose seats are not on the 2026 ballot, from akleg.gov BASIS (session 34, active members), pulled Nov. 4, 2026. Party: D/R/N/U.",
+ "D": {
+  "name": "Jesse Bjorkman",
+  "party": "R"
+ },
+ "H": {
+  "name": "Matt Claman",
+  "party": "D"
+ },
+ "R": {
+  "name": "Mike Cronk",
+  "party": "R"
+ },
+ "J": {
+  "name": "Forrest Dunbar",
+  "party": "D"
+ },
+ "F": {
+  "name": "James Kaufman",
+  "party": "R"
+ },
+ "P": {
+  "name": "Scott Kawasaki",
+  "party": "D"
+ },
+ "B": {
+  "name": "Jesse Kiehl",
+  "party": "D"
+ },
+ "L": {
+  "name": "Kelly Merrick",
+  "party": "R"
+ },
+ "T": {
+  "name": "Donald Olson",
+  "party": "D"
+ },
+ "N": {
+  "name": "Robert Yundt",
+  "party": "R"
+ }
+}

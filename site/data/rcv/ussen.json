@@ -1,0 +1,72 @@
+{
+ "contest": "ussen",
+ "label": "",
+ "rctab": {
+  "contest": "Alaska U.S. Senate",
+  "generatedBy": "RCTab 2.1.0"
+ },
+ "writeInRoundFolded": false,
+ "repeatedRoundsMerged": 0,
+ "rounds": [
+  {
+   "round": 1,
+   "tally": {
+    "Dan Sullivan": 99617.0,
+    "Mary Peltola": 95792.0,
+    "Gerald Heikes": 4380.0,
+    "Daniel Sullivan Jr.": 3426.0
+   },
+   "inactive": 610.0,
+   "threshold": 101608.0,
+   "eliminated": [
+    "Daniel Sullivan Jr."
+   ],
+   "elected": [],
+   "transfers": {
+    "Daniel Sullivan Jr.": {
+     "Dan Sullivan": 558.0,
+     "Mary Peltola": 988.0,
+     "Gerald Heikes": 624.0,
+     "Inactive": 1256.0
+    }
+   }
+  },
+  {
+   "round": 2,
+   "tally": {
+    "Dan Sullivan": 100175.0,
+    "Mary Peltola": 96780.0,
+    "Gerald Heikes": 5004.0
+   },
+   "inactive": 1866.0,
+   "threshold": 100980.0,
+   "eliminated": [
+    "Gerald Heikes"
+   ],
+   "elected": [],
+   "transfers": {
+    "Gerald Heikes": {
+     "Dan Sullivan": 2157.0,
+     "Mary Peltola": 866.0,
+     "Inactive": 1981.0
+    }
+   }
+  },
+  {
+   "round": 3,
+   "tally": {
+    "Dan Sullivan": 102332.0,
+    "Mary Peltola": 97646.0
+   },
+   "inactive": 3847.0,
+   "threshold": 99990.0,
+   "eliminated": [],
+   "elected": [
+    "Dan Sullivan"
+   ],
+   "transfers": {}
+  }
+ ],
+ "totalBallots": 204530.0,
+ "undervotes": 705.0
+}

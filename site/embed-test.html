@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Embed test</title>
+<style>body{font-family:Georgia,serif;margin:0;padding:0 16px}main{max-width:680px;margin:0 auto}p{font-size:19px;line-height:1.6}</style></head>
+<body><main>
+<p>Story text above the embed. This page imitates a Grove story so the Pym embed and the full-screen behavior can be tested.</p>
+<!-- BEGIN GROVE EMBED (copy from here) -->
+<div id="akpm-results-2026"></div>
+<script src="vendor/pym.v1.min.js"></script>
+<script>
+(function () {
+  var URL = 'index.html';
+  var p = new pym.Parent('akpm-results-2026', URL, { title: 'Alaska election results', allowfullscreen: true });
+  var saved = '';
+  p.onMessage('akpm-fullscreen', function (on) {
+    var f = p.iframe, de = document.documentElement;
+    if (on === '1') {
+      saved = f.getAttribute('style') || '';
+      f.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;height:100dvh;max-width:none;z-index:2147483647;border:0;background:#fff';
+      de.style.overflow = 'hidden'; document.body.style.overflow = 'hidden';
+    } else {
+      f.setAttribute('style', saved);
+      de.style.overflow = ''; document.body.style.overflow = '';
+      p.sendMessage('akpm-resize', '1');
+    }
+  });
+})();
+</script>
+<!-- END GROVE EMBED -->
+<p>Story text below the embed. Lorem-free filler: the Legislature convenes in January.</p>
+</main></body></html>
