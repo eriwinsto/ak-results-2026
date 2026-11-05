@@ -3,8 +3,8 @@
 An embeddable results page for Grove: race tabs, a district/precinct map, a ranked choice
 round viewer and a balance-of-power chart. Static files only; host `site/` on GitHub Pages.
 
-Published at https://eriwinsto.github.io/ak-results-2026/ by `.github/workflows/pages.yml`, which deploys
-`site/` on every push to `main`. One-time setup: Settings > Pages > Source: "GitHub Actions".
+Published with GitHub Pages from the `main` branch (repo root), so the page is at
+https://eriwinsto.github.io/ak-results-2026/site/ and redeploys on every push.
 
 ## Folder
 
