@@ -65,6 +65,8 @@ def area_of(name, pct):
         return 'd', m.group(2), int(m.group(1))
     return 'x', None, None
 
+RCV_DIR = os.path.join(ROOT, 'site', 'data', 'rcv')
+
 def cvr_gap(cvr_path, enr_path):
     """Compare RCTab's normalized CVR with the results CSV for the same contest.
 
@@ -244,8 +246,8 @@ def main():
         'contests': out_contests,
         'senateHoldovers': hold,
         'caucus': load('caucus.json', {}),
-        'rcv': sorted(f[:-5] for f in os.listdir(os.path.join(os.path.dirname(a.out), 'rcv'))
-                      if f.endswith('.json')) if os.path.isdir(os.path.join(os.path.dirname(a.out), 'rcv')) else [],
+        # always list the site's published RCV files, even when --out writes somewhere else
+        'rcv': sorted(f[:-5] for f in os.listdir(RCV_DIR) if f.endswith('.json')) if os.path.isdir(RCV_DIR) else [],
     }
     if a.cvr:
         data['cvrGap'] = cvr_gap(a.cvr, a.csv)

@@ -2,7 +2,7 @@
  "contest": "ushouse",
  "label": "",
  "rctab": {
-  "contest": "Alaska U.S. House",
+  "contest": "Alaska U.S. House 11-9 update",
   "generatedBy": "RCTab 2.1.0"
  },
  "writeInRoundFolded": false,
@@ -11,62 +11,62 @@
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 101953.0,
-    "Eric Hafner": 14547.0,
-    "Bill Hill": 80673.0,
-    "Jim McDermott": 5471.0
+    "Nick Begich": 104032.0,
+    "Eric Hafner": 15093.0,
+    "Bill Hill": 84283.0,
+    "Jim McDermott": 5588.0
    },
-   "inactive": 391.0,
-   "threshold": 101323.0,
+   "inactive": 407.0,
+   "threshold": 104499.0,
    "eliminated": [
     "Jim McDermott"
    ],
-   "elected": [
-    "Nick Begich"
-   ],
+   "elected": [],
    "transfers": {
     "Jim McDermott": {
-     "Nick Begich": 1538.0,
-     "Eric Hafner": 657.0,
-     "Bill Hill": 1513.0,
-     "Inactive": 1763.0
+     "Nick Begich": 1566.0,
+     "Eric Hafner": 676.0,
+     "Bill Hill": 1548.0,
+     "Inactive": 1798.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 103491.0,
-    "Eric Hafner": 15204.0,
-    "Bill Hill": 82186.0
+    "Nick Begich": 105598.0,
+    "Eric Hafner": 15769.0,
+    "Bill Hill": 85831.0
    },
-   "inactive": 2154.0,
-   "threshold": 101323.0,
+   "inactive": 2205.0,
+   "threshold": 103600.0,
    "eliminated": [
     "Eric Hafner"
    ],
-   "elected": [],
+   "elected": [
+    "Nick Begich"
+   ],
    "transfers": {
     "Eric Hafner": {
-     "Nick Begich": 1036.0,
-     "Bill Hill": 6896.0,
-     "Inactive": 7272.0
+     "Nick Begich": 1090.0,
+     "Bill Hill": 7186.0,
+     "Inactive": 7493.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 104527.0,
-    "Bill Hill": 89082.0
+    "Nick Begich": 106688.0,
+    "Bill Hill": 93017.0
    },
-   "inactive": 9426.0,
-   "threshold": 101323.0,
+   "inactive": 9698.0,
+   "threshold": 103600.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 204530.0,
- "undervotes": 1495.0
+ "totalBallots": 210944.0,
+ "undervotes": 1541.0
 }
