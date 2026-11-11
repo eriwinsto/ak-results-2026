@@ -2,7 +2,7 @@
  "contest": "ushouse",
  "label": "",
  "rctab": {
-  "contest": "Alaska U.S. House 11-9 update",
+  "contest": "Alaska U.S. House 11-10 update",
   "generatedBy": "RCTab 2.1.0"
  },
  "writeInRoundFolded": false,
@@ -11,35 +11,35 @@
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 104032.0,
-    "Eric Hafner": 15093.0,
-    "Bill Hill": 84283.0,
-    "Jim McDermott": 5588.0
+    "Nick Begich": 115211.0,
+    "Eric Hafner": 17252.0,
+    "Bill Hill": 94640.0,
+    "Jim McDermott": 6230.0
    },
-   "inactive": 407.0,
-   "threshold": 104499.0,
+   "inactive": 484.0,
+   "threshold": 116667.0,
    "eliminated": [
     "Jim McDermott"
    ],
    "elected": [],
    "transfers": {
     "Jim McDermott": {
-     "Nick Begich": 1566.0,
-     "Eric Hafner": 676.0,
-     "Bill Hill": 1548.0,
-     "Inactive": 1798.0
+     "Nick Begich": 1752.0,
+     "Eric Hafner": 766.0,
+     "Bill Hill": 1723.0,
+     "Inactive": 1989.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 105598.0,
-    "Eric Hafner": 15769.0,
-    "Bill Hill": 85831.0
+    "Nick Begich": 116963.0,
+    "Eric Hafner": 18018.0,
+    "Bill Hill": 96363.0
    },
-   "inactive": 2205.0,
-   "threshold": 103600.0,
+   "inactive": 2473.0,
+   "threshold": 115673.0,
    "eliminated": [
     "Eric Hafner"
    ],
@@ -48,25 +48,25 @@
    ],
    "transfers": {
     "Eric Hafner": {
-     "Nick Begich": 1090.0,
-     "Bill Hill": 7186.0,
-     "Inactive": 7493.0
+     "Nick Begich": 1219.0,
+     "Bill Hill": 8275.0,
+     "Inactive": 8524.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 106688.0,
-    "Bill Hill": 93017.0
+    "Nick Begich": 118182.0,
+    "Bill Hill": 104638.0
    },
-   "inactive": 9698.0,
-   "threshold": 103600.0,
+   "inactive": 10997.0,
+   "threshold": 115673.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 210944.0,
- "undervotes": 1541.0
+ "totalBallots": 235561.0,
+ "undervotes": 1744.0
 }

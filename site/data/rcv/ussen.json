@@ -2,7 +2,7 @@
  "contest": "ussen",
  "label": "",
  "rctab": {
-  "contest": "Alaska U.S. Senate 11-9-26 update",
+  "contest": "Alaska U.S. Senate 11-10-26 update",
   "generatedBy": "RCTab 2.1.0"
  },
  "writeInRoundFolded": false,
@@ -11,55 +11,55 @@
   {
    "round": 1,
    "tally": {
-    "Gerald Heikes": 4462.0,
-    "Mary Peltola": 100049.0,
-    "Dan Sullivan": 101561.0,
-    "Daniel Sullivan Jr.": 3508.0
+    "Gerald Heikes": 4943.0,
+    "Mary Peltola": 112690.0,
+    "Dan Sullivan": 112450.0,
+    "Daniel Sullivan Jr.": 3896.0
    },
-   "inactive": 634.0,
-   "threshold": 104791.0,
+   "inactive": 748.0,
+   "threshold": 116990.0,
    "eliminated": [
     "Daniel Sullivan Jr."
    ],
    "elected": [],
    "transfers": {
     "Daniel Sullivan Jr.": {
-     "Gerald Heikes": 639.0,
-     "Mary Peltola": 1013.0,
-     "Dan Sullivan": 565.0,
-     "Inactive": 1291.0
+     "Gerald Heikes": 708.0,
+     "Mary Peltola": 1141.0,
+     "Dan Sullivan": 632.0,
+     "Inactive": 1415.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Gerald Heikes": 5101.0,
-    "Mary Peltola": 101062.0,
-    "Dan Sullivan": 102126.0
+    "Gerald Heikes": 5651.0,
+    "Mary Peltola": 113831.0,
+    "Dan Sullivan": 113082.0
    },
-   "inactive": 1925.0,
-   "threshold": 104145.0,
+   "inactive": 2163.0,
+   "threshold": 116283.0,
    "eliminated": [
     "Gerald Heikes"
    ],
    "elected": [],
    "transfers": {
     "Gerald Heikes": {
-     "Mary Peltola": 899.0,
-     "Dan Sullivan": 2199.0,
-     "Inactive": 2003.0
+     "Mary Peltola": 1019.0,
+     "Dan Sullivan": 2434.0,
+     "Inactive": 2198.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Mary Peltola": 101961.0,
-    "Dan Sullivan": 104325.0
+    "Mary Peltola": 114850.0,
+    "Dan Sullivan": 115516.0
    },
-   "inactive": 3928.0,
-   "threshold": 103144.0,
+   "inactive": 4361.0,
+   "threshold": 115184.0,
    "eliminated": [],
    "elected": [
     "Dan Sullivan"
@@ -67,6 +67,6 @@
    "transfers": {}
   }
  ],
- "totalBallots": 210944.0,
- "undervotes": 730.0
+ "totalBallots": 235561.0,
+ "undervotes": 834.0
 }

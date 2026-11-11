@@ -2,7 +2,7 @@
  "contest": "gov",
  "label": "",
  "rctab": {
-  "contest": "Alaska Governor 11-9-26 update",
+  "contest": "Alaska Governor 11-10-26 update",
   "generatedBy": "RCTab 2.1.0"
  },
  "writeInRoundFolded": false,
@@ -11,35 +11,35 @@
   {
    "round": 1,
    "tally": {
-    "Bronson / Church": 29240.0,
-    "Kreiss-Tomkins / Johnson": 102184.0,
-    "Taylor / English": 15313.0,
-    "Wilson / Shower": 60821.0
+    "Bronson / Church": 32362.0,
+    "Kreiss-Tomkins / Johnson": 114919.0,
+    "Taylor / English": 16861.0,
+    "Wilson / Shower": 67539.0
    },
-   "inactive": 703.0,
-   "threshold": 103780.0,
+   "inactive": 836.0,
+   "threshold": 115841.0,
    "eliminated": [
     "Taylor / English"
    ],
    "elected": [],
    "transfers": {
     "Taylor / English": {
-     "Bronson / Church": 4467.0,
-     "Kreiss-Tomkins / Johnson": 814.0,
-     "Wilson / Shower": 5021.0,
-     "Inactive": 5011.0
+     "Bronson / Church": 4939.0,
+     "Kreiss-Tomkins / Johnson": 888.0,
+     "Wilson / Shower": 5487.0,
+     "Inactive": 5547.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Bronson / Church": 33707.0,
-    "Kreiss-Tomkins / Johnson": 102998.0,
-    "Wilson / Shower": 65842.0
+    "Bronson / Church": 37301.0,
+    "Kreiss-Tomkins / Johnson": 115807.0,
+    "Wilson / Shower": 73026.0
    },
-   "inactive": 5714.0,
-   "threshold": 101274.0,
+   "inactive": 6383.0,
+   "threshold": 113068.0,
    "eliminated": [
     "Bronson / Church"
    ],
@@ -48,25 +48,25 @@
    ],
    "transfers": {
     "Bronson / Church": {
-     "Kreiss-Tomkins / Johnson": 2245.0,
-     "Wilson / Shower": 19302.0,
-     "Inactive": 12160.0
+     "Kreiss-Tomkins / Johnson": 2469.0,
+     "Wilson / Shower": 21420.0,
+     "Inactive": 13412.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Kreiss-Tomkins / Johnson": 105243.0,
-    "Wilson / Shower": 85144.0
+    "Kreiss-Tomkins / Johnson": 118276.0,
+    "Wilson / Shower": 94446.0
    },
-   "inactive": 17874.0,
-   "threshold": 101274.0,
+   "inactive": 19795.0,
+   "threshold": 113068.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 210814.0,
- "undervotes": 2553.0
+ "totalBallots": 235431.0,
+ "undervotes": 2914.0
 }
