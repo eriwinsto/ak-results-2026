@@ -27,10 +27,28 @@ scripts/
 grove-embed.html      the snippet to paste into Grove
 ```
 
-## Election night loop
+## Automatic updates
+
+`.github/workflows/update-results.yml` runs `scripts/fetch_enr.py` on GitHub's servers every 10 minutes.
+It reads the Division's `results/statewide.js` (the data behind "Results last updated at ..." on the
+results page). When that time changes, it downloads the precinct CSV, rebuilds `results.json` with the
+time in AP style, checks the output (same contests, 402 precincts, no race losing more than 1% of its
+ballots) and pushes it. A failed check stops the update and GitHub emails you; the site keeps the
+previous results.
+
+- Run it now, or force a rebuild: Actions tab > "Update results from the Division" > Run workflow.
+- Pause it: Actions tab > that workflow > "..." > Disable workflow.
+- Ranked choice stays manual. After each RCTab run on the U.S. House contest, also run
+  `python3 scripts/cvr_counts.py path/to/..._rctab_cvr.csv --as-of "..."` and commit
+  `config/cvr_counts.json`, so the CVR gap note is computed against the new CVR.
+- The Division's server sends the wrong intermediate certificate. Browsers fix that themselves; the
+  workflow fetches the right one from the address in the server's own certificate. Verification stays on.
+
+## Election night loop (by hand)
+
 
 1. Download the Division's precinct CSV (`GA_ENR_Precinct_State_of_Alaska.csv`).
-2. `python3 scripts/build_data.py path/to/GA_ENR_Precinct_State_of_Alaska.csv --as-of "Nov. 4, 2:30 a.m."`
+2. `python3 scripts/build_data.py path/to/GA_ENR_Precinct_State_of_Alaska.csv --as-of "2:30 a.m. Nov. 4" --source-updated "11/04/2026 2:30 AM" --cvr config/cvr_counts.json`
    - `--as-of` is the Division's update time. It appears as "Updated ..." in the header. Leave it off and no time shows.
    - The script prints totals and warns about anything it can't place in a district.
 3. Commit and push `site/data/results.json`. Open pages refresh every two minutes. GitHub Pages caches files for up to 10 minutes.

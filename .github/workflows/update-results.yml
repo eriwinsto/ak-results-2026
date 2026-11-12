@@ -1,0 +1,60 @@
+# Checks the Division of Elections every 10 minutes and republishes first-choice results
+# when its "Results last updated at" time changes. Ranked choice rounds stay manual.
+# Run it now: Actions tab > "Update results from the Division" > Run workflow.
+# Pause it: Actions tab > this workflow > "..." > Disable workflow.
+name: Update results from the Division
+on:
+  schedule:
+    - cron: '7,17,27,37,47,57 * * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Rebuild even if the Division timestamp is unchanged'
+        type: boolean
+        default: false
+  push:
+    paths: ['.github/workflows/update-results.yml', 'scripts/fetch_enr.py']
+permissions:
+  contents: write
+  pages: write
+concurrency:
+  group: update-results
+  cancel-in-progress: false
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Complete the Division server's certificate chain
+        # The server sends the wrong intermediate certificate. Fetch the right one from the
+        # address in its own certificate; it must still chain to a trusted root to be accepted.
+        run: |
+          H=www.elections.alaska.gov
+          echo | openssl s_client -connect $H:443 -servername $H 2>/dev/null | openssl x509 > leaf.pem
+          AIA=$(openssl x509 -in leaf.pem -noout -ext authorityInfoAccess | grep -o 'CA Issuers - URI:[^ ]*' | sed 's/CA Issuers - URI://')
+          curl -sS -m 30 -o inter.der "$AIA"
+          openssl x509 -inform DER -in inter.der -out inter.pem 2>/dev/null || cp inter.der inter.pem
+          cat /etc/ssl/certs/ca-certificates.crt inter.pem > "$RUNNER_TEMP/ca-bundle.pem"
+          openssl verify -CAfile "$RUNNER_TEMP/ca-bundle.pem" leaf.pem
+          rm -f leaf.pem inter.der inter.pem
+      - name: Check for new results
+        env:
+          SSL_CERT_FILE: ${{ runner.temp }}/ca-bundle.pem
+        run: |
+          set +e
+          python3 scripts/fetch_enr.py ${{ inputs.force && '--force' || '' }}
+          code=$?
+          if [ $code -eq 3 ]; then echo "Division mid-update; will retry next run."; exit 0; fi
+          exit $code
+      - name: Publish if changed
+        run: |
+          if git diff --quiet -- site/data/results.json; then echo "Nothing to publish."; exit 0; fi
+          git config user.name "results-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/data/results.json
+          git commit -m "Results as of $(python3 -c "import json;print(json.load(open('site/data/results.json'))['asOf'])") (automatic)"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
+          # pushes made by this job don't start other workflows, so ask Pages to rebuild directly
+          curl -sS -X POST -H "Authorization: Bearer ${{ github.token }}" -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${{ github.repository }}/pages/builds" || true
