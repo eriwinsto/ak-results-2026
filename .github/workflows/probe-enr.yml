@@ -10,25 +10,19 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Diagnose certificate and download
+      - name: Find where the page gets its "last updated" time
         run: |
           H=www.elections.alaska.gov
-          echo | openssl s_client -connect $H:443 -servername $H -showcerts 2>/dev/null > chain.txt || true
-          echo "== certificates the server sends:"; grep -E '^ *[0-9] s:|^ *i:' chain.txt
-          awk '/BEGIN CERT/{f=1} f{print} /END CERT/{exit}' chain.txt > leaf.pem
-          echo "== leaf issuer / AIA:"; openssl x509 -in leaf.pem -noout -issuer -enddate -ext authorityInfoAccess
-          AIA=$(openssl x509 -in leaf.pem -noout -ext authorityInfoAccess | grep -o 'CA Issuers - URI:[^ ]*' | sed 's/CA Issuers - URI://')
-          echo "== fetching missing intermediate from $AIA"
-          curl -sS -m 30 -o inter.der "$AIA"
-          (openssl x509 -inform DER -in inter.der -out inter.pem 2>/dev/null || cp inter.der inter.pem)
-          openssl x509 -in inter.pem -noout -subject -issuer
+          curl -sS -m 30 -o inter.der http://secure.globalsign.com/cacert/gsgccr46ovtlsca2025.crt
+          openssl x509 -inform DER -in inter.der -out inter.pem
           cat /etc/ssl/certs/ca-certificates.crt inter.pem > bundle.pem
           UA="AlaskaPublicMedia-results-map/1.0 (newsroom results graphic)"
-          echo "== page with completed chain"
-          curl -sS -m 30 --cacert bundle.pem -A "$UA" -o page.html -w 'status %{http_code}, %{size_download} bytes\n' "https://$H/enr/26GENR/"
-          echo "-- last updated:"; grep -io 'last updated[^<]*' page.html | head -3 || echo "(not in page HTML)"
-          echo "-- data files referenced:"; grep -oiE '"[^"]*\.(json|csv)[^"]*"' page.html | sort -u | head -20 || true
-          echo "== csv with completed chain"
-          curl -sS -m 60 --cacert bundle.pem -A "$UA" -D csv.h -o r.csv -w 'status %{http_code}, %{size_download} bytes\n' "https://$H/enr/26GENR/results/GA_ENR_Precinct_State_of_Alaska.csv"
-          grep -iE '^(last-modified|etag|content-type|cache-control|age|x-cache):' csv.h || true
-          head -c 300 r.csv; echo; echo "rows: $(wc -l < r.csv)"
+          get() { curl -sS -m 30 --cacert bundle.pem -A "$UA" "$@"; }
+          get -o page.html "https://$H/enr/26GENR/"
+          echo "== script/link/fetch references in page:"; grep -oiE '(src|href)="[^"]+"|fetch\([^)]*\)|\$\.(get|getJSON|ajax)\([^)]*' page.html | grep -viE '\.(png|jpg|svg|css|ico)"|https?://(www\.)?(google|facebook|twitter)' | sort -u | head -60
+          echo "== text near 'updated':"; grep -ioE '.{0,200}updated.{0,200}' page.html | head -5
+          for s in $(grep -oiE 'src="[^"]+\.js[^"]*"' page.html | sed -E 's/src="([^"]+)"/\1/' | grep -v '^https\?://' ); do
+            case "$s" in /*) u="https://$H$s";; *) u="https://$H/enr/26GENR/$s";; esac
+            get -o s.js "$u" || continue
+            if grep -qi 'updated' s.js; then echo "== $u mentions 'updated':"; grep -ioE '.{0,160}updated.{0,160}' s.js | head -4; grep -oiE '["'"'"'][^"'"'"' ]*\.(json|csv|txt|xml)[^"'"'"' ]*["'"'"']' s.js | sort -u | head -15; fi
+          done
