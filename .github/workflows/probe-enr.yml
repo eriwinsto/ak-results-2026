@@ -21,8 +21,6 @@ jobs:
           get -o page.html "https://$H/enr/26GENR/"
           echo "== script/link/fetch references in page:"; grep -oiE '(src|href)="[^"]+"|fetch\([^)]*\)|\$\.(get|getJSON|ajax)\([^)]*' page.html | grep -viE '\.(png|jpg|svg|css|ico)"|https?://(www\.)?(google|facebook|twitter)' | sort -u | head -60
           echo "== text near 'updated':"; grep -ioE '.{0,200}updated.{0,200}' page.html | head -5
-          for s in $(grep -oiE 'src="[^"]+\.js[^"]*"' page.html | sed -E 's/src="([^"]+)"/\1/' | grep -v '^https\?://' ); do
-            case "$s" in /*) u="https://$H$s";; *) u="https://$H/enr/26GENR/$s";; esac
-            get -o s.js "$u" || continue
-            if grep -qi 'updated' s.js; then echo "== $u mentions 'updated':"; grep -ioE '.{0,160}updated.{0,160}' s.js | head -4; grep -oiE '["'"'"'][^"'"'"' ]*\.(json|csv|txt|xml)[^"'"'"' ]*["'"'"']' s.js | sort -u | head -15; fi
-          done
+          get -o map.js "https://$H/enr/26GENR/includes/map.js"
+          echo "== map.js lines about the timestamp and data loading:"
+          grep -nE 'UpdatedAt|resultsUpdated|lastUpdate|fetch\(|getJSON|XMLHttpRequest|\.open\(|\.(json|csv|txt|xml)' map.js | cut -c1-240 | head -40
