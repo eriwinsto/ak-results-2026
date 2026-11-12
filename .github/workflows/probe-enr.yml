@@ -1,6 +1,9 @@
 # One-time test: can GitHub's servers download the Division's results? Changes nothing.
 name: Probe Division results download
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  push:
+    paths: ['.github/workflows/probe-enr.yml']
 permissions:
   contents: read
 jobs:
