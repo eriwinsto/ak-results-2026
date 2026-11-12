@@ -1,0 +1,22 @@
+# One-time test: can GitHub's servers download the Division's results? Changes nothing.
+name: Probe Division results download
+on: workflow_dispatch
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Try the results page and CSV
+        run: |
+          UA="AlaskaPublicMedia-results-map/1.0 (newsroom results graphic)"
+          BASE=https://www.elections.alaska.gov/enr/26GENR
+          echo "== robots.txt"; curl -s -m 30 -A "$UA" https://www.elections.alaska.gov/robots.txt | head -40 || true
+          echo "== page"; curl -s -m 30 -A "$UA" -D page.h -o page.html -w 'status %{http_code}, %{size_download} bytes\n' "$BASE/" || true
+          head -20 page.h || true
+          echo "-- 'last updated' text:"; grep -io 'last updated[^<]*' page.html | head -5 || true
+          echo "-- data files the page references:"; grep -oiE '["'"'"'][^"'"'"']*\.(json|csv|js)(\?[^"'"'"']*)?["'"'"']' page.html | sort -u | head -40 || true
+          echo "== csv"; curl -s -m 60 -A "$UA" -D csv.h -o r.csv -w 'status %{http_code}, %{size_download} bytes\n' "$BASE/results/GA_ENR_Precinct_State_of_Alaska.csv" || true
+          head -20 csv.h || true
+          echo "-- first line:"; head -c 400 r.csv; echo
+          echo "-- rows: $(wc -l < r.csv)"
