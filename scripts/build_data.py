@@ -77,11 +77,17 @@ def cvr_gap(cvr_path, enr_path):
     """
     portions = defaultdict(int)
     contest = None
-    with open(cvr_path, newline='', encoding='utf-8-sig') as f:
-        rd = csv.DictReader(f)
-        for r in rd:
-            contest = contest or r.get('Contest Id')
-            portions[re.sub(r'\s+', ' ', r['Precinct Portion'].strip())] += 1
+    if cvr_path.lower().endswith('.json'):
+        # ballot counts by precinct portion, made from the RCTab CVR by scripts/cvr_counts.py
+        c = json.load(open(cvr_path))
+        contest = str(c['contest'])
+        portions.update(c['portions'])
+    else:
+        with open(cvr_path, newline='', encoding='utf-8-sig') as f:
+            rd = csv.DictReader(f)
+            for r in rd:
+                contest = contest or r.get('Contest Id')
+                portions[re.sub(r'\s+', ' ', r['Precinct Portion'].strip())] += 1
     cvr_total = sum(portions.values())
     cvr_p = defaultdict(int); cvr_d = defaultdict(int); unplaced = 0
     for k, n in portions.items():
@@ -133,7 +139,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('csv')
     ap.add_argument('--as-of', default='')
-    ap.add_argument('--cvr', default='', help="RCTab's normalized CVR (..._rctab_cvr.csv); lists precincts it is missing")
+    ap.add_argument('--cvr', default='', help="RCTab's normalized CVR (..._rctab_cvr.csv) or config/cvr_counts.json; lists precincts it is missing")
+    ap.add_argument('--source-updated', default='', help="the Division's own timestamp, e.g. '11/10/2026 7:13 PM'")
     ap.add_argument('--out', default=os.path.join(ROOT, 'site', 'data', 'results.json'))
     a = ap.parse_args()
 
@@ -241,6 +248,7 @@ def main():
 
     data = {
         'asOf': a.as_of,
+        'sourceUpdated': a.source_updated,
         'source': os.path.basename(a.csv),
         'precincts': {k: [v['name'], v['hd'], v['reg'], v['ballots']] for k, v in sorted(precincts.items())},
         'contests': out_contests,
