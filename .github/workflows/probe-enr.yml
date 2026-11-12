@@ -22,5 +22,5 @@ jobs:
           echo "== script/link/fetch references in page:"; grep -oiE '(src|href)="[^"]+"|fetch\([^)]*\)|\$\.(get|getJSON|ajax)\([^)]*' page.html | grep -viE '\.(png|jpg|svg|css|ico)"|https?://(www\.)?(google|facebook|twitter)' | sort -u | head -60
           echo "== text near 'updated':"; grep -ioE '.{0,200}updated.{0,200}' page.html | head -5
           get -o map.js "https://$H/enr/26GENR/includes/map.js"
-          echo "== map.js lines about the timestamp and data loading:"
-          grep -nE 'UpdatedAt|resultsUpdated|lastUpdate|fetch\(|getJSON|XMLHttpRequest|\.open\(|\.(json|csv|txt|xml)' map.js | cut -c1-240 | head -40
+          echo "== map.js 670-700:"; sed -n '670,700p' map.js | cut -c1-200
+          echo "== url definitions:"; grep -nE '(url|Url|URL)\s*=|results/|\.json' map.js | cut -c1-200 | head -20
