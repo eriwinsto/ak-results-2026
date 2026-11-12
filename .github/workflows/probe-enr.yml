@@ -10,16 +10,11 @@ jobs:
   probe:
     runs-on: ubuntu-latest
     steps:
-      - name: Try the results page and CSV
+      - name: Diagnose connection
         run: |
           UA="AlaskaPublicMedia-results-map/1.0 (newsroom results graphic)"
-          BASE=https://www.elections.alaska.gov/enr/26GENR
-          echo "== robots.txt"; curl -s -m 30 -A "$UA" https://www.elections.alaska.gov/robots.txt | head -40 || true
-          echo "== page"; curl -s -m 30 -A "$UA" -D page.h -o page.html -w 'status %{http_code}, %{size_download} bytes\n' "$BASE/" || true
-          head -20 page.h || true
-          echo "-- 'last updated' text:"; grep -io 'last updated[^<]*' page.html | head -5 || true
-          echo "-- data files the page references:"; grep -oiE '["'"'"'][^"'"'"']*\.(json|csv|js)(\?[^"'"'"']*)?["'"'"']' page.html | sort -u | head -40 || true
-          echo "== csv"; curl -s -m 60 -A "$UA" -D csv.h -o r.csv -w 'status %{http_code}, %{size_download} bytes\n' "$BASE/results/GA_ENR_Precinct_State_of_Alaska.csv" || true
-          head -20 csv.h || true
-          echo "-- first line:"; head -c 400 r.csv; echo
-          echo "-- rows: $(wc -l < r.csv)"
+          echo "== DNS"; getent hosts www.elections.alaska.gov || echo "no DNS"
+          for u in https://www.elections.alaska.gov/ https://www.elections.alaska.gov/enr/26GENR/results/GA_ENR_Precinct_State_of_Alaska.csv http://www.elections.alaska.gov/ https://alaska.gov/; do
+            echo "== $u"
+            curl -sS -m 30 -A "$UA" -o /dev/null -w 'status %{http_code}, connect %{time_connect}s, tls %{time_appconnect}s, %{size_download} bytes, ip %{remote_ip}\n' "$u" 2>&1 || echo "curl exit $?"
+          done
