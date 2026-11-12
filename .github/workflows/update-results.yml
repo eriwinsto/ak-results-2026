@@ -38,6 +38,8 @@ jobs:
           cat /etc/ssl/certs/ca-certificates.crt inter.pem > "$RUNNER_TEMP/ca-bundle.pem"
           openssl verify -CAfile "$RUNNER_TEMP/ca-bundle.pem" leaf.pem
           rm -f leaf.pem inter.der inter.pem
+      - name: Install pdftotext (reads write-ins from the summary PDF)
+        run: command -v pdftotext || (sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils)
       - name: Check for new results
         env:
           SSL_CERT_FILE: ${{ runner.temp }}/ca-bundle.pem

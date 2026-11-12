@@ -36,6 +36,13 @@ time in AP style, checks the output (same contests, 402 precincts, no race losin
 ballots) and pushes it. A failed check stops the update and GitHub emails you; the site keeps the
 previous results.
 
+- Write-ins: the precinct CSV has none. The updater also downloads the Division's Election Summary
+  Report PDF (`results/ElectionSummaryReportRPT.pdf`) and reads each race's write-in line
+  (`scripts/summary_writeins.py`, needs pdftotext from poppler-utils). Percentages then use named
+  candidates plus write-ins, as the PDF does. Every race in the PDF must add up to its Total Votes and
+  match the CSV's candidate totals exactly; if not, the updater waits for the next run, and fails (with
+  an email) if they still disagree 30 minutes after the update. By hand: `build_data.py ... --summary
+  path/to/ElectionSummaryReportRPT.pdf`.
 - Run it now, or force a rebuild: Actions tab > "Update results from the Division" > Run workflow.
 - Pause it: Actions tab > that workflow > "..." > Disable workflow.
 - Ranked choice stays manual. After each RCTab run on the U.S. House contest, also run

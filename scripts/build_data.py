@@ -141,6 +141,7 @@ def main():
     ap.add_argument('--as-of', default='')
     ap.add_argument('--cvr', default='', help="RCTab's normalized CVR (..._rctab_cvr.csv) or config/cvr_counts.json; lists precincts it is missing")
     ap.add_argument('--source-updated', default='', help="the Division's own timestamp, e.g. '11/10/2026 7:13 PM'")
+    ap.add_argument('--summary', default='', help="the Division's Election Summary Report PDF; adds each race's write-in votes")
     ap.add_argument('--out', default=os.path.join(ROOT, 'site', 'data', 'results.json'))
     a = ap.parse_args()
 
@@ -245,6 +246,21 @@ def main():
     hds = defaultdict(lambda: {'reg': 0})
     for p in precincts.values():
         hds[p['hd']]['reg'] += p['reg']
+
+    if a.summary:
+        # write-ins are only in the summary PDF; it must agree with this CSV race by race
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import summary_writeins
+        expected = {c['title']: [x['votes'] for x in c['candidates']] for c in out_contests if c['kind'] != 'measure'}
+        try:
+            wi = summary_writeins.writeins(a.summary, expected)
+        except summary_writeins.Mismatch as e:
+            print(f'SUMMARY MISMATCH: {e}', file=sys.stderr)
+            sys.exit(4)
+        for c in out_contests:
+            if c['title'] in wi:
+                c['writeIn'] = wi[c['title']]
+        print(f'write-ins from the summary report: {len(wi)} races, governor {wi.get("Governor / Lieutenant Governor", 0):,}')
 
     data = {
         'asOf': a.as_of,

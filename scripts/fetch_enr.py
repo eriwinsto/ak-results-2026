@@ -9,9 +9,10 @@ How it works:
   1. Reads the Division's results/statewide.js (the JSON its results page loads) for the
      "Results last updated at" time, e.g. "11/10/2026 7:13 PM".
   2. If that matches sourceUpdated in the current results.json, stops: nothing new.
-  3. Otherwise downloads the precinct CSV, checks it was written in the same update, runs
-     build_data.py with that time (in AP style) and config/cvr_counts.json, and sanity-checks
-     the output before replacing results.json.
+  3. Otherwise downloads the precinct CSV and the Election Summary Report PDF (the only source
+     of write-in votes), checks they're from the same update, runs build_data.py with that time
+     (in AP style) and config/cvr_counts.json, and sanity-checks the output before replacing
+     results.json.
 
 Exit codes: 0 updated or nothing new, 3 Division mid-update (try next run), 1 problem
 (the job fails, and GitHub emails the repo owner).
@@ -27,6 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASE = 'https://www.elections.alaska.gov/enr/26GENR/'
 STATEWIDE = BASE + 'results/statewide.js'
 CSV = BASE + 'results/GA_ENR_Precinct_State_of_Alaska.csv'
+SUMMARY = BASE + 'results/ElectionSummaryReportRPT.pdf'
 OUT = os.path.join(ROOT, 'site', 'data', 'results.json')
 COUNTS = os.path.join(ROOT, 'config', 'cvr_counts.json')
 UA = 'AlaskaPublicMedia-results-map/1.0 (newsroom results graphic; checks every 10 minutes)'
@@ -85,18 +87,33 @@ def main():
     with tempfile.TemporaryDirectory() as tmp:
         src = os.path.join(tmp, 'GA_ENR_Precinct_State_of_Alaska.csv')
         open(src, 'wb').write(csv_body)
+        # write-ins come only from the summary PDF; build_data checks it against the CSV
+        pdf_body, _ = get(SUMMARY)
+        pdf = os.path.join(tmp, 'ElectionSummaryReportRPT.pdf')
+        open(pdf, 'wb').write(pdf_body)
         new_path = os.path.join(tmp, 'results.json')
         cmd = [sys.executable, os.path.join(ROOT, 'scripts', 'build_data.py'), src,
-               '--as-of', ap_time(stamp), '--source-updated', stamp, '--out', new_path]
+               '--as-of', ap_time(stamp), '--source-updated', stamp, '--summary', pdf, '--out', new_path]
         if os.path.exists(COUNTS):
             cmd += ['--cvr', COUNTS]
-        subprocess.run(cmd, check=True)
+        rc = subprocess.run(cmd).returncode
+        if rc == 4:
+            # the PDF doesn't match the CSV yet. Normal for a few minutes after an update;
+            # after 30 minutes, fail so GitHub emails the owner.
+            if sw_t and time.time() - sw_t > 1800:
+                sys.exit('Summary PDF still disagrees with the CSV 30 minutes after the update; not publishing.')
+            print('Summary PDF not yet updated to match the CSV; waiting for the next run.')
+            sys.exit(3)
+        if rc:
+            sys.exit(f'build_data.py failed ({rc})')
         new = json.load(open(new_path))
 
         # sanity checks before publishing
         problems = []
         if old.get('contests') and len(new['contests']) != len(old['contests']):
             problems.append(f"contest count changed: {len(old['contests'])} -> {len(new['contests'])}")
+        if not any('writeIn' in c for c in new['contests']):
+            problems.append('no write-in totals')
         if len(new['precincts']) != 402:
             problems.append(f"{len(new['precincts'])} precincts (expected 402)")
         before, after = summary(old) if old.get('contests') else {}, summary(new)

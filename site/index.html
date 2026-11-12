@@ -381,6 +381,7 @@ const COPY = {
   titles: { gov: 'Governor', ussen: 'U.S. Senate', ushouse: 'U.S. House' },
   tabs: { gov: 'Governor', ussen: 'U.S. Senate', ushouse: 'U.S. House', bm2: 'Measure 2', bm3: 'Measure 3', house: 'State House', senate: 'State Senate' },
   firstChoice: 'First-choice votes',
+  writeIns: 'Write-ins',
   houseBoardTitle: 'State House',
   houseBoardDek: 'All 40 seats are on the ballot. Select a district for full results.',
   senateBoardTitle: 'State Senate',
@@ -425,6 +426,11 @@ const BLOC = { D: { label: 'Democrats', hex: '#1f6fb5' }, I: { label: 'Independe
 const SECONDARY = ['#3ba99c', '#7a1c4e', '#9c6b30', '#5d6d7e'];
 const MEASURE_COLORS = { YES: '#3ba99c', NO: '#7a1c4e' };
 const NODATA = '#dcdcd5';
+const WRITEIN_HEX = '#c9c9c3';
+// named candidates plus write-ins (write-ins come from the Division's summary report)
+const totalVotes = (c) => d3.sum(c.candidates, (x) => x.votes) + (c.writeIn || 0);
+// write-ins are reported only race-wide, so they apply to an area only when it is the whole race
+const areaWriteIn = (r, isDistrict) => (isDistrict && r.c && r.c.writeIn != null && (r.c.kind === 'house' || r.c.kind === 'senate')) ? r.c.writeIn : null;
 const REGIONS = [['Statewide'], ['Anchorage'], ['Mat-Su'], ['Fairbanks'], ['Kenai Peninsula'], ['Juneau'], ['Southeast']];
 
 const qs = new URLSearchParams(location.search);
@@ -433,7 +439,8 @@ const VIEW = (qs.get('view') || 'all').replace(/\/+$/, '');   // tolerate a stra
 const RESULTS_ONLY = VIEW === 'results';   // ?view=results: race results and map, no ranked choice or balance of power
 const fmt = d3.format(',');
 const pct = (v, t) => t ? (v / t * 100) : 0;
-const fp = (x) => x >= 99.95 ? '100%' : (x < 0.05 && x > 0 ? '<0.1%' : x.toFixed(1) + '%');
+// near 50%, one decimal can round a share just under a majority up to "50.0%"; show two there
+const fp = (x) => x >= 99.95 ? '100%' : (x < 0.05 && x > 0 ? '<0.1%' : (x >= 49.95 && x < 50.05 ? (x < 50 ? Math.min(Math.floor(x * 100) / 100, 49.99) : x).toFixed(2) : x.toFixed(1)) + '%');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const $ = (id) => document.getElementById(id);
 
@@ -544,7 +551,7 @@ function title(c) {
   return COPY.titles[c.id] || c.title;
 }
 function resultsTable(c) {
-  const tot = d3.sum(c.candidates, (x) => x.votes);
+  const tot = totalVotes(c);
   const max = d3.max(c.candidates, (x) => x.votes) || 1;
   const winner = c.call && c.call.winner;
   const rows = c.candidates.map((x) => {
@@ -553,7 +560,8 @@ function resultsTable(c) {
     const party = c.kind === 'measure' ? '' : `<span class="pt">${esc(partyLabel(x))}</span>`;
     return `<tr><td><div class="cand"><i class="sw" style="background:${x.hex}"></i><span class="nm">${esc(x.name)}${won ? `<span class="check" title="Race called by ${esc(c.call.by)}">${CHECK}${esc(c.call.by)}</span>` : ''}</span>${party}<div class="bar"><b style="width:${(x.votes / max * 100).toFixed(2)}%;background:${x.hex}"></b></div></div></td>
       <td class="r v">${fmt(x.votes)}</td><td class="r p">${fp(p)}</td></tr>`;
-  }).join('');
+  }).join('') + (c.writeIn != null ? `<tr class="wi"><td><div class="cand"><i class="sw" style="background:${WRITEIN_HEX}"></i><span class="nm">${esc(COPY.writeIns)}</span><div class="bar"><b style="width:${(c.writeIn / max * 100).toFixed(2)}%;background:${WRITEIN_HEX}"></b></div></div></td>
+      <td class="r v">${fmt(c.writeIn)}</td><td class="r p">${fp(pct(c.writeIn, tot))}</td></tr>` : '');
   const head = c.kind === 'measure' ? 'Response' : 'Candidate';
   return `<table class="rt"><thead><tr><th>${head}</th><th class="r">${c.kind === 'measure' ? 'Votes' : 'Votes'}</th><th class="r">Pct.</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
@@ -600,7 +608,7 @@ function boardHTML() {
   const house = state.tab === 'house';
   const list = house ? d3.range(1, 41).map((d) => byId['hd' + d]).filter(Boolean) : DATA.contests.filter((c) => c.kind === 'senate');
   const rows = list.map((c) => {
-    const tot = d3.sum(c.candidates, (x) => x.votes);
+    const tot = totalVotes(c);
     const a = c.candidates[0], b = c.candidates[1];
     const pa = pct(a.votes, tot);
     const split = c.candidates.filter((x) => x.votes > 0).map((x) => `<b style="flex:${x.votes};background:${(PARTY[x.party] || PARTY['']).hex}" title="${esc(x.name)}"></b>`).join('');
@@ -844,7 +852,7 @@ function hover(e, f) {
   let line = '';
   if (!r.c) line = COPY.notOnBallot;
   else if (!L) line = COPY.noResults;
-  else { const x = r.c.candidates[L.i]; line = `${esc(x.name)} ${fp(pct(r.votes[L.i], L.tot))}`; }
+  else { const x = r.c.candidates[L.i]; line = `${esc(x.name)} ${fp(pct(r.votes[L.i], L.tot + (areaWriteIn(r, state.mode !== 'pct') || 0)))}`; }
   const t = $('tip'); t.innerHTML = `<b>${esc(name)}</b><span>${line}</span>`; t.hidden = false; moveTip(e);
 }
 function moveTip(e) {
@@ -930,8 +938,10 @@ function renderArea() {
   let body = '';
   if (!r.c) body = `<div class="sub">${COPY.notOnBallot}${holdoverLine(f)}</div>`;
   else {
-    const tot = d3.sum(r.votes);
+    const wi = areaWriteIn(r, state.sel.type !== 'pct');
+    const tot = d3.sum(r.votes) + (wi || 0);
     const order = r.c.candidates.map((x, i) => [x, r.votes[i]]).sort((a, b) => b[1] - a[1]);
+    if (wi != null) order.push([{ name: COPY.writeIns, hex: WRITEIN_HEX }, wi]);
     body = tot ? `<div class="mini">${order.map(([x, v]) => `<div class="n"><i style="background:${x.hex}"></i><span>${esc(x.name)}</span></div><div class="p">${fp(pct(v, tot))}</div><div class="v">${fmt(v)}</div>`).join('')}</div>` : `<div class="sub">${COPY.noResults}</div>`;
     if (state.tab === 'house' || state.tab === 'senate') sub = `${esc(title(r.c))} race &middot; ${sub}`;
   }
