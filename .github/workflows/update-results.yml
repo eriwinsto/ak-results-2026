@@ -1,6 +1,7 @@
 # Checks the Division of Elections every 10 minutes and republishes first-choice results
 # when its "Results last updated at" time changes. Ranked choice rounds stay manual.
-# Run it now: Actions tab > "Update results from the Division" > Run workflow.
+# GitHub runs the schedule irregularly (sometimes hours apart), so on a results night
+# run it by hand: Actions tab > "Update results from the Division" > Run workflow.
 # Pause it: Actions tab > this workflow > "..." > Disable workflow.
 name: Update results from the Division
 on:
