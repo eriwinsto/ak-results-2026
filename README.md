@@ -62,7 +62,7 @@ previous results.
 
 ## Race calls
 
-Edit `config/calls.json`, rerun step 2. Keys are contest ids: `gov`, `ussen`, `ushouse`, `bm2`, `bm3`,
+Edit `config/calls.json` and push; the push starts a rebuild with the call (or rerun step 2 by hand). Keys are contest ids: `gov`, `ussen`, `ushouse`, `bm2`, `bm3`,
 `hd1`–`hd40`, `sdA`–`sdT`.
 
 ```json

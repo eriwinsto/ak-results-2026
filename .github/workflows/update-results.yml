@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
   push:
-    paths: ['.github/workflows/update-results.yml', 'scripts/fetch_enr.py']
+    paths: ['.github/workflows/update-results.yml', 'scripts/fetch_enr.py', 'config/calls.json']
 permissions:
   contents: write
   pages: write
@@ -46,7 +46,7 @@ jobs:
           SSL_CERT_FILE: ${{ runner.temp }}/ca-bundle.pem
         run: |
           set +e
-          python3 scripts/fetch_enr.py ${{ inputs.force && '--force' || '' }}
+          python3 scripts/fetch_enr.py ${{ (inputs.force || github.event_name == 'push') && '--force' || '' }}
           code=$?
           if [ $code -eq 3 ]; then echo "Division mid-update; will retry next run."; exit 0; fi
           exit $code
