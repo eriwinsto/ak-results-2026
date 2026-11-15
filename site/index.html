@@ -1031,7 +1031,8 @@ function renderRCV() {
   if (!data && legislative) { el.hidden = true; return; } // decided in round 1
   if (!data) { el.innerHTML = rcvPendingHTML(c); return; }
   const rounds = data.rounds;
-  if (state.round == null || state.round >= rounds.length) state.round = rounds.length - 1;
+  if (state.round == null) state.round = 0; // open on round 1
+  if (state.round >= rounds.length) state.round = rounds.length - 1;
   const R = rounds[state.round];
   const colorOf = {}; c.candidates.forEach((x) => colorOf[x.name] = x.hex);
   let k = 0; const first = Object.keys(rounds[0].tally).sort((a, b) => rounds[0].tally[b] - rounds[0].tally[a]);
