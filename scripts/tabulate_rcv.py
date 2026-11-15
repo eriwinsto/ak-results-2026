@@ -136,6 +136,22 @@ def tabulate(contest, use_isvote=False):
         continuing = [c for c in continuing if c not in lows]
     for r in rounds:
         r.pop('_elim', None)
+    # whom the winner's final-round ballots ranked No. 1 (the literal rank-1 mark, not the round-1 count:
+    # a ballot with rank 1 left blank or given to a write-in is counted under those, not its next choice)
+    if winner and rounds:
+        fc = Counter()
+        for (n, r), a in zip(groups, assign):
+            if a != winner:
+                continue
+            rank, cs = r[0]
+            if rank != 1:
+                fc['_blank'] += n
+            elif len(cs) > 1:
+                fc['_overvote'] += n
+            else:
+                (c,) = cs
+                fc['_writein' if c in excluded else names[c]] += n
+        rounds[-1]['firstRanks'] = {'candidate': names[winner], 'ballots': dict(fc.most_common())}
     rep = {'config': {'contest': contest['name'], 'generatedBy': 'tabulate_rcv.py (RCTab 2.1.0 rules)'},
            'results': rounds,
            'summary': {'totalNumBallots': str(total), 'undervotes': str(undervotes)},

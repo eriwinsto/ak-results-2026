@@ -64,7 +64,17 @@
    "threshold": 140325.0,
    "eliminated": [],
    "elected": [],
-   "transfers": {}
+   "transfers": {},
+   "firstRanks": {
+    "candidate": "Mary Peltola",
+    "ballots": {
+     "Mary Peltola": 140134,
+     "Daniel Sullivan Jr.": 1583,
+     "Gerald Heikes": 1074,
+     "_writein": 229,
+     "_blank": 107
+    }
+   }
   }
  ],
  "totalBallots": 282698.0,

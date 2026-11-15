@@ -64,7 +64,17 @@
    "elected": [
     "Nick Begich"
    ],
-   "transfers": {}
+   "transfers": {},
+   "firstRanks": {
+    "candidate": "Nick Begich",
+    "ballots": {
+     "Nick Begich": 133338,
+     "Jim McDermott": 2177,
+     "Eric Hafner": 1375,
+     "_blank": 289,
+     "_writein": 56
+    }
+   }
   }
  ],
  "totalBallots": 282698.0,

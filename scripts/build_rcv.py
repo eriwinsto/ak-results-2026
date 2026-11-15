@@ -134,6 +134,11 @@ def convert(rep, contest, label='', results=os.path.join(ROOT, 'site', 'data', '
         r['round'] = i + 1
     repeats = len(out_rounds) - len(merged)
 
+    fr = rep['results'][-1].get('firstRanks') if rep['results'] else None
+    if fr and merged:
+        merged[-1]['firstRanks'] = {'candidate': nm(fr['candidate']),
+                                    'ballots': {(k if k.startswith('_') else nm(k)): v for k, v in fr['ballots'].items()}}
+
     out = {'contest': contest, 'label': label,
            'rctab': {'contest': rep['config'].get('contest', ''), 'generatedBy': rep['config'].get('generatedBy', '')},
            'writeInRoundFolded': folded, 'repeatedRoundsMerged': repeats, 'rounds': merged,

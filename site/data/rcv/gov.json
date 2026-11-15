@@ -64,7 +64,17 @@
    "threshold": 138794.0,
    "eliminated": [],
    "elected": [],
-   "transfers": {}
+   "transfers": {},
+   "firstRanks": {
+    "candidate": "Kreiss-Tomkins / Johnson",
+    "ballots": {
+     "Kreiss-Tomkins / Johnson": 141168,
+     "Bronson / Church": 2581,
+     "Taylor / English": 1536,
+     "_writein": 287,
+     "_blank": 192
+    }
+   }
   }
  ],
  "totalBallots": 282469.0,
