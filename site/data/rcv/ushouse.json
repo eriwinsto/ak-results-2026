@@ -2,71 +2,71 @@
  "contest": "ushouse",
  "label": "",
  "rctab": {
-  "contest": "Alaska U.S. House 11-10 update",
-  "generatedBy": "RCTab 2.1.0"
+  "contest": "U.S. Representative",
+  "generatedBy": "tabulate_rcv.py (RCTab 2.1.0 rules)"
  },
  "writeInRoundFolded": false,
- "repeatedRoundsMerged": 1,
+ "repeatedRoundsMerged": 0,
  "rounds": [
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 115211.0,
-    "Eric Hafner": 17252.0,
-    "Bill Hill": 94640.0,
-    "Jim McDermott": 6230.0
+    "Nick Begich": 133641.0,
+    "Eric Hafner": 21821.0,
+    "Bill Hill": 116906.0,
+    "Jim McDermott": 7460.0
    },
-   "inactive": 484.0,
-   "threshold": 116667.0,
+   "inactive": 693.0,
+   "threshold": 139915.0,
    "eliminated": [
     "Jim McDermott"
    ],
    "elected": [],
    "transfers": {
     "Jim McDermott": {
-     "Nick Begich": 1752.0,
-     "Eric Hafner": 766.0,
-     "Bill Hill": 1723.0,
-     "Inactive": 1989.0
+     "Inactive": 2459.0,
+     "Nick Begich": 2024.0,
+     "Bill Hill": 2061.0,
+     "Eric Hafner": 916.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 116963.0,
-    "Eric Hafner": 18018.0,
-    "Bill Hill": 96363.0
+    "Nick Begich": 135665.0,
+    "Eric Hafner": 22737.0,
+    "Bill Hill": 118967.0
    },
-   "inactive": 2473.0,
-   "threshold": 115673.0,
+   "inactive": 3152.0,
+   "threshold": 138685.0,
    "eliminated": [
     "Eric Hafner"
    ],
-   "elected": [
-    "Nick Begich"
-   ],
+   "elected": [],
    "transfers": {
     "Eric Hafner": {
-     "Nick Begich": 1219.0,
-     "Bill Hill": 8275.0,
-     "Inactive": 8524.0
+     "Inactive": 10897.0,
+     "Bill Hill": 10270.0,
+     "Nick Begich": 1570.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 118182.0,
-    "Bill Hill": 104638.0
+    "Nick Begich": 137235.0,
+    "Bill Hill": 129237.0
    },
-   "inactive": 10997.0,
-   "threshold": 115673.0,
+   "inactive": 14049.0,
+   "threshold": 133237.0,
    "eliminated": [],
-   "elected": [],
+   "elected": [
+    "Nick Begich"
+   ],
    "transfers": {}
   }
  ],
- "totalBallots": 235561.0,
- "undervotes": 1744.0
+ "totalBallots": 282698.0,
+ "undervotes": 2177.0
 }

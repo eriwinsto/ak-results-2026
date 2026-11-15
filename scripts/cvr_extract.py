@@ -105,7 +105,10 @@ def main():
                            for x in cands if x['ContestId'] == cid},
             'ballots': sum(pats[cid].values()),
             'patterns': [[n, [list(m) for m in k]] for k, n in pats[cid].most_common()]}
-    res['housePortions'] = {pp.get(k, str(k)): n for k, n in sorted(portions.items(), key=lambda kv: pp.get(kv[0], str(kv[0])))}
+    named = Counter()  # several precinct-portion ids can share one name; add them up
+    for k, n in portions.items():
+        named[pp.get(k, str(k))] += n
+    res['housePortions'] = dict(sorted(named.items()))
     json.dump(res, open(out, 'w'), separators=(',', ':'))
     print(f"{len(files)} files, {sessions:,} sessions ({skipped} skipped), {len(contests)} ranked contests -> {out} "
           f"({os.path.getsize(out) / 1e6:.1f} MB)", file=sys.stderr)

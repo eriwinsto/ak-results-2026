@@ -2,71 +2,71 @@
  "contest": "ussen",
  "label": "",
  "rctab": {
-  "contest": "Alaska U.S. Senate 11-10-26 update",
-  "generatedBy": "RCTab 2.1.0"
+  "contest": "U.S. Senator",
+  "generatedBy": "tabulate_rcv.py (RCTab 2.1.0 rules)"
  },
  "writeInRoundFolded": false,
- "repeatedRoundsMerged": 0,
+ "repeatedRoundsMerged": 1,
  "rounds": [
   {
    "round": 1,
    "tally": {
-    "Gerald Heikes": 4943.0,
-    "Mary Peltola": 112690.0,
-    "Dan Sullivan": 112450.0,
-    "Daniel Sullivan Jr.": 3896.0
+    "Gerald Heikes": 6171.0,
+    "Mary Peltola": 140381.0,
+    "Daniel Sullivan Jr.": 4758.0,
+    "Dan Sullivan": 129339.0
    },
-   "inactive": 748.0,
-   "threshold": 116990.0,
+   "inactive": 990.0,
+   "threshold": 140325.0,
    "eliminated": [
     "Daniel Sullivan Jr."
    ],
-   "elected": [],
+   "elected": [
+    "Mary Peltola"
+   ],
    "transfers": {
     "Daniel Sullivan Jr.": {
-     "Gerald Heikes": 708.0,
-     "Mary Peltola": 1141.0,
-     "Dan Sullivan": 632.0,
-     "Inactive": 1415.0
+     "Inactive": 1749.0,
+     "Mary Peltola": 1395.0,
+     "Gerald Heikes": 861.0,
+     "Dan Sullivan": 753.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Gerald Heikes": 5651.0,
-    "Mary Peltola": 113831.0,
-    "Dan Sullivan": 113082.0
+    "Gerald Heikes": 7032.0,
+    "Mary Peltola": 141776.0,
+    "Dan Sullivan": 130092.0
    },
-   "inactive": 2163.0,
-   "threshold": 116283.0,
+   "inactive": 2739.0,
+   "threshold": 140325.0,
    "eliminated": [
     "Gerald Heikes"
    ],
    "elected": [],
    "transfers": {
     "Gerald Heikes": {
-     "Mary Peltola": 1019.0,
-     "Dan Sullivan": 2434.0,
-     "Inactive": 2198.0
+     "Inactive": 2788.0,
+     "Dan Sullivan": 2893.0,
+     "Mary Peltola": 1351.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Mary Peltola": 114850.0,
-    "Dan Sullivan": 115516.0
+    "Mary Peltola": 143127.0,
+    "Dan Sullivan": 132985.0
    },
-   "inactive": 4361.0,
-   "threshold": 115184.0,
+   "inactive": 5527.0,
+   "threshold": 140325.0,
    "eliminated": [],
-   "elected": [
-    "Dan Sullivan"
-   ],
+   "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 235561.0,
- "undervotes": 834.0
+ "totalBallots": 282698.0,
+ "undervotes": 1059.0
 }
