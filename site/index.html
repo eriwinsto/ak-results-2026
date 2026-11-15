@@ -274,7 +274,8 @@ html.standalone .app { max-width: 712px; padding-left: max(16px, env(safe-area-i
 
 /* single-view embeds (?view=map etc.) */
 .app[data-view="map"] .sec, .app[data-view="map"] .race { display: none; }
-.app[data-view="rcv"] > :not(.top):not(#rcv):not(.foot) { display: none; }
+.app[data-view="rcv"] > :not(.top):not(.tabs):not(#rcv):not(.foot) { display: none; }
+.app[data-view="rcv"] .top .meta { display: none; } /* the update time and ballot count are for first-choice results, not the CVR */
 .app[data-view="bop"] > :not(.top):not(#bop):not(.foot) { display: none; }
 .app[data-view="rcv"] #rcv, .app[data-view="bop"] #bop { margin-top: 14px; border-top: 0; padding-top: 0; }
 
@@ -457,6 +458,7 @@ const qs = new URLSearchParams(location.search);
 const DEMO = qs.get('demo') === '1';
 const VIEW = (qs.get('view') || 'all').replace(/\/+$/, '');   // tolerate a stray trailing slash (?view=results/)
 const RESULTS_ONLY = VIEW === 'results';   // ?view=results: race results and map, no ranked choice or balance of power
+const RCV_ONLY = VIEW === 'rcv';   // ?view=rcv: ranked choice section only, with tabs for the races that have one
 const fmt = d3.format(',');
 const pct = (v, t) => t ? (v / t * 100) : 0;
 // near 50%, one decimal can round a share just under a majority up to "50.0%"; show two there
@@ -551,7 +553,8 @@ function renderHeader() {
 
 /* ---------- tabs ---------- */
 function renderTabs() {
-  const keys = ['gov', 'ussen', 'ushouse', 'bm2', 'bm3', 'house', 'senate'].filter((k) => k === 'house' || k === 'senate' || byId[k]);
+  const keys = ['gov', 'ussen', 'ushouse', 'bm2', 'bm3', 'house', 'senate'].filter((k) => k === 'house' || k === 'senate' || byId[k])
+    .filter((k) => !RCV_ONLY || RCV_CONTESTS.includes(k) || k === 'house' || k === 'senate');
   $('tabs').innerHTML = keys.map((k) => `<button class="tab" role="tab" type="button" data-k="${k}" aria-selected="${state.tab === k}">${COPY.tabs[k]}</button>`).join('');
   $('tabs').querySelectorAll('.tab').forEach((b) => b.onclick = () => setTab(b.dataset.k));
 }
@@ -1075,7 +1078,8 @@ function renderRCV() {
       <div class="tbar">${parts.map(([n, v]) => `<b style="flex:${v};background:${n === 'Inactive' ? '#c9c9c3' : colorOf[n]}" title="${esc(n)} ${fmt(Math.round(v))}"></b>`).join('')}</div>
       <div class="tkey">${parts.map(([n, v]) => `<span><i style="background:${n === 'Inactive' ? '#c9c9c3' : colorOf[n]}"></i>${esc(shortName(n))} ${fp(pct(v, T))}</span>`).join('')}</div></div>`;
   }
-  el.innerHTML = `<h2>${COPY.rcvTitle}: ${esc(title(c))}</h2><p class="dek">${esc(data.label || COPY.rcvLabelDefault)}</p>
+  const back = RCV_ONLY && legislative ? `<button class="backlink" type="button" id="rcvBack">All ${state.tab === 'house' ? 'House' : 'Senate'} races</button>` : '';
+  el.innerHTML = `${back}<h2>${COPY.rcvTitle}: ${esc(title(c))}</h2><p class="dek">${esc(data.label || COPY.rcvLabelDefault)}</p>
     <div class="rounds"><span class="label lbl">Round</span>${btns}</div>
     <div class="rcv-chart"><div class="rcv-axis"></div>${rows}
       <div class="majline"></div></div>
@@ -1083,6 +1087,7 @@ function renderRCV() {
     ${legislative ? '' : cvrGapHTML()}`;
   positionMajLine(maj);
   el.querySelectorAll('button.rd').forEach((b) => b.onclick = () => { state.round = +b.dataset.r; renderRCV(); sendHeight(); });
+  if ($('rcvBack')) $('rcvBack').onclick = () => selectDistrict(null);
   const gb = $('gapBtn');
   if (gb) gb.onclick = () => { state.gapOpen = !state.gapOpen; gb.setAttribute('aria-expanded', state.gapOpen); $('gapList').hidden = !state.gapOpen; sendHeight(); };
 }
@@ -1212,7 +1217,7 @@ function renderBOP() {
 
 /* ---------- footer ---------- */
 function renderFoot() {
-  $('foot').innerHTML = `${RESULTS_ONLY ? '' : `<p class="rcvx">${esc(COPY.rcvExplainer)}</p>`}<p>${esc(COPY.source)}</p>${BASE ? `<p>${esc(COPY.basemapCredit)}</p>` : ''}${COPY.disclosure ? `<p>${linkify(COPY.disclosure)}</p>` : ''}`;
+  $('foot').innerHTML = `${RESULTS_ONLY ? '' : `<p class="rcvx">${esc(COPY.rcvExplainer)}</p>`}<p>${esc(COPY.source)}</p>${BASE && !RCV_ONLY ? `<p>${esc(COPY.basemapCredit)}</p>` : ''}${COPY.disclosure ? `<p>${linkify(COPY.disclosure)}</p>` : ''}`;
 }
 // escape, then turn [text](https://...) into a link that opens outside the embed
 function linkify(t) {

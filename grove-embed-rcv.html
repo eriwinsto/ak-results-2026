@@ -1,0 +1,11 @@
+<!-- Alaska election 2026 ranked choice counts only — paste into a Grove "Responsive Embed" (Full Html Embed field).
+     Shows tabs for governor, U.S. Senate, U.S. House, State House and State Senate, and the ranked choice section
+     for each. Can sit on the same page as grove-embed.html (it uses its own element id). -->
+<div id="akpm-rcv-2026"></div>
+<script src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script>
+(function () {
+  var URL = 'https://eriwinsto.github.io/ak-results-2026/site/?view=rcv';   // add &race=house (or senate, ussen, ushouse) to open on that tab
+  new pym.Parent('akpm-rcv-2026', URL, { title: 'Alaska ranked choice counts' });
+})();
+</script>
