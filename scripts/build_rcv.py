@@ -68,22 +68,14 @@ def surname(s):
     s = s.split('/')[0]
     return (s.split(',')[0] if ',' in s else s.split()[-1]).strip().lower()
 
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('rctab_json')
-    ap.add_argument('contest', help='contest id in results.json, e.g. gov')
-    ap.add_argument('--label', default='')
-    ap.add_argument('--results', default=os.path.join(ROOT, 'site', 'data', 'results.json'))
-    ap.add_argument('--out', default=None)
-    a = ap.parse_args()
-
-    rep = read_csv_report(a.rctab_json) if a.rctab_json.lower().endswith('.csv') else json.load(open(a.rctab_json))
+def convert(rep, contest, label='', results=os.path.join(ROOT, 'site', 'data', 'results.json')):
+    """RCTab-shaped report (JSON layout) -> the site's rcv/<contest>.json structure, plus unmatched names."""
     rounds = rep['results']
 
     names = {}
-    if a.results and os.path.isfile(a.results):
-        res = json.load(open(a.results))
-        c = next((c for c in res['contests'] if c['id'] == a.contest), None)
+    if results and os.path.isfile(results):
+        res = json.load(open(results))
+        c = next((c for c in res['contests'] if c['id'] == contest), None)
         if c:
             for x in c['candidates']:
                 names[x['raw']] = x['name']
@@ -141,22 +133,37 @@ def main():
     for i, r in enumerate(merged):
         r['round'] = i + 1
     repeats = len(out_rounds) - len(merged)
-    out_rounds = merged
 
-    out = {'contest': a.contest, 'label': a.label,
+    out = {'contest': contest, 'label': label,
            'rctab': {'contest': rep['config'].get('contest', ''), 'generatedBy': rep['config'].get('generatedBy', '')},
-           'writeInRoundFolded': folded, 'repeatedRoundsMerged': repeats, 'rounds': out_rounds,
+           'writeInRoundFolded': folded, 'repeatedRoundsMerged': repeats, 'rounds': merged,
            'totalBallots': num(str(rep['summary'].get('totalNumBallots')).replace(',', '')),
            'undervotes': num(str(rep['summary'].get('undervotes', 0)).replace(',', ''))}
+    return out, unmatched
+
+def describe(out):
+    last = out['rounds'][-1]
+    lead = sorted(last['tally'].items(), key=lambda kv: -kv[1])
+    return (f"{len(out['rounds'])} rounds (write-in round folded: {out['writeInRoundFolded']}, repeated rounds merged: "
+            f"{out['repeatedRoundsMerged']}); final: " + ', '.join(f'{k} {v:,.0f}' for k, v in lead))
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument('rctab_json')
+    ap.add_argument('contest', help='contest id in results.json, e.g. gov')
+    ap.add_argument('--label', default='')
+    ap.add_argument('--results', default=os.path.join(ROOT, 'site', 'data', 'results.json'))
+    ap.add_argument('--out', default=None)
+    a = ap.parse_args()
+
+    rep = read_csv_report(a.rctab_json) if a.rctab_json.lower().endswith('.csv') else json.load(open(a.rctab_json))
+    out, unmatched = convert(rep, a.contest, a.label, a.results)
     dest = a.out or os.path.join(ROOT, 'site', 'data', 'rcv', f'{a.contest}.json')
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     json.dump(out, open(dest, 'w'), indent=1, ensure_ascii=False)
     if unmatched:
         print('WARNING: RCTab names not matched to Division names:', sorted(unmatched), file=sys.stderr)
-    last = out_rounds[-1]
-    lead = sorted(last['tally'].items(), key=lambda kv: -kv[1])
-    print(f'wrote {dest}: {len(out_rounds)} rounds (write-in round folded: {folded}, repeated rounds merged: {repeats}); final: ' +
-          ', '.join(f'{k} {v:,.0f}' for k, v in lead))
+    print(f'wrote {dest}: ' + describe(out))
 
 if __name__ == '__main__':
     main()

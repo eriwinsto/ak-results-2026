@@ -100,6 +100,25 @@ The page labels the section with `--label` or, by default, COPY.rcvLabelDefault,
 Alaska Public Media tabulation and not official.
 Add other contests to `RCV_CONTESTS` in index.html (e.g. `'ushouse'`).
 
+### Without RCTab
+
+`scripts/cvr_extract.py` and `scripts/tabulate_rcv.py` do the same tabulation without RCTab, for every
+ranked contest at once. `cvr_extract.py` reads the Division's CVR export folder (Dominion/Liberty JSON)
+and writes a small file of ballot ranking patterns; `tabulate_rcv.py` tabulates it with the settings in
+the Division's RCTab guide (write-ins excluded, majority winner, continue until two remain, overvotes
+exhaust immediately, one skipped rank allowed) and RCTab's other defaults.
+
+```
+python3 scripts/cvr_extract.py "path/to/CVR_Export folder" patterns.json
+python3 scripts/tabulate_rcv.py patterns.json --report-dir out/        # every contest
+python3 scripts/tabulate_rcv.py patterns.json --contests gov ussen ushouse --site   # site files
+```
+
+On the Nov. 10 7:16 p.m. CVR, its rounds for governor, U.S. Senate and U.S. House match RCTab 2.1.0's
+detailed reports exactly: every tally, threshold, transfer and inactive-ballot category. Legislative
+contests use the same code but have not been checked against RCTab runs. It reports ties for last
+place instead of breaking them.
+
 ## Embedding in Grove
 
 Paste `grove-embed.html` into a Responsive Embed and set the URL. Optional URL parameters:
