@@ -14,7 +14,7 @@ on:
         type: boolean
         default: false
   push:
-    paths: ['.github/workflows/update-results.yml', 'scripts/fetch_enr.py', 'config/calls.json']
+    paths: ['.github/workflows/update-results.yml', 'scripts/fetch_enr.py', 'config/calls.json', 'config/cvr_counts.json']
 permissions:
   contents: write
   pages: write
