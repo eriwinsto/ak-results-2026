@@ -147,17 +147,22 @@ def main():
     ap.add_argument('patterns')
     ap.add_argument('--contests', nargs='*', help='site ids (gov, ussen, hd24, sdM ...); default all')
     ap.add_argument('--site', action='store_true', help='write site/data/rcv/<id>.json for gov, ussen, ushouse')
+    ap.add_argument('--legislature', action='store_true',
+                    help='write every House and Senate contest to site/data/rcv/legislature.json')
+    ap.add_argument('--label', default='', help='label for the site files (default: the page says it is not official)')
     ap.add_argument('--report-dir', help='write <id>.json (RCTab-style report) and <id>.site.json per contest here')
     ap.add_argument('--use-isvote', action='store_true', help='also drop marks with IsVote false (test only)')
     a = ap.parse_args()
     data = json.load(open(a.patterns))
-    out = {}
+    out, leg = {}, {}
     for cid, c in data['contests'].items():
         sid = site_id(c['name'])
         if not sid or (a.contests and sid not in a.contests):
             continue
         rep = tabulate(c, a.use_isvote)
-        conv, unmatched = build_rcv.convert(rep, sid)
+        conv, unmatched = build_rcv.convert(rep, sid, a.label)
+        if sid.startswith(('hd', 'sd')):
+            leg[sid] = conv
         out[sid] = (rep, conv, unmatched)
         if a.report_dir:
             os.makedirs(a.report_dir, exist_ok=True)
@@ -169,6 +174,10 @@ def main():
         if unmatched:
             flag += f' (names not matched to results.json: {sorted(unmatched)})'
         print(f"{sid:8} {conv['totalBallots']:>9,.0f} ballots  winner {rep['winner'] or '-':28} {build_rcv.describe(conv)}{flag}")
+    if a.legislature and leg:
+        dest = os.path.join(ROOT, 'site', 'data', 'rcv', 'legislature.json')
+        json.dump(leg, open(dest, 'w'), separators=(',', ':'), ensure_ascii=False)
+        print(f'wrote {dest}: {len(leg)} contests')
     return out
 
 if __name__ == '__main__':

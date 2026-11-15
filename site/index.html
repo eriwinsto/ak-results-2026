@@ -232,6 +232,13 @@ html.standalone .app { max-width: 712px; padding-left: max(16px, env(safe-area-i
 .tkey span { display: inline-flex; align-items: center; gap: 5px; }
 .tkey i { width: 9px; height: 9px; display: inline-block; border-radius: 1px; }
 .rcv-foot { font-size: var(--fs-xs); color: var(--ink-3); margin-top: 10px; }
+.rcvlist td { vertical-align: top; padding-top: 7px; padding-bottom: 7px; }
+.rcvlist tr[data-d] { cursor: pointer; }
+.rcvlist tr[data-d]:hover td, .rcvlist tr[data-d]:focus td { background: var(--rule-2); }
+.rcvlist .sw { display: inline-block; width: 9px; height: 9px; border-radius: 1px; margin-right: 5px; vertical-align: 0; }
+.rcvlist .pp { color: var(--ink-3); font-size: var(--fs-xs); }
+.rcvlist tr.flip td { background: color-mix(in srgb, var(--ind, #f1a513) 12%, transparent); }
+.rcvlist .flipb { color: var(--ink); font-weight: 700; }
 .cvr-gap { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--rule-2); font-size: var(--fs-s); color: var(--ink-2); }
 .cvr-gap p { margin: 0; max-width: 64ch; }
 .gap-btn { background: none; border: 0; padding: 0; font-weight: 600; color: var(--ink); text-decoration: underline; text-decoration-style: dotted; text-underline-offset: 3px; }
@@ -393,6 +400,11 @@ const COPY = {
   precinctNote: 'The Division of Elections reports early, absentee and questioned ballots by House district, not by precinct. Precinct shading reflects Election Day ballots only; district shading and all totals include every ballot counted so far.',
   areaPrompt: 'Tap or hover over the map to see results for a district or precinct.',
   rcvTitle: 'Ranked choice count',
+  // MOCKUP PLACEHOLDERS (Eric to write): district list view of legislative ranked choice counts
+  rcvListDek: '[Placeholder dek: what this table shows, and that these are Alaska Public Media tabulations of the CVR, not official results.]',
+  rcvListCols: { d: 'Dist.', first: 'First-choice leader', final: 'Final round', rounds: 'Rounds' },
+  rcvListFlip: '[Placeholder: lead changed]',
+  rcvListHint: '[Placeholder: Select a district to see each round.]',
   rcvLabelDefault: 'Alaska Public Media tabulation of the Division of Elections’ cast vote record. Not official results.',
   rcvPending: 'If no candidate wins a majority of first choices, the race goes to ranked choice tabulation. Round-by-round results will appear here after the Division of Elections publishes ballot-level data.',
   bopTitle: 'Balance of power',
@@ -417,6 +429,7 @@ const COPY = {
 
 /* Contests that get the round-by-round section, and the data file for each. */
 const RCV_CONTESTS = ['gov', 'ussen', 'ushouse'];
+let RCV_LEG = null; // every House and Senate contest, from data/rcv/legislature.json
 
 /* ===================================================================== */
 const PARTY = {
@@ -635,8 +648,8 @@ function bindBoard() {
   });
 }
 function selectDistrict(d, opts = {}) {
-  state.district = d; state.sel = d ? { type: 'dist', id: d } : null;
-  renderRace(); renderMapLayer(); renderArea();
+  state.district = d; state.sel = d ? { type: 'dist', id: d } : null; state.round = null;
+  renderRace(); renderMapLayer(); renderArea(); renderRCV();
   if (!opts.noZoom) zoomTo(d ? districtFeature(d) : null);
   sendHeight();
 }
@@ -880,7 +893,7 @@ function clickArea(f) {
   if (legislative) {
     const d = state.tab === 'house' ? String(p.hd) : p.sd;
     if (state.tab === 'senate' && !byId['sd' + d]) { state.sel = { type: state.mode === 'pct' ? 'pct' : 'dist', id: state.mode === 'pct' ? p.id : d }; drawSel(); renderArea(); return; }
-    if (String(state.district) !== d) { state.district = d; renderRace(); renderMapLayer(); if (state.mode === 'hd') zoomTo(districtFeature(d)); }
+    if (String(state.district) !== d) { state.district = d; state.round = null; renderRace(); renderMapLayer(); renderRCV(); if (state.mode === 'hd') zoomTo(districtFeature(d)); }
   }
   state.sel = state.mode === 'pct' ? { type: 'pct', id: p.id } : { type: 'dist', id: state.tab === 'senate' ? p.sd : String(p.hd) };
   drawSel(); renderArea(); sendHeight();
@@ -975,7 +988,7 @@ function initFind() {
     } else {
       setMode('pct');
       const f = FEAT.precincts.find((x) => x.properties.id === h.id);
-      if (state.tab === 'house' && String(state.district) !== String(f.properties.hd)) { state.district = String(f.properties.hd); renderRace(); renderMapLayer(); }
+      if (state.tab === 'house' && String(state.district) !== String(f.properties.hd)) { state.district = String(f.properties.hd); state.round = null; renderRace(); renderMapLayer(); renderRCV(); }
       state.sel = { type: 'pct', id: h.id }; drawSel(); renderArea();
       const [[x0, y0], [x1, y1]] = path.bounds(f);
       const pad = Math.max(x1 - x0, y1 - y0) * 1.5;
@@ -1007,8 +1020,10 @@ function initFind() {
 /* ---------- ranked choice ---------- */
 function renderRCV() {
   const el = $('rcv');
-  const id = state.tab;
-  if (RESULTS_ONLY || !RCV_CONTESTS.includes(id) || !byId[id]) { el.hidden = true; return; }
+  const legislative = state.tab === 'house' || state.tab === 'senate';
+  if (!RESULTS_ONLY && legislative && !state.district && RCV_LEG) { el.hidden = false; el.innerHTML = rcvListHTML(state.tab); wireRcvList(el); return; }
+  const id = legislative ? (state.tab === 'house' ? 'hd' : 'sd') + state.district : state.tab;
+  if (RESULTS_ONLY || !(RCV_CONTESTS.includes(id) || (legislative && RCV_LEG)) || !byId[id]) { el.hidden = true; return; }
   el.hidden = false;
   const c = byId[id];
   const data = RCV[id];
@@ -1062,11 +1077,42 @@ function renderRCV() {
     <div class="rcv-chart"><div class="rcv-axis"></div>${rows}
       <div class="majline"></div></div>
     <div class="rcv-foot"><span class="num">${fmt(Math.round(cont))}</span> continuing ballots &middot; <span class="num">${fmt(Math.round(R.inactive))}</span> inactive. Dashed line marks a majority of continuing ballots.</div>${transfer}
-    ${cvrGapHTML()}`;
+    ${legislative ? '' : cvrGapHTML()}`;
   positionMajLine(maj);
   el.querySelectorAll('button.rd').forEach((b) => b.onclick = () => { state.round = +b.dataset.r; renderRCV(); sendHeight(); });
   const gb = $('gapBtn');
   if (gb) gb.onclick = () => { state.gapOpen = !state.gapOpen; gb.setAttribute('aria-expanded', state.gapOpen); $('gapList').hidden = !state.gapOpen; sendHeight(); };
+}
+function rcvSummary(id) {
+  const d = RCV_LEG && RCV_LEG[id]; const c = byId[id];
+  if (!d || !c) return null;
+  const r1 = d.rounds[0].tally, fin = d.rounds[d.rounds.length - 1].tally;
+  const lead1 = Object.keys(r1).sort((a, b) => r1[b] - r1[a])[0];
+  const finOrder = Object.keys(fin).sort((a, b) => fin[b] - fin[a]);
+  const tot = d3.sum(Object.values(fin));
+  return { id, c, d, lead1, r1pct: pct(r1[lead1], d3.sum(Object.values(r1))), w: finOrder[0], ru: finOrder[1], wv: fin[finOrder[0]], rv: finOrder[1] ? fin[finOrder[1]] : 0, tot, rounds: d.rounds.length };
+}
+function rcvListHTML(chamber) {
+  const ids = chamber === 'house' ? d3.range(1, 41).map((n) => 'hd' + n) : DATA.contests.filter((c) => c.kind === 'senate').map((c) => c.id);
+  const rows = ids.map(rcvSummary).filter(Boolean).map((s) => {
+    const flip = s.lead1 !== s.w;
+    const nm = (n) => `<i class="sw" style="background:${(s.c.candidates.find((x) => x.name === n) || {}).hex || '#999'}"></i>${esc(shortName(n))}`;
+    const margin = s.ru ? `${fp(pct(s.wv, s.tot))}&ndash;${fp(pct(s.rv, s.tot))}` : fp(100);
+    return `<tr data-d="${s.c.district}" tabindex="0" class="${flip ? 'flip' : ''}"><td class="d">${s.c.district}</td>
+      <td>${nm(s.lead1)} <span class="pp">${fp(s.r1pct)}</span></td>
+      <td>${nm(s.w)}${s.ru ? ` <span class="pp">over ${esc(shortName(s.ru))}</span>` : ''}<div class="pp">${margin} &middot; ${fmt(Math.round(s.wv - s.rv))} votes${flip ? ` &middot; <b class="flipb">${esc(COPY.rcvListFlip)}</b>` : ''}</div></td>
+      <td class="r">${s.rounds}</td></tr>`;
+  }).join('');
+  const L = COPY.rcvListCols;
+  return `<h2>${COPY.rcvTitle}: ${COPY.tabs[chamber]}</h2><p class="dek">${esc(COPY.rcvListDek)}</p>
+    <table class="board rcvlist"><thead><tr><th>${L.d}</th><th>${L.first}</th><th>${L.final}</th><th style="text-align:right">${L.rounds}</th></tr></thead><tbody>${rows}</tbody></table>
+    <p class="rcv-foot">${esc(COPY.rcvListHint)}</p>`;
+}
+function wireRcvList(el) {
+  el.querySelectorAll('tr[data-d]').forEach((tr) => {
+    const go = () => { selectDistrict(tr.dataset.d); };
+    tr.onclick = go; tr.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } };
+  });
 }
 function cvrGapHTML() {
   const g = DATA.cvrGap;
@@ -1190,9 +1236,12 @@ function debounce(fn, ms) { let t; return (...a) => { clearTimeout(t); t = setTi
 /* ---------- boot ---------- */
 async function getJSON(u) { const r = await fetch(u + (u.includes('?') ? '&' : '?') + 't=' + Math.floor(Date.now() / 60000), { cache: 'no-store' }); if (!r.ok) throw new Error(u + ' ' + r.status); return r.json(); }
 async function loadRCV() {
-  RCV = {};
+  RCV = {}; RCV_LEG = null;
   if (RESULTS_ONLY) return;
   const avail = DATA.rcv || [];
+  if (avail.includes('legislature')) {
+    try { RCV_LEG = await getJSON('data/rcv/legislature.json'); Object.assign(RCV, RCV_LEG); } catch (e) { RCV_LEG = null; }
+  }
   await Promise.all(RCV_CONTESTS.filter((id) => DEMO || avail.includes(id)).map(async (id) => {
     try { RCV[id] = await getJSON(DEMO ? 'data/test/rcv-fixture.json' : `data/rcv/${id}.json`); } catch (e) { /* not published yet */ }
   }));

@@ -2,8 +2,8 @@
  "contest": "gov",
  "label": "",
  "rctab": {
-  "contest": "Alaska Governor 11-10-26 update",
-  "generatedBy": "RCTab 2.1.0"
+  "contest": "Governor / Lieutenant Governor",
+  "generatedBy": "tabulate_rcv.py (RCTab 2.1.0 rules)"
  },
  "writeInRoundFolded": false,
  "repeatedRoundsMerged": 1,
@@ -11,62 +11,62 @@
   {
    "round": 1,
    "tally": {
-    "Bronson / Church": 32362.0,
-    "Kreiss-Tomkins / Johnson": 114919.0,
-    "Taylor / English": 16861.0,
-    "Wilson / Shower": 67539.0
+    "Bronson / Church": 38008.0,
+    "Kreiss-Tomkins / Johnson": 141584.0,
+    "Taylor / English": 20050.0,
+    "Wilson / Shower": 77945.0
    },
-   "inactive": 836.0,
-   "threshold": 115841.0,
+   "inactive": 1182.0,
+   "threshold": 138794.0,
    "eliminated": [
     "Taylor / English"
    ],
-   "elected": [],
+   "elected": [
+    "Kreiss-Tomkins / Johnson"
+   ],
    "transfers": {
     "Taylor / English": {
-     "Bronson / Church": 4939.0,
-     "Kreiss-Tomkins / Johnson": 888.0,
-     "Wilson / Shower": 5487.0,
-     "Inactive": 5547.0
+     "Inactive": 6829.0,
+     "Wilson / Shower": 6355.0,
+     "Bronson / Church": 5744.0,
+     "Kreiss-Tomkins / Johnson": 1122.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Bronson / Church": 37301.0,
-    "Kreiss-Tomkins / Johnson": 115807.0,
-    "Wilson / Shower": 73026.0
+    "Bronson / Church": 43752.0,
+    "Kreiss-Tomkins / Johnson": 142706.0,
+    "Wilson / Shower": 84300.0
    },
-   "inactive": 6383.0,
-   "threshold": 113068.0,
+   "inactive": 8011.0,
+   "threshold": 138794.0,
    "eliminated": [
     "Bronson / Church"
    ],
-   "elected": [
-    "Kreiss-Tomkins / Johnson"
-   ],
+   "elected": [],
    "transfers": {
     "Bronson / Church": {
-     "Kreiss-Tomkins / Johnson": 2469.0,
-     "Wilson / Shower": 21420.0,
-     "Inactive": 13412.0
+     "Inactive": 16033.0,
+     "Wilson / Shower": 24661.0,
+     "Kreiss-Tomkins / Johnson": 3058.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Kreiss-Tomkins / Johnson": 118276.0,
-    "Wilson / Shower": 94446.0
+    "Kreiss-Tomkins / Johnson": 145764.0,
+    "Wilson / Shower": 108961.0
    },
-   "inactive": 19795.0,
-   "threshold": 113068.0,
+   "inactive": 24044.0,
+   "threshold": 138794.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 235431.0,
- "undervotes": 2914.0
+ "totalBallots": 282469.0,
+ "undervotes": 3700.0
 }
