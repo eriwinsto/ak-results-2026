@@ -249,6 +249,10 @@ html.standalone .app { max-width: 712px; padding-left: max(16px, env(safe-area-i
 .seats b { flex: 1 1 0; display: block; border-radius: 1px; }
 .seats .maj { position: absolute; top: -18px; bottom: -4px; border-left: 1.5px solid var(--ink); }
 .seats .maj span { position: absolute; top: -1px; left: 4px; font-size: var(--fs-xs); color: var(--ink-2); white-space: nowrap; }
+.seats-grp { position: relative; height: 24px; margin-top: 3px; }
+.seats-grp .br { position: absolute; left: 0; top: 0; height: 5px; border: 1.5px solid var(--ink-2); border-top: none; }
+.seats-grp span { position: absolute; left: 0; top: 7px; font-size: var(--fs-xs); color: var(--ink-2); white-space: nowrap; }
+.seats-grp strong { color: var(--ink); font-variant-numeric: tabular-nums; }
 .bop-counts { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 8px; font-size: var(--fs-s); }
 .bop-counts span { display: inline-flex; align-items: baseline; gap: 6px; }
 .bop-counts i { width: 10px; height: 10px; display: inline-block; border-radius: 1px; align-self: center; }
@@ -395,6 +399,8 @@ const COPY = {
   bopDek: 'Seats are counted only after AP calls a race. Party labels do not show control: both chambers have been run by bipartisan coalitions.',
   bopHoldover: 'Not up this year',
   bopUncalled: 'Not yet called',
+  // bracket under Democratic and independent seats (party view); independents caucus with Democrats
+  bopDemInd: 'Democrats and independents',
   // {missing} is replaced by a button that opens the list of precincts (built by build_data.py --cvr)
   cvrGap: 'The Cast Vote Record, the ballot data file provided by the Division of Elections, contains fewer ballots than the division\u2019s latest first-choice results. It is currently missing {missing}. Final tabulation by the Division of Elections won\u2019t happen until Nov. 18.',
   cvrGapButton: (n) => `${n} precincts`,
@@ -1138,12 +1144,16 @@ function renderBOP() {
       return s.map((x) => `<b style="background:${x.hold && bopMode === 'party' ? d3.interpolateLab('#fff', g.hex)(0.45) : g.hex}" title="${chamber === 'house' ? 'HD' : 'SD'} ${x.d}${x.hold ? ' (' + COPY.bopHoldover.toLowerCase() + ')' : ''}"></b>`);
     }).join('');
     const majority = Math.floor(total / 2) + 1;
+    // independents caucus with Democrats: bracket the two groups together
+    const nD = seats.filter((x) => x.bloc === 'D').length, nI = seats.filter((x) => x.bloc === 'I').length;
+    const grp = bopMode === 'party' && nD && nI
+      ? `<div class="seats-grp"><div class="br" style="width:calc(${((nD + nI) / total * 100).toFixed(3)}% - 2px)"></div><span>${esc(COPY.bopDemInd)} <strong>${nD + nI}</strong></span></div>` : '';
     const counts = groups.filter((g) => g.seats.length).map((g) => {
       const held = g.seats.filter((s) => s.hold).length;
       return `<span><i style="background:${g.hex}"></i>${esc(g.label)} <strong>${g.seats.length}</strong>${held && bopMode === 'party' ? `<em style="font-style:normal;color:var(--ink-3)">(${held} ${COPY.bopHoldover.toLowerCase()})</em>` : ''}</span>`;
     }).join('');
     return `<div><div class="bop-h"><h3>${name}</h3><span class="label">${total} seats</span></div>
-      <div class="seats">${cells}<div class="maj" style="left:50%"><span>${majority} for majority</span></div></div>
+      <div class="seats">${cells}<div class="maj" style="left:50%"><span>${majority} for majority</span></div></div>${grp}
       <div class="bop-counts">${counts}</div></div>`;
   };
   el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><div><h2>${COPY.bopTitle}</h2><p class="dek">${COPY.bopDek}</p></div>${toggle}</div>
