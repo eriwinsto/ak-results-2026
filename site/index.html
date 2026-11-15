@@ -403,7 +403,7 @@ const COPY = {
   // MOCKUP PLACEHOLDERS (Eric to write): district list view of legislative ranked choice counts
   rcvListDek: '[Placeholder dek: what this table shows, and that these are Alaska Public Media tabulations of the CVR, not official results.]',
   rcvListCols: { d: 'Dist.', first: 'First-choice leader', final: 'Final round', rounds: 'Rounds' },
-  rcvListFlip: '[Placeholder: lead changed]',
+  rcvListFlip: 'Lead change',
   rcvListHint: '[Placeholder: Select a district to see each round.]',
   rcvLabelDefault: 'Alaska Public Media tabulation of the Division of Elections’ cast vote record. Not official results.',
   rcvPending: 'If no candidate wins a majority of first choices, the race goes to ranked choice tabulation. Round-by-round results will appear here after the Division of Elections publishes ballot-level data.',
@@ -429,7 +429,7 @@ const COPY = {
 
 /* Contests that get the round-by-round section, and the data file for each. */
 const RCV_CONTESTS = ['gov', 'ussen', 'ushouse'];
-let RCV_LEG = null; // every House and Senate contest, from data/rcv/legislature.json
+let RCV_LEG = null; // House and Senate contests that went past round 1, from data/rcv/legislature.json
 
 /* ===================================================================== */
 const PARTY = {
@@ -1027,6 +1027,7 @@ function renderRCV() {
   el.hidden = false;
   const c = byId[id];
   const data = RCV[id];
+  if (!data && legislative) { el.hidden = true; return; } // decided in round 1
   if (!data) { el.innerHTML = rcvPendingHTML(c); return; }
   const rounds = data.rounds;
   if (state.round == null || state.round >= rounds.length) state.round = rounds.length - 1;
