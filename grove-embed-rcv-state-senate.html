@@ -1,0 +1,11 @@
+<!-- Alaska election 2026 ranked choice counts, opening on the State Senate tab — paste into a Grove "Responsive Embed" (Full Html Embed field).
+     Same page as grove-embed-rcv.html (readers can still switch tabs); only the starting tab differs.
+     Uses its own element id, so it can sit on a page with any of the other embeds. -->
+<div id="akpm-rcv-state-senate-2026"></div>
+<script src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script>
+(function () {
+  var URL = 'https://eriwinsto.github.io/ak-results-2026/site/?view=rcv&race=senate';
+  new pym.Parent('akpm-rcv-state-senate-2026', URL, { title: 'Alaska ranked choice counts: State Senate' });
+})();
+</script>
