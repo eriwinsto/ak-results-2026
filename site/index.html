@@ -434,7 +434,7 @@ const COPY = {
 
 /* Contests that get the round-by-round section, and the data file for each. */
 const RCV_CONTESTS = ['gov', 'ussen', 'ushouse'];
-let RCV_LEG = null; // House and Senate contests that went past round 1, from data/rcv/legislature.json
+let RCV_LEG = null; // every contested House and Senate race, from data/rcv/legislature.json (rcvLegShown picks which show)
 
 /* ===================================================================== */
 const PARTY = {
@@ -1035,7 +1035,7 @@ function renderRCV() {
   el.hidden = false;
   const c = byId[id];
   const data = RCV[id];
-  if (!data && legislative) { el.hidden = true; return; } // decided in round 1
+  if (legislative && !rcvLegShown(id)) { el.hidden = true; return; } // a first-choice majority
   if (!data) { el.innerHTML = rcvPendingHTML(c); return; }
   const rounds = data.rounds;
   if (state.round == null) state.round = 0; // open on round 1
@@ -1105,9 +1105,18 @@ function renderRCV() {
   const gb = $('gapBtn');
   if (gb) gb.onclick = () => { state.gapOpen = !state.gapOpen; gb.setAttribute('aria-expanded', state.gapOpen); $('gapList').hidden = !state.gapOpen; sendHeight(); };
 }
+// a legislative race gets the ranked choice treatment when nobody has more than 50% of first choices in the
+// Division's count (write-ins included), or when the ranked choice count went past round 1
+function rcvLegShown(id) {
+  const d = RCV_LEG && RCV_LEG[id]; const c = byId[id];
+  if (!d || !c) return false;
+  if (!d.rounds[0].elected.length) return true;
+  const T = totalVotes(c);
+  return T > 0 && d3.max(c.candidates, (x) => x.votes) * 2 <= T;
+}
 function rcvSummary(id) {
   const d = RCV_LEG && RCV_LEG[id]; const c = byId[id];
-  if (!d || !c) return null;
+  if (!rcvLegShown(id)) return null;
   const r1 = d.rounds[0].tally, fin = d.rounds[d.rounds.length - 1].tally;
   const lead1 = Object.keys(r1).sort((a, b) => r1[b] - r1[a])[0];
   const finOrder = Object.keys(fin).sort((a, b) => fin[b] - fin[a]);

@@ -164,7 +164,7 @@ def main():
     ap.add_argument('--contests', nargs='*', help='site ids (gov, ussen, hd24, sdM ...); default all')
     ap.add_argument('--site', action='store_true', help='write site/data/rcv/<id>.json for gov, ussen, ushouse')
     ap.add_argument('--legislature', action='store_true',
-                    help='write House and Senate contests that went past round 1 to site/data/rcv/legislature.json')
+                    help='write every contested House and Senate race to site/data/rcv/legislature.json')
     ap.add_argument('--label', default='', help='label for the site files (default: the page says it is not official)')
     ap.add_argument('--report-dir', help='write <id>.json (RCTab-style report) and <id>.site.json per contest here')
     ap.add_argument('--use-isvote', action='store_true', help='also drop marks with IsVote false (test only)')
@@ -177,8 +177,9 @@ def main():
             continue
         rep = tabulate(c, a.use_isvote)
         conv, unmatched = build_rcv.convert(rep, sid, a.label)
-        # legislative races only go in when nobody won a majority of first choices
-        if sid.startswith(('hd', 'sd')) and not conv['rounds'][0]['elected']:
+        # every contested legislative race goes in; the page shows the ones where nobody has a majority of
+        # first choices in the Division's count (write-ins included) or the count went past round 1
+        if sid.startswith(('hd', 'sd')) and len(conv['rounds'][0]['tally']) > 1:
             leg[sid] = conv
         out[sid] = (rep, conv, unmatched)
         if a.report_dir:
