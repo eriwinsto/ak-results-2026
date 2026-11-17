@@ -465,7 +465,7 @@ const RCV_ONLY = VIEW === 'rcv';   // ?view=rcv: ranked choice section only, wit
 const fmt = d3.format(',');
 const pct = (v, t) => t ? (v / t * 100) : 0;
 // near 50%, one decimal can round a share just under a majority up to "50.0%"; show two there
-const fp = (x) => x >= 99.95 ? '100%' : (x < 0.05 && x > 0 ? '<0.1%' : (x >= 49.95 && x < 50.05 ? (x < 50 ? Math.min(Math.floor(x * 100) / 100, 49.99) : x).toFixed(2) : x.toFixed(1)) + '%');
+const fp = (x) => x >= 99.95 ? '100%' : (x < 0.05 && x > 0 ? '<0.1%' : (x >= 49.95 && x < 50.05 ? (x < 50 ? Math.min(Math.round(x * 100) / 100, 49.99) : x).toFixed(2) : x.toFixed(1)) + '%');
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const $ = (id) => document.getElementById(id);
 
