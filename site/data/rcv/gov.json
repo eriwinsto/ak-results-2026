@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Bronson / Church": 38008.0,
-    "Kreiss-Tomkins / Johnson": 141584.0,
-    "Taylor / English": 20050.0,
-    "Wilson / Shower": 77945.0
+    "Bronson / Church": 38419.0,
+    "Kreiss-Tomkins / Johnson": 143015.0,
+    "Taylor / English": 20282.0,
+    "Wilson / Shower": 78492.0
    },
-   "inactive": 1182.0,
-   "threshold": 138794.0,
+   "inactive": 1206.0,
+   "threshold": 140105.0,
    "eliminated": [
     "Taylor / English"
    ],
@@ -26,57 +26,57 @@
    ],
    "transfers": {
     "Taylor / English": {
-     "Inactive": 6829.0,
-     "Wilson / Shower": 6355.0,
-     "Bronson / Church": 5744.0,
-     "Kreiss-Tomkins / Johnson": 1122.0
+     "Inactive": 6916.0,
+     "Wilson / Shower": 6412.0,
+     "Bronson / Church": 5814.0,
+     "Kreiss-Tomkins / Johnson": 1140.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Bronson / Church": 43752.0,
-    "Kreiss-Tomkins / Johnson": 142706.0,
-    "Wilson / Shower": 84300.0
+    "Bronson / Church": 44233.0,
+    "Kreiss-Tomkins / Johnson": 144155.0,
+    "Wilson / Shower": 84904.0
    },
-   "inactive": 8011.0,
-   "threshold": 138794.0,
+   "inactive": 8122.0,
+   "threshold": 140105.0,
    "eliminated": [
     "Bronson / Church"
    ],
    "elected": [],
    "transfers": {
     "Bronson / Church": {
-     "Inactive": 16033.0,
-     "Wilson / Shower": 24661.0,
-     "Kreiss-Tomkins / Johnson": 3058.0
+     "Inactive": 16223.0,
+     "Wilson / Shower": 24905.0,
+     "Kreiss-Tomkins / Johnson": 3105.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Kreiss-Tomkins / Johnson": 145764.0,
-    "Wilson / Shower": 108961.0
+    "Kreiss-Tomkins / Johnson": 147260.0,
+    "Wilson / Shower": 109809.0
    },
-   "inactive": 24044.0,
-   "threshold": 138794.0,
+   "inactive": 24345.0,
+   "threshold": 140105.0,
    "eliminated": [],
    "elected": [],
    "transfers": {},
    "firstRanks": {
     "candidate": "Kreiss-Tomkins / Johnson",
     "ballots": {
-     "Kreiss-Tomkins / Johnson": 141168,
-     "Bronson / Church": 2581,
-     "Taylor / English": 1536,
-     "_writein": 287,
-     "_blank": 192
+     "Kreiss-Tomkins / Johnson": 142591,
+     "Bronson / Church": 2623,
+     "Taylor / English": 1558,
+     "_writein": 290,
+     "_blank": 198
     }
    }
   }
  ],
- "totalBallots": 282469.0,
- "undervotes": 3700.0
+ "totalBallots": 285174.0,
+ "undervotes": 3760.0
 }
