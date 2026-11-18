@@ -11,55 +11,55 @@
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 134771.0,
-    "Eric Hafner": 22282.0,
-    "Bill Hill": 117929.0,
-    "Jim McDermott": 7537.0
+    "Nick Begich": 136534.0,
+    "Eric Hafner": 22829.0,
+    "Bill Hill": 120019.0,
+    "Jim McDermott": 7639.0
    },
-   "inactive": 709.0,
-   "threshold": 141260.0,
+   "inactive": 723.0,
+   "threshold": 143511.0,
    "eliminated": [
     "Jim McDermott"
    ],
    "elected": [],
    "transfers": {
     "Jim McDermott": {
-     "Inactive": 2486.0,
-     "Nick Begich": 2043.0,
-     "Bill Hill": 2082.0,
-     "Eric Hafner": 926.0
+     "Inactive": 2526.0,
+     "Nick Begich": 2061.0,
+     "Bill Hill": 2110.0,
+     "Eric Hafner": 942.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 136814.0,
-    "Eric Hafner": 23208.0,
-    "Bill Hill": 120011.0
+    "Nick Begich": 138595.0,
+    "Eric Hafner": 23771.0,
+    "Bill Hill": 122129.0
    },
-   "inactive": 3195.0,
-   "threshold": 140017.0,
+   "inactive": 3249.0,
+   "threshold": 142248.0,
    "eliminated": [
     "Eric Hafner"
    ],
    "elected": [],
    "transfers": {
     "Eric Hafner": {
-     "Inactive": 11166.0,
-     "Bill Hill": 10439.0,
-     "Nick Begich": 1603.0
+     "Inactive": 11450.0,
+     "Bill Hill": 10691.0,
+     "Nick Begich": 1630.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 138417.0,
-    "Bill Hill": 130450.0
+    "Nick Begich": 140225.0,
+    "Bill Hill": 132820.0
    },
-   "inactive": 14361.0,
-   "threshold": 134434.0,
+   "inactive": 14699.0,
+   "threshold": 136523.0,
    "eliminated": [],
    "elected": [
     "Nick Begich"
@@ -68,15 +68,15 @@
    "firstRanks": {
     "candidate": "Nick Begich",
     "ballots": {
-     "Nick Begich": 134456,
-     "Jim McDermott": 2198,
-     "Eric Hafner": 1405,
-     "_blank": 302,
-     "_writein": 56
+     "Nick Begich": 136215,
+     "Jim McDermott": 2220,
+     "Eric Hafner": 1427,
+     "_blank": 306,
+     "_writein": 57
     }
    }
   }
  ],
- "totalBallots": 285439.0,
- "undervotes": 2211.0
+ "totalBallots": 290003.0,
+ "undervotes": 2259.0
 }

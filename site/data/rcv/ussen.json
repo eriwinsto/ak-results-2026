@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Gerald Heikes": 6268.0,
-    "Mary Peltola": 141889.0,
-    "Daniel Sullivan Jr.": 4819.0,
-    "Dan Sullivan": 130366.0
+    "Gerald Heikes": 6356.0,
+    "Mary Peltola": 144561.0,
+    "Daniel Sullivan Jr.": 4896.0,
+    "Dan Sullivan": 132049.0
    },
-   "inactive": 1017.0,
-   "threshold": 141672.0,
+   "inactive": 1038.0,
+   "threshold": 143932.0,
    "eliminated": [
     "Daniel Sullivan Jr."
    ],
@@ -26,57 +26,57 @@
    ],
    "transfers": {
     "Daniel Sullivan Jr.": {
-     "Inactive": 1776.0,
-     "Mary Peltola": 1409.0,
-     "Gerald Heikes": 869.0,
-     "Dan Sullivan": 765.0
+     "Inactive": 1811.0,
+     "Mary Peltola": 1432.0,
+     "Gerald Heikes": 882.0,
+     "Dan Sullivan": 771.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Gerald Heikes": 7137.0,
-    "Mary Peltola": 143298.0,
-    "Dan Sullivan": 131131.0
+    "Gerald Heikes": 7238.0,
+    "Mary Peltola": 145993.0,
+    "Dan Sullivan": 132820.0
    },
-   "inactive": 2793.0,
-   "threshold": 141672.0,
+   "inactive": 2849.0,
+   "threshold": 143932.0,
    "eliminated": [
     "Gerald Heikes"
    ],
    "elected": [],
    "transfers": {
     "Gerald Heikes": {
-     "Inactive": 2840.0,
-     "Dan Sullivan": 2921.0,
-     "Mary Peltola": 1376.0
+     "Inactive": 2892.0,
+     "Dan Sullivan": 2957.0,
+     "Mary Peltola": 1389.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Mary Peltola": 144674.0,
-    "Dan Sullivan": 134052.0
+    "Mary Peltola": 147382.0,
+    "Dan Sullivan": 135777.0
    },
-   "inactive": 5633.0,
-   "threshold": 141672.0,
+   "inactive": 5741.0,
+   "threshold": 143932.0,
    "eliminated": [],
    "elected": [],
    "transfers": {},
    "firstRanks": {
     "candidate": "Mary Peltola",
     "ballots": {
-     "Mary Peltola": 141637,
-     "Daniel Sullivan Jr.": 1601,
-     "Gerald Heikes": 1093,
-     "_writein": 231,
-     "_blank": 112
+     "Mary Peltola": 144302,
+     "Daniel Sullivan Jr.": 1625,
+     "Gerald Heikes": 1105,
+     "_writein": 236,
+     "_blank": 114
     }
    }
   }
  ],
- "totalBallots": 285439.0,
- "undervotes": 1080.0
+ "totalBallots": 290003.0,
+ "undervotes": 1103.0
 }
