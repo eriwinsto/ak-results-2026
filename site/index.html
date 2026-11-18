@@ -461,6 +461,7 @@ const qs = new URLSearchParams(location.search);
 const DEMO = qs.get('demo') === '1';
 const VIEW = (qs.get('view') || 'all').replace(/\/+$/, '');   // tolerate a stray trailing slash (?view=results/)
 const RESULTS_ONLY = VIEW === 'results';   // ?view=results: race results and map, no ranked choice or balance of power
+const NO_BOP = VIEW === 'nobop';   // ?view=nobop: everything except the balance of power
 const RCV_ONLY = VIEW === 'rcv';   // ?view=rcv: ranked choice section only, with tabs for the races that have one
 const fmt = d3.format(',');
 const pct = (v, t) => t ? (v / t * 100) : 0;
@@ -1200,7 +1201,7 @@ function seatFor(c, d) {
 let bopMode = 'party';
 function renderBOP() {
   const el = $('bop');
-  if (RESULTS_ONLY) { el.hidden = true; return; }
+  if (RESULTS_ONLY || NO_BOP) { el.hidden = true; return; }
   const cau = DATA.caucus || {};
   const hasCaucus = cau.house && Object.keys(cau.house).length || cau.senate && Object.keys(cau.senate).length;
   const toggle = hasCaucus ? `<div class="seg" role="group" aria-label="Group seats by"><button type="button" data-m="party" aria-pressed="${bopMode === 'party'}">Party</button><button type="button" data-m="caucus" aria-pressed="${bopMode === 'caucus'}">Caucus</button></div>` : '';

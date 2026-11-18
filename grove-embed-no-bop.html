@@ -1,0 +1,10 @@
+<!-- Alaska election 2026 results: everything except the balance of power — paste into a Grove "Responsive Embed" (Full Html Embed field).
+     Race results, map and ranked choice counts. Uses its own element id, so it can sit on a page with any of the other embeds. -->
+<div id="akpm-results-nobop-2026"></div>
+<script src="https://pym.nprapps.org/pym.v1.min.js"></script>
+<script>
+(function () {
+  var URL = 'https://eriwinsto.github.io/ak-results-2026/site/?view=nobop';   // add &race=ussen (or ushouse, house, senate, bm2, bm3) to open on that tab
+  new pym.Parent('akpm-results-nobop-2026', URL, { title: 'Alaska election results' });
+})();
+</script>

@@ -121,6 +121,8 @@ place instead of breaking them.
 
 ## Embedding in Grove
 
+`grove-embed-no-bop.html` embeds everything except the balance of power (`?view=nobop`): race results, map and ranked choice counts.
+
 `grove-embed-rcv.html` embeds only the ranked choice section (`?view=rcv`): tabs for governor, U.S. Senate, U.S. House, State House and State Senate. The legislative tabs list the races that went past round 1; choosing one shows its rounds, with a link back to the list. The header's update time and ballot count are hidden there, since they describe first-choice results, not the CVR.
 
 `grove-embed-rcv-us-house.html`, `grove-embed-rcv-us-senate.html`, `grove-embed-rcv-state-house.html` and `grove-embed-rcv-state-senate.html` are the same ranked choice view opening on that tab (`&race=ushouse`, `ussen`, `house`, `senate`).
