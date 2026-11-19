@@ -403,14 +403,14 @@ const COPY = {
   areaPrompt: 'Tap or hover over the map to see results for a district or precinct.',
   rcvTitle: 'Ranked choice count',
   // MOCKUP PLACEHOLDERS (Eric to write): district list view of legislative ranked choice counts
-  rcvListDek: 'Races in which no candidate gets more than 50% of the vote are decided by ranked choice voting. This is Alaska Public Media’s unofficial tabulation of data provided by the Alaska Division of Elections. Final tabulation is scheduled for Nov. 18.',
+  rcvListDek: 'Races in which no candidate gets more than 50% of the vote are decided by ranked choice voting. As tabulated by the Alaska Division of Elections on Nov. 18.',
   rcvListCols: { d: 'Dist.', first: 'First-choice leader', final: 'Final round', rounds: 'Rounds' },
   rcvListFlip: 'Lead change',
   // final round: a bar of whom the final-round leader's ballots ranked first (Eric's wording)
   rcvFirstRanks: (name, n) => `Who ${name} ${n} voters ranked No. 1`,
   rcvFirstRankBlank: 'No. 1 blank',
   rcvListHint: 'Select a district to see each round.',
-  rcvLabelDefault: 'Alaska Public Media tabulation of the Division of Elections’ cast vote record. Not official results.',
+  rcvLabelDefault: 'Alaska Public Media tabulation of the Division of Elections’ cast vote record. For illustrative purposes only.',
   rcvPending: 'If no candidate wins a majority of first choices, the race goes to ranked choice tabulation. Round-by-round results will appear here after the Division of Elections publishes ballot-level data.',
   bopTitle: 'Balance of power',
   bopDek: 'Seats are counted only after AP calls a race. Party labels do not show control: both chambers have been run by bipartisan coalitions.',
@@ -1084,7 +1084,9 @@ function renderRCV() {
       <div class="tkey">${parts.map(([n, v]) => `<span><i style="background:${n === 'Inactive' ? '#c9c9c3' : colorOf[n]}"></i>${esc(shortName(n))} ${fp(pct(v, T))}</span>`).join('')}</div></div>`;
   }
   const back = RCV_ONLY && legislative ? `<button class="backlink" type="button" id="rcvBack">All ${state.tab === 'house' ? 'House' : 'Senate'} races</button>` : '';
-  if (!transfer && state.round === rounds.length - 1 && R.firstRanks) {
+  // final-round "Who X's N voters ranked No. 1" bar: off until the Division/RCTab discrepancy is resolved
+  const SHOW_FIRST_RANKS = false;
+  if (SHOW_FIRST_RANKS && !transfer && state.round === rounds.length - 1 && R.firstRanks) {
     const fr = R.firstRanks, T = d3.sum(Object.values(fr.ballots));
     const label = (k) => k === '_writein' ? COPY.writeIns : k === '_blank' ? COPY.rcvFirstRankBlank : k === '_overvote' ? 'Overvote' : shortName(k);
     const hex = (k) => k === '_writein' ? WRITEIN_HEX : k.startsWith('_') ? '#e4e4de' : (colorOf[k] || '#999');
@@ -1111,6 +1113,7 @@ function renderRCV() {
 function rcvLegShown(id) {
   const d = RCV_LEG && RCV_LEG[id]; const c = byId[id];
   if (!d || !c) return false;
+  if (d.source === 'division') return true; // the Division tabulated it
   if (!d.rounds[0].elected.length) return true;
   const T = totalVotes(c);
   return T > 0 && d3.max(c.candidates, (x) => x.votes) * 2 <= T;

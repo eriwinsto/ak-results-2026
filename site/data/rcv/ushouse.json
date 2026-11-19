@@ -1,9 +1,9 @@
 {
  "contest": "ushouse",
- "label": "",
+ "label": "As tabulated by the Alaska Division of Elections on Nov. 18.",
  "rctab": {
   "contest": "U.S. Representative",
-  "generatedBy": "tabulate_rcv.py (RCTab 2.1.0 rules)"
+  "generatedBy": "Division of Elections RCV Detailed Report, tabulated 11/18/2026 5:20:30 PM"
  },
  "writeInRoundFolded": false,
  "repeatedRoundsMerged": 0,
@@ -11,72 +11,63 @@
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 136534.0,
-    "Eric Hafner": 22829.0,
-    "Bill Hill": 120019.0,
-    "Jim McDermott": 7639.0
+    "Nick Begich": 136658.0,
+    "Eric Hafner": 22874.0,
+    "Bill Hill": 120156.0,
+    "Jim McDermott": 7649.0
    },
-   "inactive": 723.0,
-   "threshold": 143511.0,
+   "inactive": 205.0,
+   "threshold": 143669.0,
    "eliminated": [
     "Jim McDermott"
    ],
    "elected": [],
    "transfers": {
     "Jim McDermott": {
-     "Inactive": 2526.0,
      "Nick Begich": 2061.0,
-     "Bill Hill": 2110.0,
-     "Eric Hafner": 942.0
+     "Eric Hafner": 942.0,
+     "Bill Hill": 2112.0,
+     "Inactive": 2534.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 138595.0,
-    "Eric Hafner": 23771.0,
-    "Bill Hill": 122129.0
+    "Nick Begich": 138719.0,
+    "Eric Hafner": 23816.0,
+    "Bill Hill": 122268.0
    },
-   "inactive": 3249.0,
-   "threshold": 142248.0,
+   "inactive": 2739.0,
+   "threshold": 142402.0,
    "eliminated": [
     "Eric Hafner"
    ],
    "elected": [],
    "transfers": {
     "Eric Hafner": {
-     "Inactive": 11450.0,
-     "Bill Hill": 10691.0,
-     "Nick Begich": 1630.0
+     "Nick Begich": 1627.0,
+     "Bill Hill": 10693.0,
+     "Inactive": 11496.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 140225.0,
-    "Bill Hill": 132820.0
+    "Nick Begich": 140346.0,
+    "Bill Hill": 132961.0
    },
-   "inactive": 14699.0,
-   "threshold": 136523.0,
+   "inactive": 14235.0,
+   "threshold": 136654.0,
    "eliminated": [],
    "elected": [
     "Nick Begich"
    ],
-   "transfers": {},
-   "firstRanks": {
-    "candidate": "Nick Begich",
-    "ballots": {
-     "Nick Begich": 136215,
-     "Jim McDermott": 2220,
-     "Eric Hafner": 1427,
-     "_blank": 306,
-     "_writein": 57
-    }
-   }
+   "transfers": {}
   }
  ],
- "totalBallots": 290003.0,
- "undervotes": 2259.0
+ "totalBallots": 290323.0,
+ "undervotes": 2781.0,
+ "source": "division"
 }

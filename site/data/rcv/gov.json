@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Bronson / Church": 38965.0,
-    "Kreiss-Tomkins / Johnson": 145696.0,
-    "Taylor / English": 20530.0,
-    "Wilson / Shower": 79459.0
+    "Bronson / Church": 39011.0,
+    "Kreiss-Tomkins / Johnson": 145879.0,
+    "Taylor / English": 20540.0,
+    "Wilson / Shower": 79527.0
    },
-   "inactive": 1236.0,
-   "threshold": 142326.0,
+   "inactive": 1237.0,
+   "threshold": 142479.0,
    "eliminated": [
     "Taylor / English"
    ],
@@ -26,9 +26,9 @@
    ],
    "transfers": {
     "Taylor / English": {
-     "Inactive": 7001.0,
+     "Inactive": 7005.0,
      "Wilson / Shower": 6481.0,
-     "Bronson / Church": 5898.0,
+     "Bronson / Church": 5904.0,
      "Kreiss-Tomkins / Johnson": 1150.0
     }
    }
@@ -36,47 +36,37 @@
   {
    "round": 2,
    "tally": {
-    "Bronson / Church": 44863.0,
-    "Kreiss-Tomkins / Johnson": 146846.0,
-    "Wilson / Shower": 85940.0
+    "Bronson / Church": 44915.0,
+    "Kreiss-Tomkins / Johnson": 147029.0,
+    "Wilson / Shower": 86008.0
    },
-   "inactive": 8237.0,
-   "threshold": 142326.0,
+   "inactive": 8242.0,
+   "threshold": 142479.0,
    "eliminated": [
     "Bronson / Church"
    ],
    "elected": [],
    "transfers": {
     "Bronson / Church": {
-     "Inactive": 16490.0,
-     "Wilson / Shower": 25235.0,
-     "Kreiss-Tomkins / Johnson": 3138.0
+     "Inactive": 16513.0,
+     "Wilson / Shower": 25263.0,
+     "Kreiss-Tomkins / Johnson": 3139.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Kreiss-Tomkins / Johnson": 149984.0,
-    "Wilson / Shower": 111175.0
+    "Kreiss-Tomkins / Johnson": 150168.0,
+    "Wilson / Shower": 111271.0
    },
-   "inactive": 24727.0,
-   "threshold": 142326.0,
+   "inactive": 24755.0,
+   "threshold": 142479.0,
    "eliminated": [],
    "elected": [],
-   "transfers": {},
-   "firstRanks": {
-    "candidate": "Kreiss-Tomkins / Johnson",
-    "ballots": {
-     "Kreiss-Tomkins / Johnson": 145268,
-     "Bronson / Church": 2649,
-     "Taylor / English": 1575,
-     "_writein": 292,
-     "_blank": 200
-    }
-   }
+   "transfers": {}
   }
  ],
- "totalBallots": 289738.0,
- "undervotes": 3852.0
+ "totalBallots": 290057.0,
+ "undervotes": 3863.0
 }
