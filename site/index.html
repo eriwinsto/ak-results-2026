@@ -384,9 +384,10 @@ html.is-full .fs-open { display: none; }
    numbers from the data files, is in this block. Edit freely.
    ===================================================================== */
 const COPY = {
-  kicker: 'Unofficial results',
+  kicker: 'Official results',
   headline: 'Alaska general election',
   updated: 'Updated',
+  certified: 'Certified Nov. 23',
   measures: {
     bm2: { title: 'Ballot Measure 2', dek: 'Repeals ranked choice voting, open primaries, dark money rules' },
     bm3: { title: 'Ballot Measure 3', dek: 'Reinforces that “only” citizens may vote' }
@@ -403,7 +404,7 @@ const COPY = {
   areaPrompt: 'Tap or hover over the map to see results for a district or precinct.',
   rcvTitle: 'Ranked choice count',
   // MOCKUP PLACEHOLDERS (Eric to write): district list view of legislative ranked choice counts
-  rcvListDek: 'Races in which no candidate gets more than 50% of the vote are decided by ranked choice voting. As tabulated by the Alaska Division of Elections on Nov. 23.',
+  rcvListDek: 'Races in which no candidate gets more than 50% of the vote are decided by ranked choice voting. As certified by the Alaska Division of Elections on Nov. 23.',
   rcvListCols: { d: 'Dist.', first: 'First-choice leader', final: 'Final round', rounds: 'Rounds' },
   rcvListFlip: 'Lead change',
   // final round: a bar of whom the final-round leader's ballots ranked first (Eric's wording)
@@ -422,7 +423,7 @@ const COPY = {
   cvrGap: 'The Cast Vote Record, the ballot data file provided by the Division of Elections, contains fewer ballots than the division\u2019s latest first-choice results. It is currently missing {missing}. Final tabulation by the Division of Elections won\u2019t happen until Nov. 18.',
   cvrGapButton: (n) => `${n} precincts`,
   rcvExplainer: 'How ranked choice voting works: Voters rank the candidates in order of preference. If no one has more than half of the first-choice votes, the last-place candidate is eliminated, and ballots that ranked that candidate first count toward the voter’s next choice. Ballots that ranked a write-in candidate first, or left the first rank blank, count toward the voter’s next choice. Rounds continue until two candidates remain. Ballots with no remaining choices become inactive. Races in which a candidate won a majority of first-choice votes are shown for illustrative purposes only.',
-  source: 'Source: Alaska Division of Elections; race calls by The Associated Press. Results are unofficial.',
+  source: 'Source: Alaska Division of Elections; race calls by The Associated Press.',
   disclosure: 'Editor’s note: This election results graphic was generated using an AI tool and verified by a reporter. You can find Alaska Public Media’s commitments on using AI [on this page](https://alaskapublic.org/about).',   // [link text](url) becomes a link
   basemapCredit: 'Basemap: U.S. Census Bureau TIGER/Line and 2020 census, Natural Earth. Anchorage neighborhood labels follow Division of Elections precinct names.',
   basemapToggle: 'Places and roads',
@@ -547,10 +548,8 @@ function fillFor(feat) {
 function renderHeader() {
   $('kicker').textContent = COPY.kicker;
   $('headline').textContent = COPY.headline;
-  const gov = byId.gov || DATA.contests[0];
   const parts = [];
-  if (DATA.asOf) parts.push(`${COPY.updated} ${esc(DATA.asOf)}`);
-  parts.push(`<span class="num">${fmt(gov.ballots)}</span> ballots counted`);
+  parts.push(esc(COPY.certified));
   $('meta').innerHTML = parts.join('<span class="sep"></span>');
   if (DEMO) { $('testBanner').hidden = false; $('testBanner').textContent = COPY.testBanner; }
 }
