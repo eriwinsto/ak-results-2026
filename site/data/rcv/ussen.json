@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Gerald Heikes": 6356.0,
-    "Mary Peltola": 144745.0,
-    "Daniel Sullivan Jr.": 4901.0,
-    "Dan Sullivan": 132172.0
+    "Gerald Heikes": 6358.0,
+    "Mary Peltola": 144842.0,
+    "Daniel Sullivan Jr.": 4903.0,
+    "Dan Sullivan": 132229.0
    },
    "inactive": 1039.0,
-   "threshold": 144088.0,
+   "threshold": 144167.0,
    "eliminated": [
     "Daniel Sullivan Jr."
    ],
@@ -29,19 +29,19 @@
      "Inactive": 1812.0,
      "Mary Peltola": 1435.0,
      "Gerald Heikes": 882.0,
-     "Dan Sullivan": 772.0
+     "Dan Sullivan": 774.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Gerald Heikes": 7238.0,
-    "Mary Peltola": 146180.0,
-    "Dan Sullivan": 132944.0
+    "Gerald Heikes": 7240.0,
+    "Mary Peltola": 146277.0,
+    "Dan Sullivan": 133003.0
    },
    "inactive": 2851.0,
-   "threshold": 144088.0,
+   "threshold": 144167.0,
    "eliminated": [
     "Gerald Heikes"
    ],
@@ -49,24 +49,24 @@
    "transfers": {
     "Gerald Heikes": {
      "Inactive": 2892.0,
-     "Dan Sullivan": 2957.0,
-     "Mary Peltola": 1389.0
+     "Dan Sullivan": 2958.0,
+     "Mary Peltola": 1390.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Mary Peltola": 147569.0,
-    "Dan Sullivan": 135901.0
+    "Mary Peltola": 147667.0,
+    "Dan Sullivan": 135961.0
    },
    "inactive": 5743.0,
-   "threshold": 144088.0,
+   "threshold": 144167.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 290323.0,
- "undervotes": 1110.0
+ "totalBallots": 290483.0,
+ "undervotes": 1112.0
 }

@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Bronson / Church": 39011.0,
-    "Kreiss-Tomkins / Johnson": 145879.0,
-    "Taylor / English": 20540.0,
-    "Wilson / Shower": 79527.0
+    "Bronson / Church": 39029.0,
+    "Kreiss-Tomkins / Johnson": 145978.0,
+    "Taylor / English": 20555.0,
+    "Wilson / Shower": 79554.0
    },
-   "inactive": 1237.0,
-   "threshold": 142479.0,
+   "inactive": 1238.0,
+   "threshold": 142559.0,
    "eliminated": [
     "Taylor / English"
    ],
@@ -26,9 +26,9 @@
    ],
    "transfers": {
     "Taylor / English": {
-     "Inactive": 7005.0,
-     "Wilson / Shower": 6481.0,
-     "Bronson / Church": 5904.0,
+     "Inactive": 7010.0,
+     "Wilson / Shower": 6486.0,
+     "Bronson / Church": 5909.0,
      "Kreiss-Tomkins / Johnson": 1150.0
     }
    }
@@ -36,37 +36,37 @@
   {
    "round": 2,
    "tally": {
-    "Bronson / Church": 44915.0,
-    "Kreiss-Tomkins / Johnson": 147029.0,
-    "Wilson / Shower": 86008.0
+    "Bronson / Church": 44938.0,
+    "Kreiss-Tomkins / Johnson": 147128.0,
+    "Wilson / Shower": 86040.0
    },
-   "inactive": 8242.0,
-   "threshold": 142479.0,
+   "inactive": 8248.0,
+   "threshold": 142559.0,
    "eliminated": [
     "Bronson / Church"
    ],
    "elected": [],
    "transfers": {
     "Bronson / Church": {
-     "Inactive": 16513.0,
-     "Wilson / Shower": 25263.0,
-     "Kreiss-Tomkins / Johnson": 3139.0
+     "Inactive": 16523.0,
+     "Wilson / Shower": 25274.0,
+     "Kreiss-Tomkins / Johnson": 3141.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Kreiss-Tomkins / Johnson": 150168.0,
-    "Wilson / Shower": 111271.0
+    "Kreiss-Tomkins / Johnson": 150269.0,
+    "Wilson / Shower": 111314.0
    },
-   "inactive": 24755.0,
-   "threshold": 142479.0,
+   "inactive": 24771.0,
+   "threshold": 142559.0,
    "eliminated": [],
    "elected": [],
    "transfers": {}
   }
  ],
- "totalBallots": 290057.0,
+ "totalBallots": 290217.0,
  "undervotes": 3863.0
 }
