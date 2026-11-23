@@ -1,9 +1,9 @@
 {
  "contest": "ushouse",
- "label": "As tabulated by the Alaska Division of Elections on Nov. 18.",
+ "label": "As tabulated by the Alaska Division of Elections on Nov. 23.",
  "rctab": {
   "contest": "U.S. Representative",
-  "generatedBy": "Division of Elections RCV Detailed Report, tabulated 11/18/2026 5:20:30 PM"
+  "generatedBy": "Division of Elections RCV Detailed Report, tabulated 11/23/2026 10:04:21 AM"
  },
  "writeInRoundFolded": false,
  "repeatedRoundsMerged": 0,
@@ -11,13 +11,13 @@
   {
    "round": 1,
    "tally": {
-    "Nick Begich": 136658.0,
-    "Eric Hafner": 22874.0,
-    "Bill Hill": 120156.0,
-    "Jim McDermott": 7649.0
+    "Nick Begich": 136723.0,
+    "Eric Hafner": 22893.0,
+    "Bill Hill": 120229.0,
+    "Jim McDermott": 7650.0
    },
-   "inactive": 205.0,
-   "threshold": 143669.0,
+   "inactive": 206.0,
+   "threshold": 143748.0,
    "eliminated": [
     "Jim McDermott"
    ],
@@ -27,39 +27,39 @@
      "Nick Begich": 2061.0,
      "Eric Hafner": 942.0,
      "Bill Hill": 2112.0,
-     "Inactive": 2534.0
+     "Inactive": 2535.0
     }
    }
   },
   {
    "round": 2,
    "tally": {
-    "Nick Begich": 138719.0,
-    "Eric Hafner": 23816.0,
-    "Bill Hill": 122268.0
+    "Nick Begich": 138784.0,
+    "Eric Hafner": 23835.0,
+    "Bill Hill": 122341.0
    },
-   "inactive": 2739.0,
-   "threshold": 142402.0,
+   "inactive": 2741.0,
+   "threshold": 142481.0,
    "eliminated": [
     "Eric Hafner"
    ],
    "elected": [],
    "transfers": {
     "Eric Hafner": {
-     "Nick Begich": 1627.0,
-     "Bill Hill": 10693.0,
-     "Inactive": 11496.0
+     "Nick Begich": 1628.0,
+     "Bill Hill": 10703.0,
+     "Inactive": 11504.0
     }
    }
   },
   {
    "round": 3,
    "tally": {
-    "Nick Begich": 140346.0,
-    "Bill Hill": 132961.0
+    "Nick Begich": 140412.0,
+    "Bill Hill": 133044.0
    },
-   "inactive": 14235.0,
-   "threshold": 136654.0,
+   "inactive": 14245.0,
+   "threshold": 136729.0,
    "eliminated": [],
    "elected": [
     "Nick Begich"
@@ -67,7 +67,7 @@
    "transfers": {}
   }
  ],
- "totalBallots": 290323.0,
- "undervotes": 2781.0,
+ "totalBallots": 290483.0,
+ "undervotes": 2782.0,
  "source": "division"
 }
